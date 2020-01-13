@@ -7,15 +7,18 @@ import org.springframework.stereotype.Service;
 
 import com.ecors.user.profile.DTO.ProfileDTO;
 import com.ecors.user.profile.DTO.UserDTO;
+import com.ecors.user.profile.service.client.MailServiceClient;
 import com.ecors.user.profile.service.client.UserServiceClient;
+import com.ecors.user.profile.vo.CreateUserRequest;
+import com.ecors.user.profile.vo.SendMailRequest;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-	// private Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@Autowired
 	private UserServiceClient userServiceClient;
+	@Autowired
+	private MailServiceClient mailServiceClient;
 
 	@Override
 	public ProfileDTO getUserProfile(String userID) {
@@ -27,6 +30,13 @@ public class ProfileServiceImpl implements ProfileService {
 
 		ProfileDTO profileDTO = mapper.map(userDTO, ProfileDTO.class);
 		return profileDTO;
+	}
+
+	@Override
+	public void createUserProfile(CreateUserRequest createUser) {
+		userServiceClient.createUser(createUser);
+		SendMailRequest mailRequest = new SendMailRequest();
+		mailServiceClient.sendMail(mailRequest);
 	}
 
 }

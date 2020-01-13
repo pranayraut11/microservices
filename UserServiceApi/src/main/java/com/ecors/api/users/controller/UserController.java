@@ -1,8 +1,5 @@
 package com.ecors.api.users.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,7 @@ import com.ecors.api.users.ui.request.CreateUserRequest;
 import com.ecors.api.users.ui.response.CreateUserResponse;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("user")
 public class UserController {
 
 	@Autowired
@@ -37,16 +34,15 @@ public class UserController {
 		return "working " + environment.getProperty("local.server.port") + " " + environment.getProperty("fortest");
 	}
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
-			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@PostMapping(name = "", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
+					MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest userReq) {
 
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserDTO userDto = mapper.map(userReq, UserDTO.class);
 		UserDTO createdUser = userService.createUser(userDto);
-		Map<String, String> h = new HashMap<>();
-		h.put("", "");
 		CreateUserResponse userResponse = mapper.map(createdUser, CreateUserResponse.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
 
