@@ -1,117 +1,91 @@
-2020-01-10 13:15:35.796  INFO 6140 --- [restartedMain] c.e.api.users.UserServiceApiApplication  : No active profile set, falling back to default profiles: default
-2020-01-10 13:15:36.672  INFO 6140 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 13:15:36.737  INFO 6140 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57ms. Found 1 repository interfaces.
-2020-01-10 13:15:37.132  INFO 6140 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=aebba06b-11d7-3952-848a-f33c04516c8d
-2020-01-10 13:15:37.209  INFO 6140 --- [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2020-01-10 13:15:37.215  INFO 6140 --- [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
-2020-01-10 13:15:37.219  INFO 6140 --- [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2020-01-10 13:15:37.296  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.350  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.356  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJmxConfiguration' of type [org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJmxConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.364  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration' of type [org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.369  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'mbeanServer' of type [com.sun.jmx.mbeanserver.JmxMBeanServer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.392  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.394  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.408  INFO 6140 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$bfbc755e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 13:15:37.904  INFO 6140 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
-2020-01-10 13:15:37.912  INFO 6140 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-01-10 13:15:37.913  INFO 6140 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 13:15:38.027  INFO 6140 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-01-10 13:15:38.027  INFO 6140 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2213 ms
-2020-01-10 13:15:38.277  INFO 6140 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-01-10 13:15:38.353  INFO 6140 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.8.Final}
-2020-01-10 13:15:38.467  INFO 6140 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-01-10 13:15:38.563  INFO 6140 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-01-10 13:15:38.871  INFO 6140 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-01-10 13:15:38.884  INFO 6140 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2020-01-10 13:15:39.604  INFO 6140 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-01-10 13:15:39.611  INFO 6140 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-01-10 13:15:39.649  WARN 6140 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
-2020-01-10 13:15:40.013  WARN 6140 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-01-10 13:15:40.351  INFO 6140 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b08364c, org.springframework.security.web.context.SecurityContextPersistenceFilter@5de7465c, org.springframework.security.web.header.HeaderWriterFilter@7ddb462d, org.springframework.security.web.authentication.logout.LogoutFilter@4e8e2d5, com.ecors.api.users.security.AuthenticationFilter@6705bf07, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@665876a9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3000d9da, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@762a26aa, org.springframework.security.web.session.SessionManagementFilter@34059a2a, org.springframework.security.web.access.ExceptionTranslationFilter@7e3d4d9e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@57bc424]
-2020-01-10 13:15:40.370  WARN 6140 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
-2020-01-10 13:15:40.370  INFO 6140 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
-2020-01-10 13:15:40.375  WARN 6140 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
-2020-01-10 13:15:40.375  INFO 6140 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
-2020-01-10 13:15:40.543  INFO 6140 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 13:15:41.231  WARN 6140 --- [restartedMain] ockingLoadBalancerClientRibbonWarnLogger : You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
-2020-01-10 13:15:41.353  INFO 6140 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2020-01-10 13:15:41.374  INFO 6140 --- [restartedMain] c.f.c.c.BeanFactoryAwareFunctionRegistry : Looking up function 'null' with acceptedOutputTypes: []
-2020-01-10 13:15:41.617  INFO 6140 --- [restartedMain] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel nullChannel
-2020-01-10 13:15:41.639  INFO 6140 --- [restartedMain] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel springCloudBusInput
-2020-01-10 13:15:41.716  INFO 6140 --- [restartedMain] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel springCloudBusOutput
-2020-01-10 13:15:41.725  INFO 6140 --- [restartedMain] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel errorChannel
-2020-01-10 13:15:41.781  INFO 6140 --- [restartedMain] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageHandler errorLogger
-2020-01-10 13:15:41.823  INFO 6140 --- [restartedMain] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'application-1.springCloudBusInput' has 1 subscriber(s).
-2020-01-10 13:15:41.825  INFO 6140 --- [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2020-01-10 13:15:41.825  INFO 6140 --- [restartedMain] o.s.i.channel.PublishSubscribeChannel    : Channel 'application-1.errorChannel' has 1 subscriber(s).
-2020-01-10 13:15:41.826  INFO 6140 --- [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2020-01-10 13:15:41.909  INFO 6140 --- [restartedMain] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8012
-2020-01-10 13:15:42.294  INFO 6140 --- [restartedMain] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=userservice, profiles=[default], label=null, version=dc741de5a53da693a4267c92158e6868006bb834, state=null
-2020-01-10 13:15:42.294  INFO 6140 --- [restartedMain] b.c.PropertySourceBootstrapConfiguration : Located property source: OriginTrackedCompositePropertySource {name='configService', propertySources=[MapPropertySource {name='configClient'}, OriginTrackedMapPropertySource {name='https://bitbucket.org/rautpranay/server-configuration//userservice.properties'}, OriginTrackedMapPropertySource {name='https://bitbucket.org/rautpranay/server-configuration//application.properties'}]}
-2020-01-10 13:15:42.444  INFO 6140 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2020-01-10 13:15:42.495  INFO 6140 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#3b628c57:0/SimpleConnection@55187026 [delegate=amqp://guest@127.0.0.1:5672/, localPort= 65242]
-2020-01-10 13:15:42.530  INFO 6140 --- [restartedMain] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'application-1.springCloudBusOutput' has 1 subscriber(s).
-2020-01-10 13:15:42.557  INFO 6140 --- [restartedMain] c.s.b.r.p.RabbitExchangeQueueProvisioner : declaring queue for inbound: springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A, bound to: springCloudBus
-2020-01-10 13:15:42.578  INFO 6140 --- [restartedMain] o.s.c.stream.binder.BinderErrorChannel   : Channel 'springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A.errors' has 1 subscriber(s).
-2020-01-10 13:15:42.578  INFO 6140 --- [restartedMain] o.s.c.stream.binder.BinderErrorChannel   : Channel 'springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A.errors' has 2 subscriber(s).
-2020-01-10 13:15:42.595  INFO 6140 --- [restartedMain] o.s.i.a.i.AmqpInboundChannelAdapter      : started bean 'inbound.springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A'
-2020-01-10 13:15:42.644  INFO 6140 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 65243 (http) with context path ''
-2020-01-10 13:15:42.645  INFO 6140 --- [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 65243
-2020-01-10 13:15:42.651  INFO 6140 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2020-01-10 13:15:42.687  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2020-01-10 13:15:42.749  INFO 6140 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
-2020-01-10 13:15:42.750  INFO 6140 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
-2020-01-10 13:15:42.868  INFO 6140 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
-2020-01-10 13:15:42.869  INFO 6140 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
-2020-01-10 13:15:43.053  INFO 6140 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2020-01-10 13:15:43.096  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
-2020-01-10 13:15:43.096  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
-2020-01-10 13:15:43.096  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
-2020-01-10 13:15:43.096  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
-2020-01-10 13:15:43.096  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
-2020-01-10 13:15:43.096  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
-2020-01-10 13:15:43.097  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
-2020-01-10 13:15:43.339  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
-2020-01-10 13:15:43.341  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
-2020-01-10 13:15:43.343  INFO 6140 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
-2020-01-10 13:15:43.347  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1578662143346 with initial instances count: 1
-2020-01-10 13:15:43.351  INFO 6140 --- [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USERSERVICE with eureka with status UP
-2020-01-10 13:15:43.352  INFO 6140 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1578662143352, current=UP, previous=STARTING]
-2020-01-10 13:15:43.354  INFO 6140 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:b577f478afc5bb3ee11e6c1256710ae9: registering service...
-2020-01-10 13:15:43.390  INFO 6140 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:b577f478afc5bb3ee11e6c1256710ae9 - registration status: 204
-2020-01-10 13:15:43.393  INFO 6140 --- [restartedMain] c.e.api.users.UserServiceApiApplication  : Started UserServiceApiApplication in 8.863 seconds (JVM running for 10.221)
-2020-01-10 13:16:37.520  INFO 6140 --- [http-nio-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 13:16:37.521  INFO 6140 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-01-10 13:16:37.529  INFO 6140 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
-2020-01-10 13:20:43.094  INFO 6140 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2020-01-10 13:23:08.364  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-01-10 13:23:08.365  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application USERSERVICE with eureka with status DOWN
-2020-01-10 13:23:08.366  WARN 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1578662588366, current=DOWN, previous=UP]
-2020-01-10 13:23:08.366  INFO 6140 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:b577f478afc5bb3ee11e6c1256710ae9: registering service...
-2020-01-10 13:23:08.372  INFO 6140 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:b577f478afc5bb3ee11e6c1256710ae9 - registration status: 204
-2020-01-10 13:23:08.376  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
-2020-01-10 13:23:09.136  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
-2020-01-10 13:23:09.136  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.a.i.AmqpInboundChannelAdapter      : stopped bean 'inbound.springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A'
-2020-01-10 13:23:09.155  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A.errors
-2020-01-10 13:23:09.193  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.c.stream.binder.BinderErrorChannel   : Channel 'application-1.springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A.errors' has 1 subscriber(s).
-2020-01-10 13:23:09.194  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.c.stream.binder.BinderErrorChannel   : Channel 'application-1.springCloudBus.anonymous.SUOEN2DZTJK4PGolImA65A.errors' has 0 subscriber(s).
-2020-01-10 13:23:09.198  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2020-01-10 13:23:09.198  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.channel.PublishSubscribeChannel    : Channel 'application-1.errorChannel' has 0 subscriber(s).
-2020-01-10 13:23:09.198  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2020-01-10 13:23:09.199  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
-2020-01-10 13:23:09.207  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-01-10 13:23:09.210  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2020-01-10 13:23:09.214  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: nullChannel
-2020-01-10 13:23:09.215  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean 'springCloudBusInput'
-2020-01-10 13:23:09.215  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean 'springCloudBusOutput'
-2020-01-10 13:23:09.215  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean 'errorChannel'
-2020-01-10 13:23:09.215  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean '_org.springframework.integration.errorLogger.handler' for component '_org.springframework.integration.errorLogger'
-2020-01-10 13:23:09.215  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
-2020-01-10 13:23:12.217  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
-2020-01-10 13:23:12.226  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:b577f478afc5bb3ee11e6c1256710ae9 - deregister  status: 200
-2020-01-10 13:23:12.235  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
-2020-01-10 13:23:12.235  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2020-01-10 13:23:12.247  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2020-01-10 13:23:12.276  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2020-01-10 13:23:12.277  INFO 6140 --- [RMI TCP Connection(26)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-01-14 00:04:39.951  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:09:39.950  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:14:39.947  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:19:39.943  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:24:39.940  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:29:39.936  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:34:39.932  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:39:39.929  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:44:39.925  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:49:39.922  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:54:39.918  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 00:59:39.914  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:04:39.910  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:09:39.906  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:14:39.901  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:19:39.897  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:24:39.893  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:29:39.889  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:34:39.884  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:39:39.880  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:44:39.875  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:49:39.872  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:54:39.868  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 01:59:39.864  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:04:39.859  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:09:39.855  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:14:39.850  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:19:39.847  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:24:39.842  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:29:39.837  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:34:39.834  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:39:39.829  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:44:39.826  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:49:39.821  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:54:39.818  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 02:59:39.813  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:04:39.809  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:09:39.805  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:14:39.801  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:19:39.796  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:24:39.792  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:29:39.788  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:34:39.785  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:39:39.780  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:44:39.776  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:49:39.772  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:54:39.767  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 03:59:39.764  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:04:39.760  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:09:39.757  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:14:39.752  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:19:39.748  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:24:39.743  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:29:39.739  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:34:39.735  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:39:39.731  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:44:39.727  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:49:39.723  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:54:39.718  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 04:59:39.714  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 05:04:39.709  INFO 4432 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-01-14 05:08:04.784  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-01-14 05:08:04.786  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application USERSERVICE with eureka with status DOWN
+2020-01-14 05:08:04.786  WARN 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1578978484786, current=DOWN, previous=UP]
+2020-01-14 05:08:04.786  INFO 4432 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:9bf1e193abc6bc0699251d82f5944670: registering service...
+2020-01-14 05:08:04.791  INFO 4432 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:9bf1e193abc6bc0699251d82f5944670 - registration status: 204
+2020-01-14 05:08:04.798  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2020-01-14 05:08:04.954  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2020-01-14 05:08:04.954  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.a.i.AmqpInboundChannelAdapter      : stopped bean 'inbound.springCloudBus.anonymous.V_Tzl2CMRbya_wc1TJU4FA'
+2020-01-14 05:08:04.957  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.c.stream.binder.BinderErrorChannel   : Channel 'application-1.springCloudBus.anonymous.V_Tzl2CMRbya_wc1TJU4FA.errors' has 1 subscriber(s).
+2020-01-14 05:08:04.958  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.c.stream.binder.BinderErrorChannel   : Channel 'application-1.springCloudBus.anonymous.V_Tzl2CMRbya_wc1TJU4FA.errors' has 0 subscriber(s).
+2020-01-14 05:08:04.961  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2020-01-14 05:08:04.961  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.channel.PublishSubscribeChannel    : Channel 'application-1.errorChannel' has 0 subscriber(s).
+2020-01-14 05:08:04.961  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2020-01-14 05:08:04.964  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-01-14 05:08:04.966  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-01-14 05:08:04.971  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-01-14 05:08:04.977  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean 'springCloudBusInput'
+2020-01-14 05:08:04.977  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean 'errorChannel'
+2020-01-14 05:08:04.977  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: nullChannel
+2020-01-14 05:08:04.977  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean 'springCloudBusOutput'
+2020-01-14 05:08:04.978  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: bean '_org.springframework.integration.errorLogger.handler' for component '_org.springframework.integration.errorLogger'
+2020-01-14 05:08:04.978  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.s.i.monitor.IntegrationMBeanExporter   : Summary on shutdown: org.springframework.cloud.stream.binding.StreamListenerMessageHandler@14c1741d
+2020-01-14 05:08:04.978  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2020-01-14 05:08:07.979  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2020-01-14 05:08:07.985  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USERSERVICE/userservice:9bf1e193abc6bc0699251d82f5944670 - deregister  status: 200
+2020-01-14 05:08:07.991  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2020-01-14 05:08:07.991  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-01-14 05:08:08.000  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-01-14 05:08:08.025  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-01-14 05:08:08.026  INFO 4432 --- [RMI TCP Connection(1066)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'

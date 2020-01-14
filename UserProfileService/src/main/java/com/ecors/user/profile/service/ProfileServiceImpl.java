@@ -36,6 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public void createUserProfile(CreateUserRequest createUser) {
 		userServiceClient.createUser(createUser);
 		SendMailRequest mailRequest = new SendMailRequest();
+		mailRequest.setToAddress(createUser.getEmailID());
 		mailServiceClient.sendMail(mailRequest);
 	}
 

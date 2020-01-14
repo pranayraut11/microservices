@@ -21,10 +21,10 @@ import feign.hystrix.FallbackFactory;
 @FeignClient(name = "userservice", fallbackFactory = UserServiceFallbackFactory.class)
 public interface UserServiceClient {
 
-	@GetMapping("/users/{userID}")
+	@GetMapping("/user/{userID}")
 	public UserDTO getUserById(@PathVariable String userID);
 
-	@PostMapping
+	@PostMapping("user")
 	public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest userReq);
 }
 

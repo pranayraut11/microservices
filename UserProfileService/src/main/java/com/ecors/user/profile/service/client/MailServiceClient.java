@@ -17,7 +17,7 @@ import feign.hystrix.FallbackFactory;
 @FeignClient(name = "mailservice", fallbackFactory = MailServiceFallbackService.class)
 public interface MailServiceClient {
 
-	@PostMapping("sendMail")
+	@PostMapping("mail/send")
 	ResponseEntity<String> sendMail(@RequestBody SendMailRequest mailRequest);
 }
 
@@ -26,7 +26,6 @@ class MailServiceFallbackService implements FallbackFactory<MailServiceClient> {
 
 	@Override
 	public MailServiceClient create(Throwable cause) {
-		// TODO Auto-generated method stub
 		return new MailServiceClientService(cause);
 	}
 
