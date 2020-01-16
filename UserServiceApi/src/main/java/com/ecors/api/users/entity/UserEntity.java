@@ -1,18 +1,23 @@
 package com.ecors.api.users.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "User")
+@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = "userId"))
 public class UserEntity {
 
 	@Id
-	@GeneratedValue
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer userId;
 
 	@Column(name = "password")
 	private String password;
@@ -23,18 +28,28 @@ public class UserEntity {
 	@Column(name = "lastName")
 	private String lastName;
 
-	@Column(name = "emailid")
+	@Column(name = "emailId")
 	private String emailID;
 
-	@Column(name = "userid")
-	private String userID;
+	private int OTP;
 
-	public long getId() {
-		return id;
+	public int getOTP() {
+		return OTP;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setOTP(int oTP) {
+		OTP = oTP;
+	}
+
+	@OneToMany(mappedBy = "user")
+	Set<LoginDetails> loginDetails;
+
+	public Set<LoginDetails> getLoginDetails() {
+		return loginDetails;
+	}
+
+	public void setLoginDetails(Set<LoginDetails> loginDetails) {
+		this.loginDetails = loginDetails;
 	}
 
 	public String getPassword() {
@@ -69,12 +84,12 @@ public class UserEntity {
 		this.emailID = emailID;
 	}
 
-	public String getUserID() {
-		return userID;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 }

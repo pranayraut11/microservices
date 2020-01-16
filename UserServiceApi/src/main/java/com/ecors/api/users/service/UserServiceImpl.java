@@ -1,11 +1,13 @@
 package com.ecors.api.users.service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.UserEntity;
 import com.ecors.api.users.repository.UserRepository;
+import com.ecors.api.users.utility.OTPGenerator;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,13 +34,19 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Value("${default.password}")
+	private String defaultPassword;
+
 	@Override
 	public UserDTO createUser(UserDTO userDto) {
 		userDto.setUserID(UUID.randomUUID().toString());
-		userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+		userDto.setPassword(bCryptPasswordEncoder
+				.encode(Optional.ofNullable(userDto.getPassword()).orElse(defaultPassword.toString())));
+		userDto.setOTP(OTPGenerator.generate());
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserEntity userEntity = mapper.map(userDto, UserEntity.class);
+
 		userRepository.save(userEntity);
 		return mapper.map(userEntity, UserDTO.class);
 	}
@@ -55,8 +64,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getUserByUserID(String userID) {
-		UserEntity userEntity = userRepository.findUserByUserID(userID);
+	public UserDTO getUserByUserId(String userID) {
+		UserEntity userEntity = userRepository.findUserByUserId(userID);
 		if (userEntity != null)
 			return new ModelMapper().map(userEntity, UserDTO.class);
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");

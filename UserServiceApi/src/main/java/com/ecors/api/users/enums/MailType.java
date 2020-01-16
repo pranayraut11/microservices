@@ -1,5 +1,5 @@
 package com.ecors.api.users.enums;
 
 public enum MailType {
-	SIGNUP;
+	SIGNUP, EMAIL_VERIFICATION;
 }

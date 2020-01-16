@@ -26,6 +26,9 @@ public interface UserServiceClient {
 
 	@PostMapping("user")
 	public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest userReq);
+
+	@GetMapping("/user/{username}")
+	public UserDTO getUserByUsername(@PathVariable String username);
 }
 
 @Component
@@ -67,6 +70,16 @@ class UserServiceFallback implements UserServiceClient {
 			logger.error(cause.getLocalizedMessage());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new CreateUserResponse());
+	}
+
+	@Override
+	public UserDTO getUserByUsername(@PathVariable String username) {
+		if ((cause instanceof FeignException) && ((FeignException) cause).status() == 404) {
+			logger.error(cause.getLocalizedMessage());
+		} else {
+			logger.error(cause.getLocalizedMessage());
+		}
+		return new UserDTO();
 	}
 
 }

@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 
 import com.ecors.user.profile.DTO.ProfileDTO;
 import com.ecors.user.profile.DTO.UserDTO;
@@ -38,6 +40,18 @@ public class ProfileServiceImpl implements ProfileService {
 		SendMailRequest mailRequest = new SendMailRequest();
 		mailRequest.setToAddress(createUser.getEmailID());
 		mailServiceClient.sendMail(mailRequest);
+	}
+
+	@Override
+	public boolean verifyOTP(String userName, int otp) {
+		Assert.notNull(userName, "Invalid username");
+		Assert.isTrue(otp > 0, "Invalid OTP");
+		UserDTO userDTO = userServiceClient.getUserByUsername(userName);
+		if (userDTO.getOTP() == otp) {
+			
+			return true;
+		}
+		return false;
 	}
 
 }

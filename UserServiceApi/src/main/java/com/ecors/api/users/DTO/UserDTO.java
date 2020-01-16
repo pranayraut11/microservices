@@ -7,6 +7,15 @@ public class UserDTO {
 	private String lastName;
 	private String emailID;
 	private String userID;
+	private int OTP;
+
+	public int getOTP() {
+		return OTP;
+	}
+
+	public void setOTP(int oTP) {
+		OTP = oTP;
+	}
 
 	public String getPassword() {
 		return password;

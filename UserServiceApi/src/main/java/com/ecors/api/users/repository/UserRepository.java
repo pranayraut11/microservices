@@ -8,6 +8,6 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 	UserEntity findUserByEmailID(String username);
 
-	UserEntity findUserByUserID(String userID);
+	UserEntity findUserByUserId(String userID);
 
 }

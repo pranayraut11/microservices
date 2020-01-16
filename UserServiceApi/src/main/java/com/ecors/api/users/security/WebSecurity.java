@@ -28,10 +28,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.csrf().disable();
+		http.csrf().disable();
 //		http.authorizeRequests().antMatchers("/**").hasIpAddress(env.getProperty("gateway_ip")).and()
-//				.addFilter(getAuthenticationFilter());
-//		http.headers().frameOptions().disable();
+//				.addFilter(getAuthenticationFilter()).oauth2Login();
+		http.authorizeRequests().antMatchers("/**").hasIpAddress(env.getProperty("gateway_ip")).and().oauth2Login();
+		http.headers().frameOptions().disable();
 	}
 
 	@Override

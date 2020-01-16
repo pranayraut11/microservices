@@ -8,4 +8,5 @@ public interface ProfileService {
 
 	public void createUserProfile(CreateUserRequest createUser);
 
+	public boolean verifyOTP(String userName, int otp);
 }

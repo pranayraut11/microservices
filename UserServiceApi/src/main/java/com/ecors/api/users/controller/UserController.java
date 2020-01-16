@@ -51,7 +51,12 @@ public class UserController {
 	@GetMapping("/{userID}")
 	public UserDTO getUser(@PathVariable String userID) throws Exception {
 
-		return userService.getUserByUserID(userID);
+		return userService.getUserByUserId(userID);
+	}
+
+	@GetMapping("/{username}")
+	public UserDTO getUserByUsername(@PathVariable String username) throws Exception {
+		return userService.getUserByEmailID(username);
 	}
 
 }

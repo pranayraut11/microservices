@@ -1,4 +1,4 @@
-package com.ecors.user.profile.controller;
+package com.ecors.api.users.controller;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ecors.user.profile.service.ProfileService;
-import com.ecors.user.profile.ui.response.UserProfileResponse;
-import com.ecors.user.profile.vo.CreateUserRequest;
+import com.ecors.api.users.DTO.UserDTO;
+import com.ecors.api.users.service.ProfileService;
+import com.ecors.api.users.ui.response.UserProfileResponse;
 
 @RestController
 @RequestMapping("profile")
@@ -28,7 +27,7 @@ public class ProfileController {
 	private Environment env;
 
 	@GetMapping("/{userID}")
-	public UserProfileResponse getProfile(@PathVariable String userID) {
+	public UserProfileResponse getProfile(@PathVariable String userID) throws Exception {
 
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -37,17 +36,10 @@ public class ProfileController {
 	}
 
 	@PostMapping("create")
-	public ResponseEntity<String> create(@RequestBody CreateUserRequest createUserRequest) {
+	public ResponseEntity<String> create(@RequestBody UserDTO createUserRequest) {
 		System.out.println(env.getProperty("testPT"));
 		profileService.createUserProfile(createUserRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Please check your email");
-	}
-
-	@GetMapping("verify")
-	public ResponseEntity<String> verifyOTP(@PathVariable String userName, @PathVariable int otp) {
-		if (profileService.verifyOTP(userName, otp))
-			return ResponseEntity.status(HttpStatus.OK).body("Authentication successfull");
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You entered wrong OTP");
 	}
 
 }
