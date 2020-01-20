@@ -1,5 +1,7 @@
 package com.ecors.api.users.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
+import com.ecors.api.users.ui.request.LoginRequest;
 import com.ecors.api.users.ui.response.CreateUserResponse;
 
 @RestController
@@ -58,5 +63,4 @@ public class UserController {
 	public UserDTO getUserByUsername(@PathVariable String username) throws Exception {
 		return userService.getUserByEmailID(username);
 	}
-
 }

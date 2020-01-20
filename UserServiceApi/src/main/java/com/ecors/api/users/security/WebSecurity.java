@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.ecors.api.users.service.UserService;
@@ -29,10 +30,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-//		http.authorizeRequests().antMatchers("/**").hasIpAddress(env.getProperty("gateway_ip")).and()
-//				.addFilter(getAuthenticationFilter()).oauth2Login();
-		http.authorizeRequests().antMatchers("/**").hasIpAddress(env.getProperty("gateway_ip")).and().oauth2Login();
+		http.authorizeRequests().antMatchers("/signup/**").permitAll();
+		http.authorizeRequests().antMatchers("/**").hasIpAddress(env.getProperty("gateway_ip")).and()
+				.addFilter(getAuthenticationFilter());
 		http.headers().frameOptions().disable();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Override

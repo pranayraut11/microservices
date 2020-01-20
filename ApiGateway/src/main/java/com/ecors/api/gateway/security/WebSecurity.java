@@ -22,7 +22,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers(HttpMethod.POST, environment.getProperty("user.create.url")).permitAll()
+		System.out.println("permit all path " + environment.getProperty("user.create.url"));
+		http.authorizeRequests().antMatchers(environment.getProperty("user.create.url")).permitAll()
 				.and().authorizeRequests().antMatchers(HttpMethod.POST, environment.getProperty("user.login.url"))
 				.permitAll().anyRequest().authenticated().and()
 				.addFilter(new AuthenticationFilter(authenticationManager(), environment));
