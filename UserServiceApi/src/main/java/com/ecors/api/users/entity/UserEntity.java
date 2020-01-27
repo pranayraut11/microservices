@@ -31,13 +31,13 @@ public class UserEntity {
 	@Column(name = "emailId")
 	private String emailID;
 
-	private int OTP;
+	private String OTP;
 
-	public int getOTP() {
+	public String getOTP() {
 		return OTP;
 	}
 
-	public void setOTP(int oTP) {
+	public void setOTP(String oTP) {
 		OTP = oTP;
 	}
 

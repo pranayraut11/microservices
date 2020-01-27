@@ -1,6 +1,8 @@
 package com.ecors.api.users.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,6 +21,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.UserEntity;
 import com.ecors.api.users.repository.UserRepository;
+import com.ecors.api.users.service.client.MailServiceClient;
+import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.api.users.utility.OTPGenerator;
 
 @Service
@@ -26,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private static final String OTP = "OTP";
+	@Autowired
+	private MailServiceClient mailServiceClient;
 
 	@Autowired
 	private UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -39,15 +46,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO createUser(UserDTO userDto) {
+		String otp = OTPGenerator.generateAsString();
 		userDto.setUserID(UUID.randomUUID().toString());
 		userDto.setPassword(bCryptPasswordEncoder
 				.encode(Optional.ofNullable(userDto.getPassword()).orElse(defaultPassword.toString())));
-		userDto.setOTP(OTPGenerator.generate());
+		userDto.setOTP(otp);
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserEntity userEntity = mapper.map(userDto, UserEntity.class);
 
 		userRepository.save(userEntity);
+		SendMailRequest mailRequest = new SendMailRequest();
+		mailRequest.setToAddress(userDto.getEmailID());
+		Map<String, String> additionalInfo = new HashMap<>();
+		additionalInfo.put(OTP, otp);
+		mailRequest.setAdditionalInfo(additionalInfo);
+		mailServiceClient.sendMail(mailRequest);
 		return mapper.map(userEntity, UserDTO.class);
 	}
 

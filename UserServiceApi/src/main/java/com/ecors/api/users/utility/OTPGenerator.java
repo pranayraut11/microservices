@@ -17,5 +17,11 @@ public class OTPGenerator {
 		return RandomUtils.nextInt(limit);
 
 	}
+	
+	public static String generateAsString() {
+
+		return Integer.toString(RandomUtils.nextInt(LIMIT));
+
+	}
 
 }

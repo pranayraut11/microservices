@@ -8,7 +8,7 @@ public interface ProfileService {
 
 	public void createUserProfile(UserDTO createUser);
 
-	public boolean verifyOTP(String userName, int otp);
+	public boolean verifyOTP(String userName, String otp);
 
 	public void verifyMail(String userName);
 }

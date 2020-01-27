@@ -7,17 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ecors.api.users.ui.request.SendMailRequest;
 
 import feign.FeignException;
 import feign.hystrix.FallbackFactory;
 
-@FeignClient(name = "mailservice")
+@FeignClient(name = "mailservice",fallbackFactory = MailServiceFallbackService.class)
 public interface MailServiceClient {
 
-	@PostMapping("sendMail")
-	ResponseEntity<String> sendMail(SendMailRequest mailRequest);
+	@PostMapping("/mail/send")
+	ResponseEntity<String> sendMail(@RequestBody SendMailRequest mailReq);
 }
 
 @Component

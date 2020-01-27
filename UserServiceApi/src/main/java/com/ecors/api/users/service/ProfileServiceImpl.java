@@ -1,5 +1,8 @@
 package com.ecors.api.users.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,11 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Autowired
 	private UserService userService;
+
 	@Autowired
 	private MailServiceClient mailServiceClient;
+
+	private static final String OTP = "OTP";
 
 	@Autowired
 	private UserRepository userRepository;
@@ -46,11 +52,11 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public boolean verifyOTP(String userName, int otp) {
+	public boolean verifyOTP(String userName, String otp) {
 		Assert.notNull(userName, "Invalid username");
-		Assert.isTrue(otp > 0, "Invalid OTP");
+		Assert.isTrue(Integer.parseInt(otp) > 0, "Invalid OTP");
 		UserDTO userDTO = userService.getUserByEmailID(userName);
-		if (userDTO.getOTP() == otp) {
+		if (userDTO.getOTP().equals(otp)) {
 
 			return true;
 		}
@@ -63,13 +69,17 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public void verifyMail(String userName) {
+		String otp = OTPGenerator.generateAsString();
 		UserEntity user = new UserEntity();
 		user.setEmailID(userName);
-		user.setOTP(OTPGenerator.generate());
+		user.setOTP(otp);
 		userRepository.save(user);
 		SendMailRequest mailRequest = new SendMailRequest();
 		mailRequest.setToAddress(userName);
 		mailRequest.setMailType(MailType.EMAIL_VERIFICATION);
+		Map<String, String> additionalInfo = new HashMap<>();
+		additionalInfo.put(OTP, otp);
+		mailRequest.setAdditionalInfo(additionalInfo);
 		mailServiceClient.sendMail(mailRequest);
 	}
 

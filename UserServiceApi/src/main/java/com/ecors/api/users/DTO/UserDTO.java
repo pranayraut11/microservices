@@ -7,13 +7,13 @@ public class UserDTO {
 	private String lastName;
 	private String emailID;
 	private String userID;
-	private int OTP;
+	private String OTP;
 
-	public int getOTP() {
+	public String getOTP() {
 		return OTP;
 	}
 
-	public void setOTP(int oTP) {
+	public void setOTP(String oTP) {
 		OTP = oTP;
 	}
 
