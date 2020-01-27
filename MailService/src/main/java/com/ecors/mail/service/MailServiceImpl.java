@@ -1,10 +1,10 @@
 package com.ecors.mail.service;
 
-import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.ecors.mail.vo.request.MailRequest;
 
@@ -14,12 +14,15 @@ public class MailServiceImpl implements MailService {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	private static final String OTP = "OTP";
+
 	@Override
 	public void sendMail(MailRequest mailRequest) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(mailRequest.getToAddress());
 		message.setSubject("Sample Subject");
-		message.setText("OTP for Signup : " + RandomUtils.nextInt(9999));
+		Assert.notNull(mailRequest.getAdditionalInfo().get(OTP), "OTP must not be null");
+		message.setText("OTP for Signup : " + mailRequest.getAdditionalInfo().get(OTP));
 		mailSender.send(message);
 	}
 

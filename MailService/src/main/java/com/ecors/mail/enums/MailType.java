@@ -1,5 +1,5 @@
 package com.ecors.mail.enums;
 
 public enum MailType {
-	SINGUP;
+	SINGUP,EMAIL_VERIFICATION;
 }
