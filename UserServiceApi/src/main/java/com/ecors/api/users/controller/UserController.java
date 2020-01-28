@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
-import com.ecors.api.users.ui.response.CreateUserResponse;
+import com.ecors.api.users.ui.response.GenericResponse;
 
 @RestController
 @RequestMapping("user")
@@ -36,15 +37,20 @@ public class UserController {
 	@PostMapping(name = "", consumes = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest userReq) {
+	public ResponseEntity<GenericResponse<Void>> createUser(@RequestBody CreateUserRequest userReq) {
 
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserDTO userDto = mapper.map(userReq, UserDTO.class);
 		UserDTO createdUser = userService.createUser(userDto);
-		CreateUserResponse userResponse = mapper.map(createdUser, CreateUserResponse.class);
-
-		return ResponseEntity.status(HttpStatus.CREATED).header("token", createdUser.getToken()).body(userResponse);
+		GenericResponse<Void> response = null;
+		if (createdUser != null) {
+			response = new GenericResponse<Void>(null, "User created successfully", true);
+			return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		} else {
+			response = new GenericResponse<Void>(null, "User creation failed", false);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+		}
 
 	}
 

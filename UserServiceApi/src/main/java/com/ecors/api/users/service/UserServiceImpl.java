@@ -9,7 +9,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,8 +22,6 @@ import com.ecors.api.users.enums.MailType;
 import com.ecors.api.users.exception.UserNotFoundException;
 import com.ecors.api.users.repository.UserRepository;
 import com.ecors.api.users.service.client.MailServiceClient;
-import com.ecors.api.users.service.client.UserServiceClient;
-import com.ecors.api.users.ui.request.LoginRequest;
 import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.api.users.utility.OTPGenerator;
 
@@ -36,9 +33,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private MailServiceClient mailServiceClient;
-
-	@Autowired
-	private UserServiceClient userServiceClient;
 
 	@Autowired
 	private UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -72,14 +66,8 @@ public class UserServiceImpl implements UserService {
 			mailRequest.setToAddress(userDto.getEmailID());
 			mailRequest.setMailType(MailType.SIGNUP);
 			mailServiceClient.sendMail(mailRequest);
+			return mapper.map(userEntity, UserDTO.class);
 
-			LoginRequest loginReq = new LoginRequest();
-			loginReq.setEmailID(userDto.getEmailID());
-			loginReq.setPassword(userDto.getPassword());
-			ResponseEntity<Void> loginResponse = userServiceClient.login(loginReq);
-			UserDTO userReponse = mapper.map(userEntity, UserDTO.class);
-			userReponse.setToken(loginResponse.getHeaders().get("token").toString());
-			return userReponse;
 		}
 		throw new UserNotFoundException();
 
