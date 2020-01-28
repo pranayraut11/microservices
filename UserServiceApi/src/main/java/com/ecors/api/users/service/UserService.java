@@ -12,4 +12,6 @@ public interface UserService extends UserDetailsService {
 
 	UserDTO getUserByUserId(String userId) throws Exception;
 
+	UserDTO createBasicUser(String userID);
+
 }

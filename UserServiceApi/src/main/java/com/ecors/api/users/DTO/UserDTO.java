@@ -8,6 +8,15 @@ public class UserDTO {
 	private String emailID;
 	private String userID;
 	private String OTP;
+	private String token;
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public String getOTP() {
 		return OTP;

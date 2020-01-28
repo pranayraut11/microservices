@@ -2,10 +2,12 @@ package com.ecors.api.users.ui.request;
 
 public class CreateUserRequest {
 
-	private String password;
 	private String firstName;
 	private String lastName;
 	private String emailID;
+	private String password;
+	
+	
 
 	public String getPassword() {
 		return password;

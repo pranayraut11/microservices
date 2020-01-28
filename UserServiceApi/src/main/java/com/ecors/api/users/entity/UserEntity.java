@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = "userId"))
+@Table(name = "User")
 public class UserEntity {
 
 	@Id
@@ -32,6 +32,16 @@ public class UserEntity {
 	private String emailID;
 
 	private String OTP;
+
+	private Boolean isNewUser;
+
+	public Boolean getIsNewUser() {
+		return isNewUser;
+	}
+
+	public void setIsNewUser(Boolean isNewUser) {
+		this.isNewUser = isNewUser;
+	}
 
 	public String getOTP() {
 		return OTP;
