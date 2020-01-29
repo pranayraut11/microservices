@@ -2,15 +2,14 @@ package com.ecors.api.users.ui.request;
 
 public class UserIdVerifyRequest {
 
-	private String userLoginId;
+	private String username;
 
-	public String getUserLoginId() {
-		return userLoginId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserLoginId(String userLoginId) {
-		this.userLoginId = userLoginId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	
-	
+
 }

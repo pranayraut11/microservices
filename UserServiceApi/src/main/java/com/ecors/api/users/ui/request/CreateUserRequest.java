@@ -1,13 +1,20 @@
 package com.ecors.api.users.ui.request;
 
-public class CreateUserRequest {
+public class CreateUserRequest extends OTPVerifyRequest {
 
 	private String firstName;
 	private String lastName;
 	private String emailID;
 	private String password;
-	
-	
+	private String mobile;
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	public String getPassword() {
 		return password;

@@ -34,7 +34,7 @@ public class UserController {
 		return "working " + environment.getProperty("local.server.port") + " " + environment.getProperty("fortest");
 	}
 
-	@PostMapping(name = "", consumes = { MediaType.APPLICATION_JSON_VALUE,
+	@PostMapping( consumes = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<GenericResponse<Void>> createUser(@RequestBody CreateUserRequest userReq) {

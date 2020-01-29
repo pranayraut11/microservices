@@ -26,7 +26,7 @@ public class VerifyController {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You entered wrong OTP");
 	}
 
-	@PostMapping("mail")
+	@PostMapping("userLoginID")
 	public ResponseEntity<String> verifyMail(@RequestBody UserIdVerifyRequest userIdVerifyRequest) {
 		verifyService.verifyMail(userIdVerifyRequest);
 		return ResponseEntity.status(HttpStatus.OK).body("Please check your email for OTP");
