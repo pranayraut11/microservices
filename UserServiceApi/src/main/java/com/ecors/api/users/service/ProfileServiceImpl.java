@@ -20,11 +20,6 @@ public class ProfileServiceImpl implements ProfileService {
 	@Autowired
 	private MailServiceClient mailServiceClient;
 
-	private static final String OTP = "OTP";
-
-	@Autowired
-	private UserRepository userRepository;
-
 	@Override
 	public ProfileDTO getUserProfile(String userID) throws Exception {
 		ModelMapper mapper = new ModelMapper();
@@ -41,7 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public void createUserProfile(UserDTO createUser) {
 		userService.createUser(createUser);
 		SendMailRequest mailRequest = new SendMailRequest();
-		mailRequest.setToAddress(createUser.getEmailID());
+		mailRequest.setToAddress(createUser.getUsername());
 		mailServiceClient.sendMail(mailRequest);
 	}
 

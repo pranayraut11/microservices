@@ -5,9 +5,9 @@ public class UserDTO {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String emailID;
+	private String username;
 	private String userID;
-	private String OTP;
+	private String otp;
 	private String token;
 
 	public String getToken() {
@@ -18,12 +18,12 @@ public class UserDTO {
 		this.token = token;
 	}
 
-	public String getOTP() {
-		return OTP;
+	public String getOtp() {
+		return otp;
 	}
 
-	public void setOTP(String oTP) {
-		OTP = oTP;
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
 
 	public String getPassword() {
@@ -50,12 +50,12 @@ public class UserDTO {
 		this.lastName = lastName;
 	}
 
-	public String getEmailID() {
-		return emailID;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getUserID() {

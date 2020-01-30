@@ -4,7 +4,7 @@ public class CreateUserRequest extends OTPVerifyRequest {
 
 	private String firstName;
 	private String lastName;
-	private String emailID;
+	private String username;
 	private String password;
 	private String mobile;
 
@@ -40,12 +40,13 @@ public class CreateUserRequest extends OTPVerifyRequest {
 		this.lastName = lastName;
 	}
 
-	public String getEmailID() {
-		return emailID;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
+	
 }

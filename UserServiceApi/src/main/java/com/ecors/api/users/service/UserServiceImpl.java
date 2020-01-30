@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO createUser(UserDTO userDto) {
 
-		Optional<UserEntity> userEntityOptional = userRepository.findUserByEmailID(userDto.getEmailID());
+		Optional<UserEntity> userEntityOptional = userRepository.findUserByUsername(userDto.getUsername());
 
 		if (userEntityOptional.isPresent()) {
 			UserEntity userEntity = userEntityOptional.get();
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 			userEntity.setPassword((bCryptPasswordEncoder.encode(userDto.getPassword())));
 			userRepository.save(userEntity);
 			SendMailRequest mailRequest = new SendMailRequest();
-			mailRequest.setToAddress(userDto.getEmailID());
+			mailRequest.setToAddress(userDto.getUsername());
 			mailRequest.setMailType(MailType.SIGNUP);
 			mailServiceClient.sendMail(mailRequest);
 			return mapper.map(userEntity, UserDTO.class);
@@ -75,15 +75,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<UserEntity> userEntity = userRepository.findUserByEmailID(username);
-		UserDetails usere = userEntity.map(user -> new User(userEntity.get().getEmailID(),
+		Optional<UserEntity> userEntity = userRepository.findUserByUsername(username);
+		UserDetails usere = userEntity.map(user -> new User(userEntity.get().getUsername(),
 				userEntity.get().getPassword(), true, true, true, true, new ArrayList<>())).get();
 		return usere;
 	}
 
 	@Override
 	public UserDTO getUserByEmailID(String email) {
-		Optional<UserEntity> userEntity = userRepository.findUserByEmailID(email);
+		Optional<UserEntity> userEntity = userRepository.findUserByUsername(email);
 		return convertUserEntityToUserDTO(userEntity);
 	}
 
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 	public UserDTO createBasicUser(String emailid) {
 		String otp = OTPGenerator.generateAsString();
 		UserEntity user = new UserEntity();
-		user.setEmailID(emailid);
+		user.setUsername(emailid);
 		user.setOTP(otp);
 		return convertUserEntityToUserDTO(Optional.ofNullable(userRepository.save(user)));
 	}

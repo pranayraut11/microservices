@@ -1,15 +1,17 @@
 package com.ecors.api.users.ui.request;
 
 public class LoginRequest {
-	private String emailID;
+	private String username;
 	private String password;
 
-	public String getEmailID() {
-		return emailID;
+	
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

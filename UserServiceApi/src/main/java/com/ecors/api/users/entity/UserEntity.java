@@ -27,8 +27,8 @@ public class UserEntity {
 	@Column(name = "lastName")
 	private String lastName;
 
-	@Column(name = "emailId")
-	private String emailID;
+	@Column(name = "username")
+	private String username;
 
 	private String OTP;
 
@@ -85,12 +85,12 @@ public class UserEntity {
 		this.lastName = lastName;
 	}
 
-	public String getEmailID() {
-		return emailID;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Integer getUserId() {

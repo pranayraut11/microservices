@@ -27,9 +27,9 @@ public class VerifyServiceImpl implements VerifyService {
 	@Override
 	public boolean verifyOTP(OTPVerifyRequest otpVerifyRequest) {
 		Assert.notNull(otpVerifyRequest.getUsername(), "Invalid username");
-		Assert.isTrue(Integer.parseInt(otpVerifyRequest.getOTP()) > 0, "Invalid OTP");
+		Assert.isTrue(Integer.parseInt(otpVerifyRequest.getOtp()) > 0, "Invalid OTP");
 		UserDTO userDTO = userService.getUserByEmailID(otpVerifyRequest.getUsername());
-		if (userDTO.getOTP().equals(otpVerifyRequest.getOTP())) {
+		if (userDTO.getOtp().equals(otpVerifyRequest.getOtp())) {
 			return true;
 		}
 		return false;
@@ -46,7 +46,7 @@ public class VerifyServiceImpl implements VerifyService {
 		mailRequest.setToAddress(userIdVerifyRequest.getUsername());
 		mailRequest.setMailType(MailType.EMAIL_VERIFICATION);
 		Map<String, String> additionalInfo = new HashMap<>();
-		additionalInfo.put(OTP, userDTO.getOTP());
+		additionalInfo.put(OTP, userDTO.getOtp());
 		mailRequest.setAdditionalInfo(additionalInfo);
 		mailServiceClient.sendMail(mailRequest);
 	}

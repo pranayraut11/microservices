@@ -25,7 +25,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable();
 		System.out.println("permit all path " + environment.getProperty("user.create.url"));
-		http.authorizeRequests().antMatchers(environment.getProperty("user.create.url"),"/userservice/verify/otp/**","/userservice/user","/userservice/verify/userLoginID/").permitAll()
+		http.authorizeRequests().antMatchers(environment.getProperty("user.create.url"),"/userservice/verify/otp/**","/userservice/user/","/userservice/verify/userLoginID/").permitAll()
 				.and().authorizeRequests().antMatchers(HttpMethod.POST, environment.getProperty("user.login.url"))
 				.permitAll().anyRequest().authenticated().and()
 				.addFilter(new AuthenticationFilter(authenticationManager(), environment));

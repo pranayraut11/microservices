@@ -8,7 +8,7 @@ import com.ecors.api.users.entity.UserEntity;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
-	Optional<UserEntity> findUserByEmailID(String username);
+	Optional<UserEntity> findUserByUsername(String username);
 
 	Optional<UserEntity> findUserByUserId(String userID);
 
