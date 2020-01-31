@@ -1,4 +1,4 @@
-package com.ecors.product.api.entity;
+package com.ecors.product.entity;
 
 import java.util.Set;
 

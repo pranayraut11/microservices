@@ -1,4 +1,4 @@
-package com.ecors.product.api.controller;
+package com.ecors.product.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

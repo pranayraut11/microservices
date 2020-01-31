@@ -1,4 +1,4 @@
-package com.ecors.product.api.DTO;
+package com.ecors.product.DTO;
 
 public class ProductDTO {
 
