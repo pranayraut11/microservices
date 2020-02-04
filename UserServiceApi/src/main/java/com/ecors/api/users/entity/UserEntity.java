@@ -18,13 +18,10 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userId;
 
-	@Column(name = "password")
 	private String password;
 
-	@Column(name = "firstName")
 	private String firstName;
 
-	@Column(name = "lastName")
 	private String lastName;
 
 	@Column(name = "username")

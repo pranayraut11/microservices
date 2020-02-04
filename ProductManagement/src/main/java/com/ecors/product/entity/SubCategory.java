@@ -27,6 +27,37 @@ public class SubCategory {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
 	private Set<Product> products;
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
+	private Set<Offer> offers;
+
+	private String subCategoryImgUrl;
+
+	private boolean active;
+
+	public boolean getActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Set<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(Set<Offer> offers) {
+		this.offers = offers;
+	}
+
+	public String getSubCategoryImgUrl() {
+		return subCategoryImgUrl;
+	}
+
+	public void setSubCategoryImgUrl(String subCategoryImgUrl) {
+		this.subCategoryImgUrl = subCategoryImgUrl;
+	}
+
 	public Set<Product> getProducts() {
 		return products;
 	}

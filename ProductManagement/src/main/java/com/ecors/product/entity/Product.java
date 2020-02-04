@@ -21,7 +21,7 @@ public class Product {
 	private String productDescription;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "CategoryProDuct", joinColumns = {
+	@JoinTable(name = "CategoryProduct", joinColumns = {
 			@JoinColumn(name = "productID", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "subCategoryId", nullable = false, updatable = false) })
 	private Set<SubCategory> subCategories;

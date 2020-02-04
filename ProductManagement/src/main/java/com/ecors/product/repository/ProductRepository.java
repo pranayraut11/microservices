@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ecors.product.entity.Product;
 
 @Repository
-public interface ProductService extends CrudRepository<Product, Integer>{
+public interface ProductRepository extends CrudRepository<Product, Integer>{
 
 }
