@@ -2,6 +2,17 @@ package com.ecors.product.DTO;
 
 public class OfferDTO {
 
+	public OfferDTO() {
+
+	}
+
+	public OfferDTO(String offerName, Integer offerId, String offerDescription) {
+
+		this.offerName = offerName;
+		this.offerId = offerId;
+		this.offerDescription = offerDescription;
+	}
+
 	private String offerName;
 
 	private Integer offerId;

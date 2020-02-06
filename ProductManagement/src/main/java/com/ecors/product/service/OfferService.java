@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ecors.product.DTO.OfferDTO;
+import com.ecors.product.DTO.OfferZoneDTO;
 
 public interface OfferService {
 
-	Optional<List<OfferDTO>> listOfferByOfferName(String offerName);
+	Optional<OfferZoneDTO> getByOfferName(String offerName, boolean active);
+
+	Optional<List<OfferDTO>> getAll(boolean active);
 
 }
