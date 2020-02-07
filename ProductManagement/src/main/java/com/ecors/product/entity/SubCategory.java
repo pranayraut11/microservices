@@ -34,6 +34,17 @@ public class SubCategory {
 
 	private boolean active;
 
+	private String offerMessage;
+	
+	
+	public String getOfferMessage() {
+		return offerMessage;
+	}
+
+	public void setOfferMessage(String offerMessage) {
+		this.offerMessage = offerMessage;
+	}
+
 	public boolean getActive() {
 		return active;
 	}

@@ -4,6 +4,15 @@ public class SubCategoryDTO {
 
 	private String subCategoryName;
 	private String subCategoryImgUrl;
+	private String offerMessage;
+
+	public String getOfferMessage() {
+		return offerMessage;
+	}
+
+	public void setOfferMessage(String offerMessage) {
+		this.offerMessage = offerMessage;
+	}
 
 	public String getSubCategoryName() {
 		return subCategoryName;
