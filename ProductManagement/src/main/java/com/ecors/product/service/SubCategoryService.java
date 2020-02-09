@@ -12,6 +12,6 @@ public interface SubCategoryService {
 	
 	Optional<List<SubCategoryDTO>> getAllSubCateogry(boolean active);
 	
-	Optional<List<SubCategoryDTO>> getAllSubCateogry(Offer offer,boolean active);
+	Optional<List<SubCategoryDTO>> getAllSubCateogry(String offer,boolean active);
 
 }

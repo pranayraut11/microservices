@@ -20,14 +20,13 @@ public class OfferController {
 	@Autowired
 	private OfferService offerService;
 
-	@GetMapping("/{offername}")
-	public ResponseEntity<GenericResponse<OfferZoneDTO>> listSubCategoriesByOffername(@PathVariable String offername,
-			@RequestParam int limit, @RequestParam int offset) {
+	@GetMapping()
+	public ResponseEntity<GenericResponse<List<OfferZoneDTO>>> listOffers(@RequestParam int limit, @RequestParam int offset) {
 
-		Response<OfferZoneDTO> response = new Response<>();
-		response.setResult(offerService.getByOfferName(offername, true));
-		GenericResponse<OfferZoneDTO> reponse = new GenericResponse<OfferZoneDTO>(response,
-				"Data retrived successfully", true);
+		Response<List<OfferZoneDTO>> response = new Response<>();
+		response.setResult(offerService.getAll(true));
+		GenericResponse<List<OfferZoneDTO>> reponse = new GenericResponse<List<OfferZoneDTO>>(response,
+				"Offers retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 
 	}
