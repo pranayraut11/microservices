@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.ecors.core.dto.ServiceResponse;
 import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.OfferDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
@@ -19,7 +20,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
 	@Autowired
 	private SubCategoryRepository subCategoryRepository;
-	
+
 	@Autowired
 	private OfferService offerService;
 
@@ -40,9 +41,10 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
 	@Override
 	public Optional<List<SubCategoryDTO>> getAllSubCateogry(String offername, boolean active) {
-		ServiceResponse<Offer, OfferDTO> offer =offerService.getOffer(offername, active);
-		Optional<List<SubCategory>> subCategoryList = subCategoryRepository.findByActiveAndOffers(true, offer.getEntity());
-		Assert.isTrue(subCategoryList.isPresent(), "Subcategories not found for : " + offer.getOfferName());
+		ServiceResponse<Offer, OfferDTO> offer = offerService.getOffer(offername, active);
+		Optional<List<SubCategory>> subCategoryList = subCategoryRepository.findByActiveAndOffers(true,
+				offer.getEntity().stream().findFirst().get());
+		Assert.isTrue(subCategoryList.isPresent(), "Subcategories not found for : " + offername);
 		return ModelMapperUtils.mapAll(subCategoryList.get(), SubCategoryDTO.class);
 	}
 

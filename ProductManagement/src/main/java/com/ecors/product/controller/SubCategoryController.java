@@ -46,9 +46,9 @@ public class SubCategoryController {
 	public ResponseEntity<GenericResponse<List<SubCategoryDTO>>> listSubCategoriesByOffername(@PathVariable String offername,
 			@RequestParam int limit, @RequestParam int offset) {
 
-		Response<OfferZoneDTO> response = new Response<>();
+		Response<List<SubCategoryDTO>> response = new Response<>();
 		response.setResult(subCategoryService.getAllSubCateogry(offername, true));
-		GenericResponse<OfferZoneDTO> reponse = new GenericResponse<OfferZoneDTO>(response,
+		GenericResponse<List<SubCategoryDTO>> reponse = new GenericResponse<List<SubCategoryDTO>>(response,
 				"Data retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 

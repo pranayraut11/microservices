@@ -1,23 +1,26 @@
 package com.ecors.core.dto;
 
+import java.util.Collection;
+import java.util.List;
+
 public class ServiceResponse<E, D> {
 
-	private E entity;
-	private D DTO;
+	private Collection<E> entity;
+	private List<D> DTO;
 
-	public E getEntity() {
+	public Collection<E> getEntity() {
 		return entity;
 	}
 
-	public void setEntity(E entity) {
+	public void setEntity(Collection<E> entity) {
 		this.entity = entity;
 	}
 
-	public D getDTO() {
+	public List<D> getDTO() {
 		return DTO;
 	}
 
-	public void setDTO(D dTO) {
+	public void setDTO(List<D> dTO) {
 		DTO = dTO;
 	}
 

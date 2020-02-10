@@ -1,5 +1,7 @@
 package com.ecors.product.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,17 +10,42 @@ import java.util.stream.StreamSupport;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
+import com.ecors.core.dto.ServiceResponse;
+import com.ecors.core.utility.ModelMapperUtils;
+
 @Component
-public class AbstractBaseService<R> implements CrudRepository<R, Integer> {
+public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Integer>{
 
-	ServiceResponse<R,D> get(int id,boolean inActive,boolean dtoInResponse) {
+	D dto;
 
-		return findById(id);
+	public ServiceResponse<R, D> get(int id, boolean inActive, boolean dtoInResponse) {
+		ServiceResponse<R, D> res = new ServiceResponse<>();
+		Optional<R> response = findById(id);
+		ArrayList<R> list = new ArrayList<>();
+		list.add(response.get());
+		res.setEntity(list);
+		if (dtoInResponse) {
+			ArrayList<D> dtoList = new ArrayList<>();
+			dtoList.add(ModelMapperUtils.map(response.get(), dto));
+			res.setDTO(dtoList);
+			return res;
+		}
+		return res;
 
 	}
 
-	List<R> getAll(boolean active) {
-		return StreamSupport.stream(findAll().spliterator(), true).collect(Collectors.toList());
+	@SuppressWarnings("unchecked")
+	public ServiceResponse<R, D> getAll(boolean inActive, boolean dtoInResponse) {
+		ServiceResponse<R, D> res = new ServiceResponse<>();
+		List<R> response = StreamSupport.stream(findAll().spliterator(), true).collect(Collectors.toList());
+		Collection<R> list = new ArrayList<>();
+		list.addAll(response);
+		res.setEntity(list);
+		if (dtoInResponse) {
+			res.setDTO((List<D>) ModelMapperUtils.mapAll(response, dto.getClass()).get());
+			return res;
+		}
+		return res;
 
 	}
 
@@ -67,25 +94,25 @@ public class AbstractBaseService<R> implements CrudRepository<R, Integer> {
 	@Override
 	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(R entity) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll(Iterable<? extends R> entities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
