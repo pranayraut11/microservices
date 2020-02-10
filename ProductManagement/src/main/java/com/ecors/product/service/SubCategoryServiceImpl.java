@@ -43,7 +43,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	public Optional<List<SubCategoryDTO>> getAllSubCateogry(String offername, boolean active) {
 		ServiceResponse<Offer, OfferDTO> offer = offerService.getOffer(offername, active);
 		Optional<List<SubCategory>> subCategoryList = subCategoryRepository.findByActiveAndOffers(true,
-				offer.getEntity().stream().findFirst().get());
+				offer.getEntity().get());
 		Assert.isTrue(subCategoryList.isPresent(), "Subcategories not found for : " + offername);
 		return ModelMapperUtils.mapAll(subCategoryList.get(), SubCategoryDTO.class);
 	}

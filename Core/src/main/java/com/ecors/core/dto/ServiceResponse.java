@@ -1,27 +1,35 @@
 package com.ecors.core.dto;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Optional;
 
 public class ServiceResponse<E, D> {
 
-	private Collection<E> entity;
-	private List<D> DTO;
+	private Collection<E> entityList;
+	private Collection<D> DTOList;
 
-	public Collection<E> getEntity() {
-		return entity;
+	public Collection<E> getEntityList() {
+		return entityList;
 	}
 
-	public void setEntity(Collection<E> entity) {
-		this.entity = entity;
+	public void setEntityList(Collection<E> entityList) {
+		this.entityList = entityList;
 	}
 
-	public List<D> getDTO() {
-		return DTO;
+	public Collection<D> getDTOList() {
+		return DTOList;
 	}
 
-	public void setDTO(List<D> dTO) {
-		DTO = dTO;
+	public void setDTOList(Collection<D> dTOList) {
+		DTOList = dTOList;
+	}
+
+	public Optional<E> getEntity() {
+		return entityList.stream().findFirst();
+	}
+
+	public Optional<D> getDTO() {
+		return DTOList.stream().findFirst();
 	}
 
 }

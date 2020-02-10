@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
-import com.ecors.product.DTO.OfferZoneDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
-import com.ecors.product.service.OfferService;
 import com.ecors.product.service.SubCategoryService;
 
 @RestController
@@ -25,8 +23,6 @@ public class SubCategoryController {
 	@Autowired
 	private SubCategoryService subCategoryService;
 	
-	@Autowired
-	private OfferService offerService;
 
 	@GetMapping
 	public ResponseEntity<GenericResponse<List<SubCategoryDTO>>> listSubCategories(@RequestParam int limit,

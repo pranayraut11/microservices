@@ -14,7 +14,7 @@ import com.ecors.core.dto.ServiceResponse;
 import com.ecors.core.utility.ModelMapperUtils;
 
 @Component
-public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Integer>{
+public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Integer> {
 
 	D dto;
 
@@ -23,11 +23,11 @@ public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Int
 		Optional<R> response = findById(id);
 		ArrayList<R> list = new ArrayList<>();
 		list.add(response.get());
-		res.setEntity(list);
+		res.setEntityList(list);
 		if (dtoInResponse) {
 			ArrayList<D> dtoList = new ArrayList<>();
 			dtoList.add(ModelMapperUtils.map(response.get(), dto));
-			res.setDTO(dtoList);
+			res.setDTOList(dtoList);
 			return res;
 		}
 		return res;
@@ -40,9 +40,9 @@ public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Int
 		List<R> response = StreamSupport.stream(findAll().spliterator(), true).collect(Collectors.toList());
 		Collection<R> list = new ArrayList<>();
 		list.addAll(response);
-		res.setEntity(list);
+		res.setEntityList(list);
 		if (dtoInResponse) {
-			res.setDTO((List<D>) ModelMapperUtils.mapAll(response, dto.getClass()).get());
+			res.setDTOList((List<D>) ModelMapperUtils.mapAll(response, dto.getClass()).get());
 			return res;
 		}
 		return res;

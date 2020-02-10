@@ -1,6 +1,6 @@
 package com.ecors.product.controller;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +23,12 @@ public class OfferController {
 	private OfferService offerService;
 
 	@GetMapping()
-	public ResponseEntity<GenericResponse<List<OfferDTO>>> listOffers(@RequestParam int limit, @RequestParam int offset) {
+	public ResponseEntity<GenericResponse<Collection<OfferDTO>>> listOffers(@RequestParam int limit,
+			@RequestParam int offset) {
 
-		Response<List<OfferDTO>> response = new Response<>();
+		Response<Collection<OfferDTO>> response = new Response<>();
 		response.setResult(offerService.getAll(true));
-		GenericResponse<List<OfferDTO>> reponse = new GenericResponse<List<OfferDTO>>(response,
+		GenericResponse<Collection<OfferDTO>> reponse = new GenericResponse<Collection<OfferDTO>>(response,
 				"Offers retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 
