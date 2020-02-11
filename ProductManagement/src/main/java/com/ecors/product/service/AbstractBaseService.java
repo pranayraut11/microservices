@@ -9,6 +9,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import com.ecors.core.dto.ServiceResponse;
 import com.ecors.core.utility.ModelMapperUtils;
@@ -22,6 +23,7 @@ public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Int
 		ServiceResponse<R, D> res = new ServiceResponse<>();
 		Optional<R> response = findById(id);
 		ArrayList<R> list = new ArrayList<>();
+		Assert.isTrue(response.isPresent(), "");
 		list.add(response.get());
 		res.setEntityList(list);
 		if (dtoInResponse) {
@@ -31,6 +33,8 @@ public abstract class AbstractBaseService<R, D> implements CrudRepository<R, Int
 			return res;
 		}
 		return res;
+		
+		
 
 	}
 
