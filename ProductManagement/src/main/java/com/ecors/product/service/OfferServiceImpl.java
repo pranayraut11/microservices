@@ -15,7 +15,7 @@ import com.ecors.product.repository.OfferRepository;
 @Service
 public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> implements OfferService {
 
-	private final static boolean ACTIVE = true;
+	private final static boolean DTO_REQUIRED = true;
 
 	@Autowired
 	private OfferRepository offerRepository;
@@ -31,6 +31,6 @@ public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> imple
 
 	@Override
 	public Optional<Collection<OfferDTO>> getAll(boolean active) {
-		return Optional.ofNullable(super.getAll(active, true).getDTOList());
+		return Optional.ofNullable(super.getAll(OfferDTO.class,active, DTO_REQUIRED).getDTOList());
 	}
 }

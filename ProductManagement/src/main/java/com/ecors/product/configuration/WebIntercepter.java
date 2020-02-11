@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-@Aspect
+//@Aspect
 public class WebIntercepter {
 
 	/*
@@ -24,11 +24,11 @@ public class WebIntercepter {
 	 * }
 	 */
 
-	@After(value = "execution(* com.javainuse.service.EmployeeService.*(..)) and args(name,empId)")
-	public void afterAdvice(JoinPoint joinPoint, String name, String empId) {
-		System.out.println("After method:" + joinPoint.getSignature());
-
-		System.out.println("Successfully created Employee with name - " + name + " and id - " + empId);
-	}
+//	@After(value = "execution(* com.javainuse.service.EmployeeService.*(..)) and args(name,empId)")
+//	public void afterAdvice(JoinPoint joinPoint, String name, String empId) {
+//		System.out.println("After method:" + joinPoint.getSignature());
+//
+//		System.out.println("Successfully created Employee with name - " + name + " and id - " + empId);
+//	}
 
 }

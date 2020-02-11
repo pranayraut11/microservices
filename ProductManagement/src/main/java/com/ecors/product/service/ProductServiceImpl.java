@@ -12,9 +12,11 @@ import com.ecors.product.entity.Product;
 @Service
 public class ProductServiceImpl extends AbstractBaseService<Product, ProductDTO> implements ProductService {
 
+	
+
 	@Override
 	public Optional<ProductDTO> get(int id, boolean active) {
-		return super.get(id, false, true).getDTO();
+		return super.get(id, ProductDTO.class,false, true).getDTO();
 	}
 
 	@Override

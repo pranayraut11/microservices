@@ -16,7 +16,7 @@ public class Product {
 
 	@Id
 	@GeneratedValue
-	private String productID;
+	private Integer productID;
 	private String productName;
 	private String productDescription;
 
@@ -34,11 +34,11 @@ public class Product {
 		this.subCategories = subCategories;
 	}
 
-	public String getProductID() {
+	public Integer getProductID() {
 		return productID;
 	}
 
-	public void setProductID(String productID) {
+	public void setProductID(Integer productID) {
 		this.productID = productID;
 	}
 
