@@ -27,14 +27,10 @@ public abstract class AbstractBaseService<R, D> {
 	public ServiceResponse<R, D> get(int id,Class<D> dtoClass, boolean inActive, boolean dtoInResponse) {
 		ServiceResponse<R, D> res = new ServiceResponse<>();
 		Optional<R> response = repo.findById(id);
-		ArrayList<R> list = new ArrayList<>();
 		Assert.isTrue(response.isPresent(), "Entity not found");
-		list.add(response.get());
-		res.setEntityList(list);
+		res.setEntity(response.get());
 		if (dtoInResponse) {
-			ArrayList<D> dtoList = new ArrayList<>();
-			dtoList.add(ModelMapperUtils.map(response.get(), dtoClass));
-			res.setDTOList(dtoList);
+			res.setDTO(ModelMapperUtils.map(response.get(), dtoClass));
 			return res;
 		}
 		return res;

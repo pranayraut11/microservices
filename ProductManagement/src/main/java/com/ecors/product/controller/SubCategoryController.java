@@ -29,7 +29,7 @@ public class SubCategoryController {
 			@RequestParam int offset) {
 
 		Response<List<SubCategoryDTO>> response = new Response<>();
-		response.setResult(subCategoryService.getAllSubCateogry(true));
+		response.setResult(subCategoryService.getAllSubCateogry(true).get());
 		GenericResponse<List<SubCategoryDTO>> reponse = new GenericResponse<List<SubCategoryDTO>>(response,
 				"Data retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
@@ -43,7 +43,7 @@ public class SubCategoryController {
 			@RequestParam int limit, @RequestParam int offset) {
 
 		Response<List<SubCategoryDTO>> response = new Response<>();
-		response.setResult(subCategoryService.getAllSubCateogry(offername, true));
+		response.setResult(subCategoryService.getAllSubCateogry(offername, true).get());
 		GenericResponse<List<SubCategoryDTO>> reponse = new GenericResponse<List<SubCategoryDTO>>(response,
 				"Data retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);

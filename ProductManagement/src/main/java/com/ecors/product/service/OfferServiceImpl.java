@@ -1,5 +1,6 @@
 package com.ecors.product.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.ecors.core.dto.ServiceResponse;
+import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.OfferDTO;
 import com.ecors.product.entity.Offer;
 import com.ecors.product.repository.OfferRepository;
@@ -24,13 +26,13 @@ public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> imple
 		Optional<Offer> offer = offerRepository.findByActiveAndOfferName(active, offerName);
 		Assert.isTrue(offer.isPresent(), "Invalid offername");
 		ServiceResponse<Offer, OfferDTO> response = new ServiceResponse<>();
-		// response.setEntity(offer.get());
-		// response.setDTO(ModelMapperUtils.map(offer.get(), OfferDTO.class));
+		response.setEntity(offer.get());
+		response.setDTO(ModelMapperUtils.map(offer.get(), OfferDTO.class));
 		return response;
 	}
 
 	@Override
 	public Optional<Collection<OfferDTO>> getAll(boolean active) {
-		return Optional.ofNullable(super.getAll(OfferDTO.class,active, DTO_REQUIRED).getDTOList());
+		return Optional.ofNullable(super.getAll(OfferDTO.class, active, DTO_REQUIRED).getDTOList());
 	}
 }

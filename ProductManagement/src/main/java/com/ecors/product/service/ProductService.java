@@ -1,6 +1,5 @@
 package com.ecors.product.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.ecors.core.dto.ServiceResponse;
@@ -11,5 +10,5 @@ public interface ProductService {
 
 	public Optional<ProductDTO> get(int id, boolean active);
 
-	public ServiceResponse<List<Product>, List<ProductDTO>> getAllBySubCategory(String subCategory, boolean active);
+	public ServiceResponse<Product, ProductDTO> getAllBySubCategory(String subCategory, boolean active);
 }
