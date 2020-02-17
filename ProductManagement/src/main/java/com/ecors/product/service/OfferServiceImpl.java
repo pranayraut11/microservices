@@ -16,9 +16,7 @@ import com.ecors.product.entity.Offer;
 import com.ecors.product.repository.OfferRepository;
 
 @Service
-public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> implements OfferService {
-
-	private final static boolean DTO_REQUIRED = true;
+public class OfferServiceImpl implements OfferService {
 
 	@Autowired
 	private OfferRepository offerRepository;
@@ -26,24 +24,20 @@ public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> imple
 	@Autowired
 	private SubCategoryService subCategoryService;
 
-	public ServiceResponse<Offer, OfferDTO> getOffer(String offerName, boolean active) {
+	public OfferDTO getOffer(String offerName, boolean active) {
 		Optional<Offer> offer = offerRepository.findByActiveAndOfferName(active, offerName);
 		Assert.isTrue(offer.isPresent(), "Invalid offername");
-		ServiceResponse<Offer, OfferDTO> response = new ServiceResponse<>();
-		response.setEntity(offer.get());
-		response.setDTO(ModelMapperUtils.map(offer.get(), OfferDTO.class));
-		return response;
+		return ModelMapperUtils.map(offer.get(), OfferDTO.class);
 	}
 
 	@Override
-	public Optional<Collection<OfferDTO>> getAll(boolean active) {
-		return Optional.ofNullable(super.getAll(OfferDTO.class, active, DTO_REQUIRED).getDTOList());
+	public List<OfferDTO> getAll(boolean active) {
+		return ModelMapperUtils.mapAll(offerRepository.findByActive(true).get(), OfferDTO.class).get();
 	}
 
 	@Override
-	public Optional<List<SubCategoryDTO>> getAllSubCateogryByOffer(int offerid, boolean inActive) {
-		ServiceResponse<Offer, OfferDTO> offer = super.get(offerid, OfferDTO.class, false, false);
-		return subCategoryService.getAllSubCateogry(offer.getEntity().get(), inActive);
-
+	public List<SubCategoryDTO> getAllSubCateogryByOffer(int offerid, boolean inActive) {
+		Optional<Offer> offer = offerRepository.findById(offerid);
+		return subCategoryService.getAllSubCateogry(offer.get(), inActive).get();
 	}
 }

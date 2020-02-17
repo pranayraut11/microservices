@@ -31,18 +31,7 @@ public class ProductController {
 	public ResponseEntity<GenericResponse<ProductDTO>> getProduct(@PathVariable int productID) {
 
 		Response<ProductDTO> response = new Response<>();
-		response.setResult(productService.get(productID, true).get());
-		GenericResponse<ProductDTO> reponse = new GenericResponse<ProductDTO>(response, "Offers retrived successfully",
-				true);
-		return ResponseEntity.status(HttpStatus.OK).body(reponse);
-	}
-
-	@GetMapping()
-	public ResponseEntity<GenericResponse<ProductDTO>> getAllBySubcategory(@RequestParam String subCategory,
-			@RequestParam int limit, @RequestParam int offset) {
-
-		Response<ProductDTO> response = new Response<>();
-		response.setResult(productService.getAllBySubCategory(subCategory, false, PageRequest.of(offset, limit)));
+		response.setResult(productService.get(productID, true));
 		GenericResponse<ProductDTO> reponse = new GenericResponse<ProductDTO>(response, "Offers retrived successfully",
 				true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);

@@ -1,5 +1,6 @@
 package com.ecors.core.utility;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+
+import com.ecors.core.dto.ServiceResponse;
 
 public class ModelMapperUtils {
 	public static ModelMapper mapper = null;
@@ -28,19 +31,9 @@ public class ModelMapperUtils {
 	}
 
 	public static <D, T> Optional<List<D>> mapAll(final Collection<T> entityList, Class<D> outCLass) {
-		return Optional.ofNullable(entityList.stream().map(entity -> map(entity, outCLass)).collect(Collectors.toList()));
+		return Optional
+				.ofNullable(entityList.stream().map(entity -> map(entity, outCLass)).collect(Collectors.toList()));
 	}
-	
-	
-	public static <D, T> Map<T,D> mapAllObejcts(final Collection<T> entityList, Class<D> outCLass) {
-		Map<T,D> map=new HashMap<T,D>();
-		for (T t : entityList) {
-			map.put(t, map(t, outCLass));
-		}
-		return map;
-	}
-	
-	
 
 	public static <D, T> List<D> mapAll(final Optional<Collection<T>> entityList, Class<D> outCLass) {
 		if (entityList.isPresent()) {

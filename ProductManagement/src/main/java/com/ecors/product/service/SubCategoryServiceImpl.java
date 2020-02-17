@@ -8,17 +8,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.ecors.core.dto.ProductDTO;
 import com.ecors.core.dto.ServiceResponse;
 import com.ecors.core.utility.ModelMapperUtils;
+import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
 import com.ecors.product.entity.Offer;
+import com.ecors.product.entity.Product;
 import com.ecors.product.entity.SubCategory;
 import com.ecors.product.repository.SubCategoryRepository;
 
 @Service
-public class SubCategoryServiceImpl extends AbstractBaseService<SubCategory, SubCategoryDTO>
-		implements SubCategoryService {
+public class SubCategoryServiceImpl implements SubCategoryService {
 
 	@Autowired
 	private SubCategoryRepository subCategoryRepository;
@@ -27,8 +27,8 @@ public class SubCategoryServiceImpl extends AbstractBaseService<SubCategory, Sub
 	private ProductService productService;
 
 	@Override
-	public ServiceResponse<SubCategory, SubCategoryDTO> getSubCateogry(int id, boolean active) {
-		return super.get(id, SubCategoryDTO.class, true, true);
+	public SubCategoryDTO get(int id, boolean active) {
+		return ModelMapperUtils.map(subCategoryRepository.findById(id), SubCategoryDTO.class);
 	}
 
 	@Override
@@ -48,12 +48,9 @@ public class SubCategoryServiceImpl extends AbstractBaseService<SubCategory, Sub
 	}
 
 	@Override
-	public Optional<List<ProductDTO>> getAllProductsBySubCateogry(int id, boolean active, Pageable page) {
-		ServiceResponse<SubCategory, SubCategoryDTO> subcategoryResponse = super.get(id, SubCategoryDTO.class, false,
-				false);
-		productService.getAllBySubCategory(subcategoryResponse.getEntity().get(), active, page);
-		subcategoryResponse.getEntity().get().getProducts();
-		return null;
+	public List<ProductDTO> getAllProductsBySubCateogry(int id, boolean active, Pageable page) {
+		return productService.getAllBySubCategory(subCategoryRepository.findById(id).get(), active, page);
+
 	}
 
 }
