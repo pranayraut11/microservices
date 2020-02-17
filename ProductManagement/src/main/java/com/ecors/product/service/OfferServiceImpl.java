@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.ecors.core.dto.ServiceResponse;
+import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.OfferDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
 import com.ecors.product.entity.Offer;
@@ -29,8 +30,8 @@ public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> imple
 		Optional<Offer> offer = offerRepository.findByActiveAndOfferName(active, offerName);
 		Assert.isTrue(offer.isPresent(), "Invalid offername");
 		ServiceResponse<Offer, OfferDTO> response = new ServiceResponse<>();
-		// response.setEntity(offer.get());
-		// response.setDTO(ModelMapperUtils.map(offer.get(), OfferDTO.class));
+		response.setEntity(offer.get());
+		response.setDTO(ModelMapperUtils.map(offer.get(), OfferDTO.class));
 		return response;
 	}
 
@@ -43,5 +44,6 @@ public class OfferServiceImpl extends AbstractBaseService<Offer, OfferDTO> imple
 	public Optional<List<SubCategoryDTO>> getAllSubCateogryByOffer(int offerid, boolean inActive) {
 		ServiceResponse<Offer, OfferDTO> offer = super.get(offerid, OfferDTO.class, false, false);
 		return subCategoryService.getAllSubCateogry(offer.getEntity().get(), inActive);
+
 	}
 }

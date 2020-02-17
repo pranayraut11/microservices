@@ -13,5 +13,6 @@ public interface ProductService {
 
 	public Optional<ProductDTO> get(int id, boolean active);
 
-	public Map<Product,ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page);
+	public Map<Product, ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page);
+
 }

@@ -29,7 +29,7 @@ public class OfferController {
 			@RequestParam int offset) {
 
 		Response<Collection<OfferDTO>> response = new Response<>();
-		response.setResult(offerService.getAll(true));
+		response.setResult(offerService.getAll(true).get());
 		GenericResponse<Collection<OfferDTO>> reponse = new GenericResponse<Collection<OfferDTO>>(response,
 				"Offers retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);

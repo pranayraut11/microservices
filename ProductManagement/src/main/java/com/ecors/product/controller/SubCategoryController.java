@@ -24,32 +24,30 @@ public class SubCategoryController {
 
 	@Autowired
 	private SubCategoryService subCategoryService;
-	
 
 	@GetMapping
 	public ResponseEntity<GenericResponse<List<SubCategoryDTO>>> listSubCategories(@RequestParam int limit,
 			@RequestParam int offset) {
 
 		Response<List<SubCategoryDTO>> response = new Response<>();
-		response.setResult(subCategoryService.getAllSubCateogry(true));
+		response.setResult(subCategoryService.getAllSubCateogry(true).get());
 		GenericResponse<List<SubCategoryDTO>> reponse = new GenericResponse<List<SubCategoryDTO>>(response,
 				"Data retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 
 	}
-	
 
 	@GetMapping("{id}/products")
 	public ResponseEntity<GenericResponse<ProductDTO>> getAllProductsBySubcategory(@PathVariable int id,
 			@RequestParam int limit, @RequestParam int offset) {
 
 		Response<ProductDTO> response = new Response<>();
-		response.setResult(subCategoryService.getAllProductsBySubCateogry(id, false, PageRequest.of(offset, limit)).get());
+		response.setResult(
+				subCategoryService.getAllProductsBySubCateogry(id, false, PageRequest.of(offset, limit)).get());
 		GenericResponse<ProductDTO> reponse = new GenericResponse<ProductDTO>(response, "Offers retrived successfully",
 				true);
+
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 	}
-
-
 
 }

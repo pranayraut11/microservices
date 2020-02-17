@@ -13,6 +13,7 @@ public class ServiceResponse<E, D> {
 
 	public void setData(Map<E, D> data) {
 		this.data = data;
+
 	}
 
 	public Optional<E> getEntity() {
