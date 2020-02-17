@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -19,18 +20,26 @@ public class Product {
 	private Integer productID;
 	private String productName;
 	private String productDescription;
+	private boolean active;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "CategoryProduct", joinColumns = {
-			@JoinColumn(name = "productID", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "subCategoryId", nullable = false, updatable = false) })
-	private Set<SubCategory> subCategories;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product",cascade = CascadeType.ALL)
+	private Set<ProductSubCategory> subCategories;
 
-	public Set<SubCategory> getSubCategories() {
+	
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Set<ProductSubCategory> getSubCategories() {
 		return subCategories;
 	}
 
-	public void setSubCategories(Set<SubCategory> subCategories) {
+	public void setSubCategories(Set<ProductSubCategory> subCategories) {
 		this.subCategories = subCategories;
 	}
 

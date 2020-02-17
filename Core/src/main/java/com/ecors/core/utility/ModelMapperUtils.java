@@ -2,7 +2,9 @@ package com.ecors.core.utility;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,17 @@ public class ModelMapperUtils {
 	public static <D, T> Optional<List<D>> mapAll(final Collection<T> entityList, Class<D> outCLass) {
 		return Optional.ofNullable(entityList.stream().map(entity -> map(entity, outCLass)).collect(Collectors.toList()));
 	}
+	
+	
+	public static <D, T> Map<T,D> mapAllObejcts(final Collection<T> entityList, Class<D> outCLass) {
+		Map<T,D> map=new HashMap<T,D>();
+		for (T t : entityList) {
+			map.put(t, map(t, outCLass));
+		}
+		return map;
+	}
+	
+	
 
 	public static <D, T> List<D> mapAll(final Optional<Collection<T>> entityList, Class<D> outCLass) {
 		if (entityList.isPresent()) {

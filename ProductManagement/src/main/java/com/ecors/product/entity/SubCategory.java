@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class SubCategory {
@@ -24,8 +25,8 @@ public class SubCategory {
 	@JoinColumn(name = "categoryId")
 	private Category productCategory;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
-	private Set<Product> products;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
+	private Set<ProductSubCategory> products;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
 	private Set<Offer> offers;
@@ -69,11 +70,11 @@ public class SubCategory {
 		this.subCategoryImgUrl = subCategoryImgUrl;
 	}
 
-	public Set<Product> getProducts() {
+	public Set<ProductSubCategory> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(Set<ProductSubCategory> products) {
 		this.products = products;
 	}
 
