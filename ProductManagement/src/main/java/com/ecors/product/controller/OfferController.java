@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +38,7 @@ public class OfferController {
 	}
 
 	@GetMapping("{id}/subCategories")
-	public ResponseEntity<GenericResponse<List<SubCategoryDTO>>> listSubCategoriesByOffer(@RequestParam int id,
+	public ResponseEntity<GenericResponse<List<SubCategoryDTO>>> listSubCategoriesByOffer(@PathVariable int id,
 			@RequestParam int limit, @RequestParam int offset) {
 		Response<List<SubCategoryDTO>> response = new Response<>();
 		response.setResult(offerService.getAllSubCateogryByOffer(id, false));

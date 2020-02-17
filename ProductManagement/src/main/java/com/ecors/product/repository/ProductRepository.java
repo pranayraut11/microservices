@@ -13,7 +13,7 @@ import com.ecors.product.entity.SubCategory;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer>{
 
-	@Query("SELECT p FROM Product,SubCategory s WHERE p.active=:inActive AND s=:subCategory ")
+	@Query("SELECT p FROM Product p,SubCategory s WHERE p.active=:inActive AND s=:subCategory ")
 	Optional<List<Product>> findBySubCategoryAndActive(SubCategory subCategory,boolean inActive);
 	
 }

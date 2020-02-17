@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Offer {
@@ -34,7 +35,7 @@ public class Offer {
 	@JoinTable(name = "OfferZone", joinColumns = {
 			@JoinColumn(name = "offerId", updatable = false, nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "subCategoryId", updatable = false, nullable = false) })
-	private Set<SubCategory> subCategories;
+	private Set<SubCategory> subCategory;
 
 	public LocalDateTime getActiveFrom() {
 		return activeFrom;
@@ -52,12 +53,12 @@ public class Offer {
 		this.activeTo = activeTo;
 	}
 
-	public Set<SubCategory> getSubCategories() {
-		return subCategories;
+	public Set<SubCategory> getSubCategory() {
+		return subCategory;
 	}
 
-	public void setSubCategories(Set<SubCategory> subCategories) {
-		this.subCategories = subCategories;
+	public void setSubCategory(Set<SubCategory> subCategory) {
+		this.subCategory = subCategory;
 	}
 
 	public Integer getOfferId() {

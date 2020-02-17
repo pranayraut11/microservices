@@ -25,10 +25,10 @@ public class SubCategory {
 	@JoinColumn(name = "categoryId")
 	private Category productCategory;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subCategory")
 	private Set<ProductSubCategory> products;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategories")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategory")
 	private Set<Offer> offers;
 
 	private String subCategoryImgUrl;
@@ -36,8 +36,7 @@ public class SubCategory {
 	private boolean active;
 
 	private String offerMessage;
-	
-	
+
 	public String getOfferMessage() {
 		return offerMessage;
 	}
