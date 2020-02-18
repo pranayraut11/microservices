@@ -16,7 +16,9 @@ public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer userId;
+	private Integer id;
+
+	private String userId;
 
 	private String password;
 
@@ -30,6 +32,29 @@ public class UserEntity {
 	private String OTP;
 
 	private Boolean isNewUser;
+
+	@OneToMany(mappedBy = "User")
+	private Set<UserRole> userRoles;
+
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public Boolean getIsNewUser() {
 		return isNewUser;
@@ -90,12 +115,8 @@ public class UserEntity {
 		this.username = username;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 }

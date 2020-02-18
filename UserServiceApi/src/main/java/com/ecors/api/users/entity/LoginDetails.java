@@ -17,7 +17,7 @@ public class LoginDetails {
 	private Integer loginDetailsId;
 
 	@ManyToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "id")
 	private UserEntity user;
 	
 

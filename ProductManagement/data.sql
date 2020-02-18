@@ -1,3 +1,9 @@
+insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`) values(1, 'Drill machine description', 'Bosch drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Drill-Machine-PNG-Free-Image.png',3000,2500,15);
+
+insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`) values(2, 'Drill machine description', 'Bosch drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Drill-Machine-PNG-Free-Image.png',5000,3500,20);
+
+
+insert into category (`category_id`,`category_name`) values (1,'Power tools');
 
 insert into category (`category_id`,`category_name`) values (2,'Eletronics');
 
@@ -27,4 +33,5 @@ INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,4);
 
 INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,5);
 
-INSERT INTO category_product (`productid`,`sub_category_id`) VALUES (1,1);
+INSERT INTO product_sub_category (`id`,`productid`,`sub_category_id`) VALUES (1,1,1);
+INSERT INTO product_sub_category (`id`,`productid`,`sub_category_id`) VALUES (2,2,1);

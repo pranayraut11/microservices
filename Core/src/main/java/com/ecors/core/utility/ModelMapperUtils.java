@@ -1,24 +1,22 @@
 package com.ecors.core.utility;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-
-import com.ecors.core.dto.ServiceResponse;
 
 public class ModelMapperUtils {
 	public static ModelMapper mapper = null;
 	static {
 		mapper = new ModelMapper();
-		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
+				.setPropertyCondition(Conditions.isNotNull());
+		;
 	}
 
 	private ModelMapperUtils() {

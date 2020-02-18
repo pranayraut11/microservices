@@ -85,7 +85,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
-		<!-- OAuth2 Client -->
+		<dependency>
+			<groupId>com.ecors</groupId>
+			<artifactId>Core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

@@ -37,6 +37,16 @@ public class SubCategory {
 
 	private String offerMessage;
 
+	private String specifications;
+
+	public String getSpecifications() {
+		return specifications;
+	}
+
+	public void setSpecifications(String specifications) {
+		this.specifications = specifications;
+	}
+
 	public String getOfferMessage() {
 		return offerMessage;
 	}

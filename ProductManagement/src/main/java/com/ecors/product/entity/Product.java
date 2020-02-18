@@ -19,9 +19,74 @@ public class Product {
 	private String productDescription;
 	private String productImgUrl;
 	private boolean active;
+	private int price;
+	private int discountedPrice;
+	private short discount;
+	private String highlights;
+	private String specification;
+	private String sellerId;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
 	private Set<ProductSubCategory> subCategories;
+
+	@OneToMany(mappedBy = "product")
+	private Set<ProductImages> productImages;
+
+	public String getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+	public Set<ProductImages> getProductImages() {
+		return productImages;
+	}
+
+	public void setProductImages(Set<ProductImages> productImages) {
+		this.productImages = productImages;
+	}
+
+	public String getHighlights() {
+		return highlights;
+	}
+
+	public void setHighlights(String highlights) {
+		this.highlights = highlights;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getDiscountedPrice() {
+		return discountedPrice;
+	}
+
+	public void setDiscountedPrice(int discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
+
+	public short getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(short discount) {
+		this.discount = discount;
+	}
 
 	public String getProductImgUrl() {
 		return productImgUrl;

@@ -2,19 +2,18 @@ package com.ecors.api.users.service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.UserEntity;
@@ -24,6 +23,7 @@ import com.ecors.api.users.repository.UserRepository;
 import com.ecors.api.users.service.client.MailServiceClient;
 import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.api.users.utility.OTPGenerator;
+import com.ecors.core.utility.ModelMapperUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -56,17 +56,14 @@ public class UserServiceImpl implements UserService {
 
 		if (userEntityOptional.isPresent()) {
 			UserEntity userEntity = userEntityOptional.get();
-			ModelMapper mapper = new ModelMapper();
-			mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
-					.setPropertyCondition(Conditions.isNotNull());
-			mapper.map(userDto, userEntity);
+			ModelMapperUtils.map(userDto, userEntity);
 			userEntity.setPassword((bCryptPasswordEncoder.encode(userDto.getPassword())));
 			userRepository.save(userEntity);
 			SendMailRequest mailRequest = new SendMailRequest();
 			mailRequest.setToAddress(userDto.getUsername());
 			mailRequest.setMailType(MailType.SIGNUP);
 			mailServiceClient.sendMail(mailRequest);
-			return mapper.map(userEntity, UserDTO.class);
+			return ModelMapperUtils.map(userEntity, UserDTO.class);
 
 		}
 		throw new UserNotFoundException();
@@ -84,13 +81,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO getUserByEmailID(String email) {
 		Optional<UserEntity> userEntity = userRepository.findUserByUsername(email);
-		return convertUserEntityToUserDTO(userEntity);
+		return ModelMapperUtils.map(userEntity.get(), UserDTO.class);
 	}
 
 	@Override
 	public UserDTO getUserByUserId(String userID) {
 		Optional<UserEntity> userEntity = userRepository.findUserByUserId(userID);
-		return convertUserEntityToUserDTO(userEntity);
+		return ModelMapperUtils.map(userEntity.get(), UserDTO.class);
 
 	}
 
@@ -105,12 +102,8 @@ public class UserServiceImpl implements UserService {
 		UserEntity user = new UserEntity();
 		user.setUsername(emailid);
 		user.setOTP(otp);
-		return convertUserEntityToUserDTO(Optional.ofNullable(userRepository.save(user)));
-	}
-
-	private UserDTO convertUserEntityToUserDTO(Optional<UserEntity> userEntity) {
-		return userEntity.map(user -> new ModelMapper().map(user, UserDTO.class))
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+		user.setUserId(UUID.randomUUID().toString());
+		return ModelMapperUtils.map(userRepository.save(user), UserDTO.class);
 	}
 
 }
