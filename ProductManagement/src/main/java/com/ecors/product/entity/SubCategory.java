@@ -31,20 +31,21 @@ public class SubCategory {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategory")
 	private Set<Offer> offers;
 
+	@OneToMany(mappedBy = "subCategory")
+	private Set<SubCategorySpecification> subCategorySpecifications;
+
 	private String subCategoryImgUrl;
 
 	private boolean active;
 
 	private String offerMessage;
 
-	private String specifications;
-
-	public String getSpecifications() {
-		return specifications;
+	public Set<SubCategorySpecification> getSubCategorySpecifications() {
+		return subCategorySpecifications;
 	}
 
-	public void setSpecifications(String specifications) {
-		this.specifications = specifications;
+	public void setSubCategorySpecifications(Set<SubCategorySpecification> subCategorySpecifications) {
+		this.subCategorySpecifications = subCategorySpecifications;
 	}
 
 	public String getOfferMessage() {
