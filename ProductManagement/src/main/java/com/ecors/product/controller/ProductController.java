@@ -20,11 +20,11 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping("/{productID}")
-	public ResponseEntity<GenericResponse<ProductDTO>> getProduct(@PathVariable int productID) {
+	@GetMapping("/{id}")
+	public ResponseEntity<GenericResponse<ProductDTO>> getProduct(@PathVariable int id) {
 
 		Response<ProductDTO> response = new Response<>();
-		response.setResult(productService.get(productID, true));
+		response.setResult(productService.get(id, true));
 		GenericResponse<ProductDTO> reponse = new GenericResponse<ProductDTO>(response, "Product retrived successfully",
 				true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);

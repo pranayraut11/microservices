@@ -4,7 +4,6 @@ public class ProductDTO extends ProductDetails {
 
 	private String productID;
 	private String productName;
-	private String productDescription;
 	private String productImgUrl;
 	private int price;
 	private int discountedPrice;
@@ -56,14 +55,6 @@ public class ProductDTO extends ProductDetails {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
 	}
 
 }
