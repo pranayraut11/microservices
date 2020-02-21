@@ -12,6 +12,8 @@ import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
 import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 @RequestMapping("products")
@@ -21,7 +23,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<GenericResponse<ProductDTO>> getProduct(@PathVariable int id) {
+	public ResponseEntity<GenericResponse<ProductDTO>> getProduct(@PathVariable int id) throws JsonMappingException, JsonProcessingException {
 
 		Response<ProductDTO> response = new Response<>();
 		response.setResult(productService.get(id, true));

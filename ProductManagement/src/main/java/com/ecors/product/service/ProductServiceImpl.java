@@ -14,6 +14,8 @@ import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.entity.Product;
 import com.ecors.product.entity.SubCategory;
 import com.ecors.product.repository.ProductRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,13 +24,13 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public ProductDTO get(int id, boolean active) {
+	public ProductDTO get(int id, boolean active) throws JsonMappingException, JsonProcessingException {
 		Optional<Product> productOpt = productRepository.findById(id);
 		if (productOpt.isPresent()) {
 			Product prod = productOpt.get();
 			ProductDTO productDTO = ModelMapperUtils.map(prod, ProductDTO.class);
 			productDTO.setImages(ModelMapperUtils.mapAll(prod.getProductImages(), ImageDTO.class).get());
-
+			productDTO.setHighlights(ModelMapperUtils.mapJson(prod.getHighlights()));
 			return productDTO;
 		}
 		throw new NotFoundException("Product", "" + id);
