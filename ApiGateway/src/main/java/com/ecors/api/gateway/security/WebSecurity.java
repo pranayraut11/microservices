@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcConfigurer{
+public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
 	private Environment environment;
 
@@ -24,20 +24,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable();
-		System.out.println("permit all path " + environment.getProperty("user.create.url"));
-		http.authorizeRequests().antMatchers(environment.getProperty("user.create.url"),"/userservice/verify/otp/**","/userservice/user/","/userservice/verify/userLoginID/","/productmanagement/**").permitAll()
-				.and().authorizeRequests().antMatchers(HttpMethod.POST, environment.getProperty("user.login.url"))
-				.permitAll().anyRequest().authenticated().and()
-				.addFilter(new AuthenticationFilter(authenticationManager(), environment));
 		http.headers().frameOptions().disable();
+		System.out.println("permit all path " + environment.getProperty("user.create.url"));
+		http.authorizeRequests().antMatchers("/userservice/verify/**").permitAll()
+				.antMatchers(HttpMethod.POST, environment.getProperty("user.login.url")).permitAll().anyRequest()
+				.authenticated().and().addFilter(new AuthenticationFilter(authenticationManager(), environment));
+
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "PUT", "POST", "DELETE");
+		registry.addMapping("/**").allowedOrigins("*").exposedHeaders("token,userid").allowedMethods("GET", "PUT",
+				"POST", "DELETE");
 	}
-	
-	
 
 }

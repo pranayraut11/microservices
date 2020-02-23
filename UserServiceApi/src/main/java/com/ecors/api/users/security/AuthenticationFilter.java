@@ -42,6 +42,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			throws AuthenticationException {
 		try {
 			LoginRequest loginRequest = new ObjectMapper().readValue(request.getInputStream(), LoginRequest.class);
+			if(loginRequest.getOtp()!=null && !loginRequest.getOtp().isEmpty()) {
+				return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(
+						loginRequest.getUsername(), loginRequest.getOtp(), new ArrayList<>()));
+			}
 			return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(
 					loginRequest.getUsername(), loginRequest.getPassword(), new ArrayList<>()));
 

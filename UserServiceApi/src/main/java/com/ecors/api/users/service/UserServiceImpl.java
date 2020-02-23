@@ -1,28 +1,26 @@
 package com.ecors.api.users.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.modelmapper.Conditions;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.UserDTO;
-import com.ecors.api.users.entity.UserEntity;
+import com.ecors.api.users.entity.User;
 import com.ecors.api.users.enums.MailType;
-import com.ecors.api.users.exception.UserNotFoundException;
 import com.ecors.api.users.repository.UserRepository;
 import com.ecors.api.users.service.client.MailServiceClient;
 import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.api.users.utility.OTPGenerator;
+import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
 
 @Service
@@ -33,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private MailServiceClient mailServiceClient;
+
+	@Autowired
+	private AddressService addressService;
 
 	@Autowired
 	private UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -51,44 +52,59 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO createUser(UserDTO userDto) {
+		User userEntity = getUserByUsername(userDto.getUsername());
+		ModelMapperUtils.map(userDto, userEntity);
+		userEntity.setPassword((bCryptPasswordEncoder.encode(userDto.getPassword())));
+		userRepository.save(userEntity);
+		SendMailRequest mailRequest = new SendMailRequest();
+		mailRequest.setToAddress(userDto.getUsername());
+		mailRequest.setMailType(MailType.SIGNUP);
+		mailServiceClient.sendMail(mailRequest);
+		return ModelMapperUtils.map(userEntity, UserDTO.class);
+	}
 
-		Optional<UserEntity> userEntityOptional = userRepository.findUserByUsername(userDto.getUsername());
-
+	private User getUserByUsername(String username) {
+		Optional<User> userEntityOptional = userRepository.findUserByUsername(username);
 		if (userEntityOptional.isPresent()) {
-			UserEntity userEntity = userEntityOptional.get();
-			ModelMapperUtils.map(userDto, userEntity);
-			userEntity.setPassword((bCryptPasswordEncoder.encode(userDto.getPassword())));
-			userRepository.save(userEntity);
-			SendMailRequest mailRequest = new SendMailRequest();
-			mailRequest.setToAddress(userDto.getUsername());
-			mailRequest.setMailType(MailType.SIGNUP);
-			mailServiceClient.sendMail(mailRequest);
-			return ModelMapperUtils.map(userEntity, UserDTO.class);
-
+			return userEntityOptional.get();
 		}
-		throw new UserNotFoundException();
-
+		throw new NotFoundException("User");
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<UserEntity> userEntity = userRepository.findUserByUsername(username);
-		UserDetails usere = userEntity.map(user -> new User(userEntity.get().getUsername(),
-				userEntity.get().getPassword(), true, true, true, true, new ArrayList<>())).get();
-		return usere;
+		Optional<User> userEntity = userRepository.findUserByUsername(username);
+		String password = null;
+		if (userEntity.isPresent()) {
+			User user = userEntity.get();
+
+			if (user.getOTP() != null && !user.getOTP().isEmpty()) {
+				password = user.getOTP();
+			} else {
+				password = user.getPassword();
+			}
+			return new org.springframework.security.core.userdetails.User(userEntity.get().getUsername(), password,
+					true, true, true, true, new ArrayList<>());
+		}
+		return null;
+
 	}
 
 	@Override
 	public UserDTO getUserByEmailID(String email) {
-		Optional<UserEntity> userEntity = userRepository.findUserByUsername(email);
-		return ModelMapperUtils.map(userEntity.get(), UserDTO.class);
+		Optional<User> userEntity = userRepository.findUserByUsername(email);
+		if (userEntity.isPresent()) {
+			return ModelMapperUtils.map(userEntity.get(), UserDTO.class);
+		}
+		throw new NotFoundException("User");
 	}
 
 	@Override
 	public UserDTO getUserByUserId(String userID) {
-		Optional<UserEntity> userEntity = userRepository.findUserByUserId(userID);
-		return ModelMapperUtils.map(userEntity.get(), UserDTO.class);
-
+		UserDTO userDTO = ModelMapperUtils.map(getUser(userID), UserDTO.class);
+		userDTO.setAddress(
+				ModelMapperUtils.map(addressService.getDeliveryAddressByUser(getUser(userID)), AddressDTO.class));
+		return userDTO;
 	}
 
 	/**
@@ -97,13 +113,26 @@ public class UserServiceImpl implements UserService {
 	 * @param emailid
 	 * @return User's basic data userId,OTP,emailID as username
 	 */
-	public UserDTO createBasicUser(String emailid) {
-		String otp = OTPGenerator.generateAsString();
-		UserEntity user = new UserEntity();
+	public UserDTO createBasicUser(String emailid,String otp) {
+		
+		User user = new User();
 		user.setUsername(emailid);
-		user.setOTP(otp);
+		user.setOTP(bCryptPasswordEncoder.encode(otp));
 		user.setUserId(UUID.randomUUID().toString());
 		return ModelMapperUtils.map(userRepository.save(user), UserDTO.class);
+	}
+
+	public User getUser(String userId) {
+		Optional<User> userEntity = userRepository.findUserByUserId(userId);
+		if (userEntity.isPresent()) {
+			return userEntity.get();
+		}
+		throw new NotFoundException("User");
+	}
+
+	@Override
+	public List<AddressDTO> getAddressesByUser(String userId) {
+		return addressService.getAllByUserId(getUser(userId));
 	}
 
 }

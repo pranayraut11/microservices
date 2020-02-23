@@ -8,11 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "User")
-public class UserEntity {
+public class User{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,16 +31,31 @@ public class UserEntity {
 
 	private Boolean isNewUser;
 
-	@OneToMany(mappedBy = "User")
-	private Set<UserRole> userRoles;
+	/*
+	 * @OneToMany(mappedBy = "user") private Set<UserRole> userRoles;
+	 */
 
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
+	@OneToMany(mappedBy = "user")
+	private Set<Address> address;
+
+	
+
+
+
+	public Set<Address> getAddress() {
+		return address;
 	}
 
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public void setAddress(Set<Address> address) {
+		this.address = address;
 	}
+
+	/*
+	 * public Set<UserRole> getUserRoles() { return userRoles; }
+	 * 
+	 * public void setUserRoles(Set<UserRole> userRoles) { this.userRoles =
+	 * userRoles; }
+	 */
 
 	public Integer getId() {
 		return id;

@@ -30,7 +30,7 @@ public class SubCategoryController {
 			@RequestParam int offset) {
 
 		Response<List<SubCategoryDTO>> response = new Response<>();
-		response.setResult(subCategoryService.getAllSubCateogry(true).get());
+		response.setResult(subCategoryService.getAllSubCateogry(true));
 		GenericResponse<List<SubCategoryDTO>> reponse = new GenericResponse<List<SubCategoryDTO>>(response,
 				"Data retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);

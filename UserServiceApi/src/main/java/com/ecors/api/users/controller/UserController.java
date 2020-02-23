@@ -1,5 +1,7 @@
 package com.ecors.api.users.controller;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
-import com.ecors.api.users.ui.response.GenericResponse;
+import com.ecors.core.ui.response.GenericResponse;
+import com.ecors.core.ui.response.Response;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("users")
 public class UserController {
 
 	@Autowired
@@ -34,9 +38,8 @@ public class UserController {
 		return "working " + environment.getProperty("local.server.port") + " " + environment.getProperty("fortest");
 	}
 
-	@PostMapping( consumes = { MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
-					MediaType.APPLICATION_XML_VALUE })
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<GenericResponse<Void>> createUser(@RequestBody CreateUserRequest userReq) {
 
 		ModelMapper mapper = new ModelMapper();
@@ -55,18 +58,34 @@ public class UserController {
 	}
 
 	@GetMapping("/{userID}")
-	public UserDTO getUser(@PathVariable String userID) throws Exception {
+	public ResponseEntity<GenericResponse<UserDTO>> getUser(@PathVariable String userID) throws Exception {
 
-		return userService.getUserByUserId(userID);
+		Response<UserDTO> response = new Response<>();
+		response.setResult(userService.getUserByUserId(userID));
+		GenericResponse<UserDTO> genericResponse = new GenericResponse<UserDTO>(response, "Data retrived successfully",
+				true);
+		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
-	@GetMapping("/{username}")
-	public UserDTO getUserByUsername(@PathVariable String username) throws Exception {
-		return userService.getUserByEmailID(username);
+	/*
+	 * @GetMapping("/{username}") public UserDTO getUserByUsername(@PathVariable
+	 * String username) throws Exception { return
+	 * userService.getUserByEmailID(username); }
+	 */
+
+	@GetMapping("{id}/addresses")
+	public ResponseEntity<GenericResponse<List<AddressDTO>>> getAddressByUser(@PathVariable String id) {
+		Response<List<AddressDTO>> response = new Response<>();
+		response.setResult(userService.getAddressesByUser(id));
+		GenericResponse<List<AddressDTO>> genericResponse = new GenericResponse<List<AddressDTO>>(response, "Data retrived successfully",
+				true);
+		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
+
 	}
 
 	@PostMapping("signup")
 	public void signup(@RequestBody CreateUserRequest userRequest) {
 
 	}
+
 }

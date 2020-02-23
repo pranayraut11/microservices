@@ -4,12 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.ecors.api.users.entity.UserEntity;
+import com.ecors.api.users.entity.User;
 
-public interface UserRepository extends CrudRepository<UserEntity, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
-	Optional<UserEntity> findUserByUsername(String username);
+	Optional<User> findUserByUsername(String username);
 
-	Optional<UserEntity> findUserByUserId(String userID);
+	Optional<User> findUserByUserId(String userID);
 
 }

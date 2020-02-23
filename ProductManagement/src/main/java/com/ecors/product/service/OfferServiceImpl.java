@@ -1,6 +1,5 @@
 package com.ecors.product.service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.ecors.core.dto.ServiceResponse;
 import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.OfferDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
@@ -32,12 +30,12 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public List<OfferDTO> getAll(boolean active) {
-		return ModelMapperUtils.mapAll(offerRepository.findByActive(true).get(), OfferDTO.class).get();
+		return ModelMapperUtils.mapAll(offerRepository.findByActive(true).get(), OfferDTO.class);
 	}
 
 	@Override
 	public List<SubCategoryDTO> getAllSubCateogryByOffer(int offerid, boolean inActive) {
 		Optional<Offer> offer = offerRepository.findById(offerid);
-		return subCategoryService.getAllSubCateogry(offer.get(), inActive).get();
+		return subCategoryService.getAllSubCateogry(offer.get(), inActive);
 	}
 }

@@ -14,20 +14,24 @@ public class UserRole {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer userRoleId;
 
 	private UserType type;
 
-	@ManyToOne
-	@JoinColumn(name = "id")
-	private UserEntity user;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id") private User user;
+	 */
 
-	public Integer getId() {
-		return id;
+	
+
+	public Integer getUserRoleId() {
+		return userRoleId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserRoleId(Integer userRoleId) {
+		this.userRoleId = userRoleId;
 	}
 
 	public UserType getType() {
@@ -38,12 +42,10 @@ public class UserRole {
 		this.type = type;
 	}
 
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
+	/*
+	 * public User getUser() { return user; }
+	 * 
+	 * public void setUser(User user) { this.user = user; }
+	 */
 
 }

@@ -18,8 +18,7 @@ public class LoginDetails {
 
 	@ManyToOne
 	@JoinColumn(name = "id")
-	private UserEntity user;
-	
+	private User user;
 
 	private LocalDateTime loginTime;
 	private LocalDateTime loginOutTime;
@@ -32,11 +31,11 @@ public class LoginDetails {
 		this.loginDetailsId = loginDetailsId;
 	}
 
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

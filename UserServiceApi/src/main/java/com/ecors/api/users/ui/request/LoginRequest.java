@@ -3,8 +3,19 @@ package com.ecors.api.users.ui.request;
 public class LoginRequest {
 	private String username;
 	private String password;
+	private String otp;
+	
+	
 
 	
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
 
 	public String getUsername() {
 		return username;

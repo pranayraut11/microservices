@@ -29,12 +29,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		System.out.println("IP : " + env.getProperty("gateway_ip"));
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/signup/**","/verify/otp/**","/user/","/verify/userLoginID/").permitAll();
-		http.authorizeRequests().antMatchers("/**").hasIpAddress(env.getProperty("gateway_ip")).and()
-				.addFilter(getAuthenticationFilter());
+		http.authorizeRequests().antMatchers("/**")
+				.hasIpAddress("10.0.1.11").and().addFilter(getAuthenticationFilter());
 		http.headers().frameOptions().disable();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 	}
 
 	@Override

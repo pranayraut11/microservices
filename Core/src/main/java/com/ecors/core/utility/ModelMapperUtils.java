@@ -37,9 +37,8 @@ public class ModelMapperUtils {
 
 	}
 
-	public static <D, T> Optional<List<D>> mapAll(final Collection<T> entityList, Class<D> outCLass) {
-		return Optional
-				.ofNullable(entityList.stream().map(entity -> map(entity, outCLass)).collect(Collectors.toList()));
+	public static <D, T> List<D> mapAll(final List<T> entityList, Class<D> outCLass) {
+		return entityList.stream().map(entity -> map(entity, outCLass)).collect(Collectors.toList());
 	}
 
 	public static <D, T> List<D> mapAll(final Optional<Collection<T>> entityList, Class<D> outCLass) {

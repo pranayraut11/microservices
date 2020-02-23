@@ -1,5 +1,6 @@
 package com.ecors.product.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.ImageDTO;
 import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.entity.Product;
+import com.ecors.product.entity.ProductImages;
 import com.ecors.product.entity.SubCategory;
 import com.ecors.product.repository.ProductRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,7 +31,8 @@ public class ProductServiceImpl implements ProductService {
 		if (productOpt.isPresent()) {
 			Product prod = productOpt.get();
 			ProductDTO productDTO = ModelMapperUtils.map(prod, ProductDTO.class);
-			productDTO.setImages(ModelMapperUtils.mapAll(prod.getProductImages(), ImageDTO.class).get());
+			ArrayList<ProductImages> images=new ArrayList<ProductImages>(prod.getProductImages());
+			productDTO.setImages(ModelMapperUtils.mapAll(images, ImageDTO.class));
 			productDTO.setHighlights(ModelMapperUtils.mapJson(prod.getHighlights()));
 			return productDTO;
 		}
@@ -40,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page) {
 		return ModelMapperUtils
-				.mapAll(productRepository.findBySubCategoryAndActive(subCategory, true).get(), ProductDTO.class).get();
+				.mapAll(productRepository.findBySubCategoryAndActive(subCategory, true).get(), ProductDTO.class);
 
 	}
 

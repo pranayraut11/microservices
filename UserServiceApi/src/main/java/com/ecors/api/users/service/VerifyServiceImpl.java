@@ -13,6 +13,7 @@ import com.ecors.api.users.service.client.MailServiceClient;
 import com.ecors.api.users.ui.request.OTPVerifyRequest;
 import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.api.users.ui.request.UserIdVerifyRequest;
+import com.ecors.api.users.utility.OTPGenerator;
 
 @Service
 public class VerifyServiceImpl implements VerifyService {
@@ -25,14 +26,10 @@ public class VerifyServiceImpl implements VerifyService {
 	private static final String OTP = "OTP";
 
 	@Override
-	public boolean verifyOTP(OTPVerifyRequest otpVerifyRequest) {
+	public UserDTO verifyOTP(OTPVerifyRequest otpVerifyRequest) {
 		Assert.notNull(otpVerifyRequest.getUsername(), "Invalid username");
 		Assert.isTrue(Integer.parseInt(otpVerifyRequest.getOtp()) > 0, "Invalid OTP");
-		UserDTO userDTO = userService.getUserByEmailID(otpVerifyRequest.getUsername());
-		if (userDTO.getOtp().equals(otpVerifyRequest.getOtp())) {
-			return true;
-		}
-		return false;
+		return userService.getUserByEmailID(otpVerifyRequest.getUsername());
 	}
 
 	/**
@@ -41,12 +38,13 @@ public class VerifyServiceImpl implements VerifyService {
 
 	@Override
 	public void verifyMail(UserIdVerifyRequest userIdVerifyRequest) {
-		UserDTO userDTO = userService.createBasicUser(userIdVerifyRequest.getUsername());
+		String otp = OTPGenerator.generateAsString();
+		userService.createBasicUser(userIdVerifyRequest.getUsername(),otp);
 		SendMailRequest mailRequest = new SendMailRequest();
 		mailRequest.setToAddress(userIdVerifyRequest.getUsername());
 		mailRequest.setMailType(MailType.EMAIL_VERIFICATION);
 		Map<String, String> additionalInfo = new HashMap<>();
-		additionalInfo.put(OTP, userDTO.getOtp());
+		additionalInfo.put(OTP, otp);
 		mailRequest.setAdditionalInfo(additionalInfo);
 		mailServiceClient.sendMail(mailRequest);
 	}
