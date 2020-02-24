@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class User{
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,9 +38,16 @@ public class User{
 	@OneToMany(mappedBy = "user")
 	private Set<Address> address;
 
-	
+	@OneToMany(mappedBy = "user")
+	private Set<OrderDeliveryStatus> orderDeliveryStatus;
 
+	public Set<OrderDeliveryStatus> getOrderDeliveryStatus() {
+		return orderDeliveryStatus;
+	}
 
+	public void setOrderDeliveryStatus(Set<OrderDeliveryStatus> orderDeliveryStatus) {
+		this.orderDeliveryStatus = orderDeliveryStatus;
+	}
 
 	public Set<Address> getAddress() {
 		return address;

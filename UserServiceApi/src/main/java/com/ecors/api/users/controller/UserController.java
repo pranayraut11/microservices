@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecors.api.users.DTO.AddressDTO;
+import com.ecors.api.users.DTO.OrderSummery;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
@@ -88,4 +89,24 @@ public class UserController {
 
 	}
 
+	@GetMapping("{userId}/product/{productId}/ordersummary")
+	public ResponseEntity<GenericResponse<OrderSummery>> getOrderSummary(@PathVariable String userId,@PathVariable Long productId){
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

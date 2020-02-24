@@ -1,10 +1,21 @@
 package com.ecors.core.dto;
 
+import java.time.LocalDateTime;
+
 public class ProductDTO {
 
 	private String productID;
 	private String productName;
 	private String productDescription;
+	private LocalDateTime expectedDeliveryDate;
+
+	public LocalDateTime getExpectedDeliveryDate() {
+		return expectedDeliveryDate;
+	}
+
+	public void setExpectedDeliveryDate(LocalDateTime expectedDeliveryDate) {
+		this.expectedDeliveryDate = expectedDeliveryDate;
+	}
 
 	public String getProductID() {
 		return productID;
