@@ -31,7 +31,7 @@ public class AddressController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
 	}
 
-	@PatchMapping
+	@PatchMapping("${addressId}/change")
 	public ResponseEntity<GenericResponse<Void>> updateDeliveryAddress(@RequestBody Long addressId,
 			HttpServletRequest request) {
 		request.getHeader("token");
