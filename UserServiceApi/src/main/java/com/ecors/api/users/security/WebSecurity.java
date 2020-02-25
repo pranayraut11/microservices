@@ -32,7 +32,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		System.out.println("IP : " + env.getProperty("gateway_ip"));
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/**")
-				.hasIpAddress("10.0.1.11").and().addFilter(getAuthenticationFilter());
+				.hasIpAddress(env.getProperty("gateway_ip")).and().addFilter(getAuthenticationFilter());
 		http.headers().frameOptions().disable();
 
 	}

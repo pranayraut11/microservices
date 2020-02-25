@@ -36,26 +36,10 @@ public class User {
 	 */
 
 	@OneToMany(mappedBy = "user")
-	private Set<Address> address;
+	private Set<Address> addresses;
 
 	@OneToMany(mappedBy = "user")
-	private Set<OrderDeliveryStatus> orderDeliveryStatus;
-
-	public Set<OrderDeliveryStatus> getOrderDeliveryStatus() {
-		return orderDeliveryStatus;
-	}
-
-	public void setOrderDeliveryStatus(Set<OrderDeliveryStatus> orderDeliveryStatus) {
-		this.orderDeliveryStatus = orderDeliveryStatus;
-	}
-
-	public Set<Address> getAddress() {
-		return address;
-	}
-
-	public void setAddress(Set<Address> address) {
-		this.address = address;
-	}
+	private Set<Order> orders;
 
 	/*
 	 * public Set<UserRole> getUserRoles() { return userRoles; }
@@ -63,6 +47,22 @@ public class User {
 	 * public void setUserRoles(Set<UserRole> userRoles) { this.userRoles =
 	 * userRoles; }
 	 */
+
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
 
 	public Integer getId() {
 		return id;

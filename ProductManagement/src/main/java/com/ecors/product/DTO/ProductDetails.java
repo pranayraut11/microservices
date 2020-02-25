@@ -4,11 +4,20 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductDetails {
+	private Integer productID;
 	private String productDescription;
 	private Map<String, String> highlights;
 	private String description;
 	private List<ImageDTO> images;
 	private List<SpecificationDTO> specifications;
+
+	public Integer getProductID() {
+		return productID;
+	}
+
+	public void setProductID(Integer productID) {
+		this.productID = productID;
+	}
 
 	public String getProductDescription() {
 		return productDescription;
@@ -17,8 +26,6 @@ public class ProductDetails {
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
-
-	
 
 	public List<ImageDTO> getImages() {
 		return images;

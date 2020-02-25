@@ -2,7 +2,7 @@ package com.ecors.product.DTO;
 
 public class ProductDTO extends ProductDetails {
 
-	private String productID;
+	private Integer productID;
 	private String productName;
 	private String productImgUrl;
 	private int price;
@@ -41,11 +41,12 @@ public class ProductDTO extends ProductDetails {
 		this.productImgUrl = productImgUrl;
 	}
 
-	public String getProductID() {
+	
+	public Integer getProductID() {
 		return productID;
 	}
 
-	public void setProductID(String productID) {
+	public void setProductID(Integer productID) {
 		this.productID = productID;
 	}
 
