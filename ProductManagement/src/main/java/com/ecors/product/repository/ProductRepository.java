@@ -16,4 +16,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 	@Query("SELECT p FROM Product p,SubCategory s WHERE p.active=:inActive AND s=:subCategory ")
 	Optional<List<Product>> findBySubCategoryAndActive(SubCategory subCategory,boolean inActive);
 	
+	Optional<List<Product>> findByProductIDIn(List<Integer> ids);
+	
 }

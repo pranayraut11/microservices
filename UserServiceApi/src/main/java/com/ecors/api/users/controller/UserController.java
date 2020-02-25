@@ -74,16 +74,7 @@ public class UserController {
 	 * userService.getUserByEmailID(username); }
 	 */
 
-	@GetMapping("{id}/addresses")
-	public ResponseEntity<GenericResponse<List<AddressDTO>>> getAddressByUser(@PathVariable String id) {
-		Response<List<AddressDTO>> response = new Response<>();
-		response.setResult(userService.getAddressesByUser(id));
-		GenericResponse<List<AddressDTO>> genericResponse = new GenericResponse<List<AddressDTO>>(response, "Data retrived successfully",
-				true);
-		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
-
-	}
-
+	
 	@PostMapping("signup")
 	public void signup(@RequestBody CreateUserRequest userRequest) {
 

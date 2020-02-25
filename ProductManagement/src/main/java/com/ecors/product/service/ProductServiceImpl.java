@@ -3,6 +3,8 @@ package com.ecors.product.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.ImageDTO;
+import com.ecors.product.DTO.OrderSummary;
 import com.ecors.product.DTO.ProductDTO;
+import com.ecors.product.DTO.ProductDetails;
 import com.ecors.product.entity.Product;
 import com.ecors.product.entity.ProductImages;
 import com.ecors.product.entity.SubCategory;
@@ -31,9 +35,11 @@ public class ProductServiceImpl implements ProductService {
 		if (productOpt.isPresent()) {
 			Product prod = productOpt.get();
 			ProductDTO productDTO = ModelMapperUtils.map(prod, ProductDTO.class);
-			ArrayList<ProductImages> images=new ArrayList<ProductImages>(prod.getProductImages());
-			productDTO.setImages(ModelMapperUtils.mapAll(images, ImageDTO.class));
-			productDTO.setHighlights(ModelMapperUtils.mapJson(prod.getHighlights()));
+			ArrayList<ProductImages> images = new ArrayList<ProductImages>(prod.getProductImages());
+			ProductDetails productDetails = new ProductDetails();
+			productDetails.setImages(ModelMapperUtils.mapAll(images, ImageDTO.class));
+			productDetails.setHighlights(ModelMapperUtils.mapJson(prod.getHighlights()));
+			productDTO.setProductDetails(productDetails);
 			return productDTO;
 		}
 		throw new NotFoundException("Product", "" + id);
@@ -42,9 +48,22 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page) {
-		return ModelMapperUtils
-				.mapAll(productRepository.findBySubCategoryAndActive(subCategory, true).get(), ProductDTO.class);
+		return ModelMapperUtils.mapAll(productRepository.findBySubCategoryAndActive(subCategory, true).get(),
+				ProductDTO.class);
 
+	}
+
+	@Override
+	public OrderSummary getProductOrderSummary(List<Integer> productIds) {
+		Iterable<Product> productList = productRepository.findAllById(productIds);
+		List<Product> list = StreamSupport.stream(productList.spliterator(), false).collect(Collectors.toList());
+		int totalAmmount = list.stream().mapToInt(product -> product.getDiscountedPrice()).sum();
+		int savedAmmount = list.stream().mapToInt(product -> product.getPrice() - product.getDiscountedPrice()).sum();
+		OrderSummary summary = new OrderSummary();
+		summary.setSavedAmmount(savedAmmount);
+		summary.setTotalAmmount(totalAmmount);
+		summary.setProduct(ModelMapperUtils.mapAll(list, ProductDTO.class));
+		return summary;
 	}
 
 }

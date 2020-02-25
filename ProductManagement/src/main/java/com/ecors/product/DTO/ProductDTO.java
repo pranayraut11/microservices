@@ -1,6 +1,6 @@
 package com.ecors.product.DTO;
 
-public class ProductDTO extends ProductDetails {
+public class ProductDTO {
 
 	private Integer productID;
 	private String productName;
@@ -8,6 +8,15 @@ public class ProductDTO extends ProductDetails {
 	private int price;
 	private int discountedPrice;
 	private short discount;
+	private ProductDetails productDetails;
+
+	public ProductDetails getProductDetails() {
+		return productDetails;
+	}
+
+	public void setProductDetails(ProductDetails productDetails) {
+		this.productDetails = productDetails;
+	}
 
 	public int getPrice() {
 		return price;
@@ -41,7 +50,6 @@ public class ProductDTO extends ProductDetails {
 		this.productImgUrl = productImgUrl;
 	}
 
-	
 	public Integer getProductID() {
 		return productID;
 	}

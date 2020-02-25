@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecors.api.users.DTO.AddressDTO;
+import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.enums.MailType;
@@ -83,8 +84,9 @@ public class UserServiceImpl implements UserService {
 			} else {
 				password = user.getPassword();
 			}
-			return new org.springframework.security.core.userdetails.User(userEntity.get().getUsername(), password,
-					true, true, true, true, new ArrayList<>());
+
+			return new UserContext(userEntity.get().getUsername(), password, true, true, true, true, new ArrayList<>(),
+					user.getUserId());
 		}
 		return null;
 
@@ -113,8 +115,8 @@ public class UserServiceImpl implements UserService {
 	 * @param emailid
 	 * @return User's basic data userId,OTP,emailID as username
 	 */
-	public UserDTO createBasicUser(String emailid,String otp) {
-		
+	public UserDTO createBasicUser(String emailid, String otp) {
+
 		User user = new User();
 		user.setUsername(emailid);
 		user.setOTP(bCryptPasswordEncoder.encode(otp));
