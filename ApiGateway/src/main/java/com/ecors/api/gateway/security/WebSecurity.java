@@ -27,6 +27,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
 		http.headers().frameOptions().disable();
 		System.out.println("permit all path " + environment.getProperty("user.create.url"));
 		http.authorizeRequests().antMatchers("/userservice/verify/**").permitAll()
+				.antMatchers("/productmanagement/offers/**").permitAll()
+				.antMatchers("/productmanagement/subcategories/**").permitAll()
+				.antMatchers("/productmanagement/products/**").permitAll()
 				.antMatchers(HttpMethod.POST, environment.getProperty("user.login.url")).permitAll().anyRequest()
 				.authenticated().and().addFilter(new AuthenticationFilter(authenticationManager(), environment));
 
