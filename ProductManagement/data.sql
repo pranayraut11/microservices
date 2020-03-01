@@ -1,16 +1,16 @@
 insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`,`highlights`) values(1, 'Drill machine description', 'Bosch drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Drill-Machine-PNG-Free-Image.png',3000,2500,15,'{
-	"Type": "Pistol Grip Drill"
-	"Chuck Size": "10 mm"
-	"Rotation" : "Reverse Rotation"
-	"Power Source": "Corded"
+	"Type": "Pistol Grip Drill",
+	"Chuck Size": "10 mm",
+	"Rotation" : "Reverse Rotation",
+	"Power Source": "Corded",
 	"Usage Type": "Home & Professional"
 }');
 
 insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`,`highlights`) values(2, 'Heavy duty Drill machine description', 'Heavy duty drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Heavy-Duty-Drill-Machine-PNG-Image.png',5000,3500,20,'{
-	"Type": "Pistol Grip Drill"
-	"Chuck Size": "10 mm"
-	"Rotation" : "Reverse Rotation"
-	"Power Source": "Corded"
+	"Type": "Pistol Grip Drill",
+	"Chuck Size": "10 mm",
+	"Rotation" : "Reverse Rotation",
+	"Power Source": "Corded",
 	"Usage Type": "Home & Professional"
 }');
 

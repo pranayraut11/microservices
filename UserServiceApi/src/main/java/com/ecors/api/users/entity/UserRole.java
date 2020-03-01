@@ -1,6 +1,7 @@
 package com.ecors.api.users.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,13 +19,9 @@ public class UserRole {
 
 	private UserType type;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "id") private User user;
-	 */
-
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id")
+	private User user;
 
 	public Integer getUserRoleId() {
 		return userRoleId;
@@ -42,10 +39,12 @@ public class UserRole {
 		this.type = type;
 	}
 
-	/*
-	 * public User getUser() { return user; }
-	 * 
-	 * public void setUser(User user) { this.user = user; }
-	 */
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }

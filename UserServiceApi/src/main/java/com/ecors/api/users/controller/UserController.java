@@ -1,7 +1,5 @@
 package com.ecors.api.users.controller;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.OrderSummery;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;

@@ -1,13 +1,18 @@
 package com.ecors.api.users.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,11 +21,12 @@ import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.User;
+import com.ecors.api.users.entity.UserRole;
 import com.ecors.api.users.enums.MailType;
+import com.ecors.api.users.enums.UserType;
 import com.ecors.api.users.repository.UserRepository;
 import com.ecors.api.users.service.client.MailServiceClient;
 import com.ecors.api.users.ui.request.SendMailRequest;
-import com.ecors.api.users.utility.OTPGenerator;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
 
@@ -37,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	private AddressService addressService;
 
 	@Autowired
-	private UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 
@@ -73,7 +79,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	@Transactional
+	public UserContext loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> userEntity = userRepository.findUserByUsername(username);
 		String password = null;
 		if (userEntity.isPresent()) {
@@ -84,8 +91,11 @@ public class UserServiceImpl implements UserService {
 			} else {
 				password = user.getPassword();
 			}
+			List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+			Set<UserRole> roles = user.getUserRoles();
+			list.add(new SimpleGrantedAuthority("ROLE_" + roles.stream().findFirst().get().getType().name()));
 
-			return new UserContext(userEntity.get().getUsername(), password, true, true, true, true, new ArrayList<>(),
+			return new UserContext(userEntity.get().getUsername(), password, true, true, true, true, list,
 					user.getUserId());
 		}
 		return null;
@@ -119,8 +129,14 @@ public class UserServiceImpl implements UserService {
 
 		User user = new User();
 		user.setUsername(emailid);
+		UserRole role = new UserRole();
+		role.setType(UserType.USER);
+		role.setUser(user);
 		user.setOTP(bCryptPasswordEncoder.encode(otp));
+		Set<UserRole> roles = new HashSet<>();
+		roles.add(role);
 		user.setUserId(UUID.randomUUID().toString());
+		user.setUserRoles(roles);
 		return ModelMapperUtils.map(userRepository.save(user), UserDTO.class);
 	}
 

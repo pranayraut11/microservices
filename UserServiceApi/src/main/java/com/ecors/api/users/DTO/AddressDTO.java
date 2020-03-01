@@ -15,8 +15,15 @@ public class AddressDTO {
 	private String country;
 	private AddressType type;
 	private Boolean deliveryAddress;
+	private String pincode;
 
-	
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
 
 	public Long getAddressId() {
 		return addressId;

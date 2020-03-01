@@ -38,8 +38,9 @@ public class VerifyController {
 	}
 
 	@PostMapping("userLoginID")
-	public ResponseEntity<String> verifyMail(@RequestBody UserIdVerifyRequest userIdVerifyRequest) {
+	public ResponseEntity<GenericResponse<Void> > verifyMail(@RequestBody UserIdVerifyRequest userIdVerifyRequest) {
 		verifyService.verifyMail(userIdVerifyRequest);
-		return ResponseEntity.status(HttpStatus.OK).body("Please check your email for OTP");
+		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Authentication successfull", true);
+		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 }

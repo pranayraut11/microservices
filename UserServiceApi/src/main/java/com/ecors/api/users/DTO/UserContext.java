@@ -30,4 +30,13 @@ public class UserContext extends User {
 		this.userid = userid;
 	}
 
+	@Override
+	public String toString() {
+		return "UserContext [userid=" + userid + ", getAuthorities()=" + getAuthorities() + ", getPassword()="
+				+ getPassword() + ", getUsername()=" + getUsername() + ", isEnabled()=" + isEnabled()
+				+ ", isAccountNonExpired()=" + isAccountNonExpired() + ", isAccountNonLocked()=" + isAccountNonLocked()
+				+ ", isCredentialsNonExpired()=" + isCredentialsNonExpired() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+	}
+
 }

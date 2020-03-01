@@ -38,8 +38,10 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public void save(AddressDTO addressDTo) {
-		addressRepository.save(ModelMapperUtils.map(addressDTo, Address.class));
+	public void save(AddressDTO addressDTo, String userID) {
+		Address address = ModelMapperUtils.map(addressDTo, Address.class);
+		address.setUser(userService.getUser(userID));
+		addressRepository.save(address);
 	}
 
 	@Override

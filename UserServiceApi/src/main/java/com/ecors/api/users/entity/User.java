@@ -2,6 +2,7 @@ package com.ecors.api.users.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,9 +32,8 @@ public class User {
 
 	private Boolean isNewUser;
 
-	/*
-	 * @OneToMany(mappedBy = "user") private Set<UserRole> userRoles;
-	 */
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	private Set<UserRole> userRoles;
 
 	@OneToMany(mappedBy = "user")
 	private Set<Address> addresses;
@@ -41,12 +41,13 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private Set<Order> orders;
 
-	/*
-	 * public Set<UserRole> getUserRoles() { return userRoles; }
-	 * 
-	 * public void setUserRoles(Set<UserRole> userRoles) { this.userRoles =
-	 * userRoles; }
-	 */
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
 
 	public Set<Address> getAddresses() {
 		return addresses;
