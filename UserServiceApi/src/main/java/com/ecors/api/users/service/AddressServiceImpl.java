@@ -3,17 +3,11 @@ package com.ecors.api.users.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.ecors.api.users.DTO.AddressDTO;
-import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.entity.Address;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.enums.AddressType;
@@ -29,19 +23,16 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private UserService userService;
 
-	private User getUserFromSecurityContext() {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication auth = context.getAuthentication();
-		UserContext user = (UserContext) auth.getPrincipal();
-		return userService.getUser(user.getUserid());
-
-	}
-
 	@Override
 	public void save(AddressDTO addressDTo, String userID) {
-		Address address = ModelMapperUtils.map(addressDTo, Address.class);
-		address.setUser(userService.getUser(userID));
-		addressRepository.save(address);
+		User user = userService.getUser(userID);
+		List<Address> address = getAddress(user);
+		if (address == null) {
+			addressDTo.setType(AddressType.DELIVERY);
+		}
+		Address addressResponse = ModelMapperUtils.map(addressDTo, Address.class);
+		addressResponse.setUser(user);
+		addressRepository.save(addressResponse);
 	}
 
 	@Override
@@ -76,12 +67,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public void updateDeliveryAddress(Long addressID) {
-		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID,
-				getUserFromSecurityContext());
+	public void updateDeliveryAddress(Long addressID, String userID) {
+		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID, userService.getUser(userID));
 		if (optAddress.isPresent()) {
 			Address address = optAddress.get();
 			address.setDeliveryAddress(true);
+			address.setType(AddressType.DELIVERY);
 			addressRepository.save(address);
 			return;
 		}
@@ -90,14 +81,14 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<AddressDTO> get(AddressType type) {
+	public List<AddressDTO> get(AddressType type, String userID) {
 		switch (type) {
 		case DELIVERY:
 			ArrayList<AddressDTO> addressList = new ArrayList<AddressDTO>();
-			addressList.add(getDeliveryAddressByUser(getUserFromSecurityContext()));
+			addressList.add(getDeliveryAddressByUser(userService.getUser(userID)));
 			return addressList;
 		case ALL:
-			return getAllByUserId(getUserFromSecurityContext());
+			return getAllByUserId(userService.getUser(userID));
 		default:
 			break;
 		}

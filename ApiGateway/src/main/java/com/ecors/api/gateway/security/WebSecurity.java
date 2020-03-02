@@ -39,7 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("*").exposedHeaders("token,userid").allowedMethods("GET", "PUT",
-				"POST", "DELETE");
+				"POST", "DELETE","PATCH");
 	}
 
 }

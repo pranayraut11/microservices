@@ -10,11 +10,11 @@ public interface AddressService {
 
 	public void save(AddressDTO addressDTo,String userId);
 	
-	public void updateDeliveryAddress(Long addressID);
+	public void updateDeliveryAddress(Long addressID,String userID);
 
 	public AddressDTO get(Long id);
 	
-	public List<AddressDTO> get(AddressType type);
+	public List<AddressDTO> get(AddressType type,String userID);
 	
 	public List<AddressDTO> getAllByUserId(User userId);
 	
