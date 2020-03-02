@@ -67,12 +67,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public void updateDeliveryAddress(Long addressID, String userID) {
+	public void updateDeliveryAddress(Long addressID, String userID,AddressType type) {
 		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID, userService.getUser(userID));
 		if (optAddress.isPresent()) {
 			Address address = optAddress.get();
 			address.setDeliveryAddress(true);
-			address.setType(AddressType.DELIVERY);
+			address.setType(type);
 			addressRepository.save(address);
 			return;
 		}

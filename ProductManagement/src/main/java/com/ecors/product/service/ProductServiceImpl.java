@@ -55,15 +55,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public OrderSummary getProductOrderSummary(List<Integer> productIds) {
-		Iterable<Product> productList = productRepository.findAllById(productIds);
-		List<Product> list = StreamSupport.stream(productList.spliterator(), false).collect(Collectors.toList());
+		List<ProductDTO> list = getProductsByIds(productIds);
 		int totalAmmount = list.stream().mapToInt(product -> product.getDiscountedPrice()).sum();
 		int savedAmmount = list.stream().mapToInt(product -> product.getPrice() - product.getDiscountedPrice()).sum();
 		OrderSummary summary = new OrderSummary();
 		summary.setSavedAmmount(savedAmmount);
 		summary.setTotalAmmount(totalAmmount);
-		summary.setProduct(ModelMapperUtils.mapAll(list, ProductDTO.class));
+		summary.setProduct(list);
 		return summary;
+	}
+
+	@Override
+	public List<ProductDTO> getProductsByIds(List<Integer> productIds) {
+		Iterable<Product> productList = productRepository.findAllById(productIds);
+		return ModelMapperUtils.mapAll(
+				StreamSupport.stream(productList.spliterator(), false).collect(Collectors.toList()), ProductDTO.class);
 	}
 
 }

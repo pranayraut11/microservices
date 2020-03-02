@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.User;
+import com.ecors.api.users.ui.request.CreateOrder;
 
 public interface UserService extends UserDetailsService {
 
@@ -22,4 +23,5 @@ public interface UserService extends UserDetailsService {
 
 	User getUser(String userId);
 
+	String createOrder(CreateOrder order);
 }

@@ -10,7 +10,7 @@ public interface AddressService {
 
 	public void save(AddressDTO addressDTo,String userId);
 	
-	public void updateDeliveryAddress(Long addressID,String userID);
+	public void updateDeliveryAddress(Long addressID,String userID,AddressType type);
 
 	public AddressDTO get(Long id);
 	

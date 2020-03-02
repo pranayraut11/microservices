@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.enums.AddressType;
 import com.ecors.api.users.service.AddressService;
+import com.ecors.api.users.ui.request.UpdateDeliveryAddress;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
 import com.ecors.core.utility.JWTUtility;
@@ -43,9 +44,9 @@ public class AddressController {
 
 	@PatchMapping("{addressId}/change")
 	public ResponseEntity<GenericResponse<Void>> updateDeliveryAddress(@PathVariable Long addressId,
-			@RequestBody AddressDTO flag, HttpServletRequest request) {
+			@RequestBody UpdateDeliveryAddress type, HttpServletRequest request) {
 		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Address saved successfullty", true);
-		addressService.updateDeliveryAddress(addressId, getUserID(request));
+		addressService.updateDeliveryAddress(addressId, getUserID(request), type.getType());
 		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
 	}
 

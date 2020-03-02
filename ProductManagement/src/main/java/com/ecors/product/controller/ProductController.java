@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecors.core.ui.response.GenericResponse;
@@ -44,6 +45,16 @@ public class ProductController {
 		response.setResult(productService.getProductOrderSummary(ids));
 		GenericResponse<OrderSummary> reponse = new GenericResponse<OrderSummary>(response,
 				"Product retrived successfully", true);
+		return ResponseEntity.status(HttpStatus.OK).body(reponse);
+	}
+	
+	@GetMapping()
+	public ResponseEntity<GenericResponse<List<ProductDTO>>> getProductsById(@RequestParam List<Integer> id)
+			throws JsonMappingException, JsonProcessingException {
+		Response<List<ProductDTO>> response = new Response<>();
+		response.setResult(productService.getProductsByIds(id));
+		GenericResponse<List<ProductDTO>> reponse = new GenericResponse<List<ProductDTO>>(response, "Product retrived successfully",
+				true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 	}
 

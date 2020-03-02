@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecors.api.users.DTO.OrderSummery;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
+import com.ecors.api.users.ui.request.CreateOrder;
 import com.ecors.api.users.ui.request.CreateUserRequest;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
@@ -65,21 +66,17 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
-	/*
-	 * @GetMapping("/{username}") public UserDTO getUserByUsername(@PathVariable
-	 * String username) throws Exception { return
-	 * userService.getUserByEmailID(username); }
-	 */
-
-	
 	@PostMapping("signup")
 	public void signup(@RequestBody CreateUserRequest userRequest) {
 
 	}
 
-	@GetMapping("{userId}/product/{productId}/ordersummary")
-	public ResponseEntity<GenericResponse<OrderSummery>> getOrderSummary(@PathVariable String userId,@PathVariable Long productId){
+	@PostMapping("/product/order")
+	public ResponseEntity<GenericResponse<Void>> buyProducts(@RequestBody CreateOrder order) {
+		
+		
 		return null;
+
 	}
 	
 	
@@ -97,4 +94,11 @@ public class UserController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+
 }

@@ -17,5 +17,7 @@ public interface ProductService {
 	public List<ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page);
 
 	public OrderSummary getProductOrderSummary(List<Integer> productIds);
+	
+	public List<ProductDTO> getProductsByIds(List<Integer> productIds);
 
 }

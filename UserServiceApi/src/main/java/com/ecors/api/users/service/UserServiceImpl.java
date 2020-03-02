@@ -26,7 +26,10 @@ import com.ecors.api.users.enums.MailType;
 import com.ecors.api.users.enums.UserType;
 import com.ecors.api.users.repository.UserRepository;
 import com.ecors.api.users.service.client.MailServiceClient;
+import com.ecors.api.users.service.client.ProductManagementClient;
+import com.ecors.api.users.ui.request.CreateOrder;
 import com.ecors.api.users.ui.request.SendMailRequest;
+import com.ecors.core.dto.ProductDTO;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
 
@@ -41,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private AddressService addressService;
+
+	@Autowired
+	private ProductManagementClient productManagementClient;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -151,6 +157,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<AddressDTO> getAddressesByUser(String userId) {
 		return addressService.getAllByUserId(getUser(userId));
+	}
+
+	@Override
+	public String createOrder(CreateOrder order) {
+		List<ProductDTO> productList = productManagementClient.getProductsByIDs(order.getProductIds());
+		return defaultPassword;
+		
+		
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.ecors.api.users.enums.OrderStatus;
 
@@ -25,7 +26,11 @@ public class Order {
 	private User user;
 
 	@OneToMany(mappedBy = "order")
-	private Set<OrderDeliveryStatus> deliveryStatus;
+	private Set<UserOrder> userOrder;
+	
+	@OneToOne
+	@JoinColumn(name = "addressId")
+	private Address address;
 
 	public Long getOrderId() {
 		return orderId;
@@ -43,12 +48,12 @@ public class Order {
 		this.user = user;
 	}
 
-	public Set<OrderDeliveryStatus> getDeliveryStatus() {
-		return deliveryStatus;
+	public Set<UserOrder> getUserOrder() {
+		return userOrder;
 	}
 
-	public void setDeliveryStatus(Set<OrderDeliveryStatus> deliveryStatus) {
-		this.deliveryStatus = deliveryStatus;
+	public void setUserOrder(Set<UserOrder> userOrder) {
+		this.userOrder = userOrder;
 	}
 
 	public Long getProductId() {

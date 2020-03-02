@@ -19,8 +19,8 @@ public class OrderDeliveryStatus {
 	private Long orderStatusId;
 
 	@ManyToOne
-	@JoinColumn(name = "orderId")
-	private Order order;
+	@JoinColumn(name = "userOrderId")
+	private UserOrder userOrder;
 
 	private OrderStatus deliveryStatus;
 
@@ -36,12 +36,12 @@ public class OrderDeliveryStatus {
 		this.orderStatusId = orderStatusId;
 	}
 
-	public Order getOrder() {
-		return order;
+	public UserOrder getUserOrder() {
+		return userOrder;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setUserOrder(UserOrder userOrder) {
+		this.userOrder = userOrder;
 	}
 
 	public OrderStatus getDeliveryStatus() {
