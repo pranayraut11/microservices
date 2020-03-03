@@ -11,7 +11,7 @@ public class ProductDTO {
 	private int discountedPrice;
 	private short discount;
 	private boolean deliveryFeeDiscounted;
-	private ProductDetails productDetails;
+	//private ProductDetails productDetails;
 	private LocalDateTime deliveryDate;
 
 	public LocalDateTime getDeliveryDate() {
@@ -70,13 +70,13 @@ public class ProductDTO {
 		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
 	}
 
-	public ProductDetails getProductDetails() {
-		return productDetails;
-	}
-
-	public void setProductDetails(ProductDetails productDetails) {
-		this.productDetails = productDetails;
-	}
+//	public ProductDetails getProductDetails() {
+//		return productDetails;
+//	}
+//
+//	public void setProductDetails(ProductDetails productDetails) {
+//		this.productDetails = productDetails;
+//	}
 
 	public String getProductName() {
 		return productName;

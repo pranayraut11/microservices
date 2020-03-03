@@ -8,7 +8,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
 import com.ecors.api.users.DTO.AddressDTO;
-import com.ecors.api.users.DTO.ProductDTO;
 import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.Address;
@@ -28,18 +30,16 @@ import com.ecors.api.users.entity.OrderDeliveryStatus;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.entity.UserOrders;
 import com.ecors.api.users.entity.UserRole;
-import com.ecors.api.users.enums.AddressType;
 import com.ecors.api.users.enums.MailType;
 import com.ecors.api.users.enums.OrderStatus;
 import com.ecors.api.users.enums.UserType;
+import com.ecors.api.users.repository.OrderRepository;
 import com.ecors.api.users.repository.UserRepository;
 import com.ecors.api.users.service.client.MailServiceClient;
 import com.ecors.api.users.service.client.ProductManagementClient;
-import com.ecors.api.users.ui.request.CreateOrder;
 import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.ui.response.GenericResponse;
-import com.ecors.core.ui.response.Response;
 import com.ecors.core.utility.ModelMapperUtils;
 
 @Service
@@ -56,6 +56,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ProductManagementClient productManagementClient;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -173,9 +176,11 @@ public class UserServiceImpl implements UserService {
 		// Retrieve user and delivery address
 		User user = getUser(userID);
 		// Get product details
-		ResponseEntity<GenericResponse<List<com.ecors.core.dto.ProductDTO>>> productList = productManagementClient.getProductsByIDs(order);
+		ResponseEntity<GenericResponse<List<com.ecors.core.dto.ProductDTO>>> productList = productManagementClient
+				.getProductsByIDs(order);
 		// Save order
-		saveOrderEntity(productList.getBody().getData().getResult(), user, getDeliveryAddress(user.getAddresses()));
+		orderRepository.save(saveOrderEntity(productList.getBody().getData().getResult(), user,
+				getDeliveryAddress(user.getAddresses())));
 
 	}
 

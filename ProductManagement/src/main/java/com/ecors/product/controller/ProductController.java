@@ -48,6 +48,16 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
 	}
 	
+	@GetMapping("/cart/ordersummary")
+	public ResponseEntity<GenericResponse<OrderSummary>> getProductCartOrderSummary(@RequestParam List<Integer> ids)
+			throws JsonMappingException, JsonProcessingException {
+		Response<OrderSummary> response = new Response<>();
+		response.setResult(productService.getProductOrderSummary(ids));
+		GenericResponse<OrderSummary> reponse = new GenericResponse<OrderSummary>(response,
+				"Product retrived successfully", true);
+		return ResponseEntity.status(HttpStatus.OK).body(reponse);
+	}
+	
 	@GetMapping()
 	public ResponseEntity<GenericResponse<List<ProductDTO>>> getProductsById(@RequestParam List<Integer> id)
 			throws JsonMappingException, JsonProcessingException {
