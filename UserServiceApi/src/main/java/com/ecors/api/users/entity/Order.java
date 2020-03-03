@@ -1,6 +1,5 @@
 package com.ecors.api.users.entity;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import com.ecors.api.users.enums.OrderStatus;
 
 @Entity
 public class Order {
@@ -26,8 +23,8 @@ public class Order {
 	private User user;
 
 	@OneToMany(mappedBy = "order")
-	private Set<UserOrder> userOrder;
-	
+	private Set<UserOrders> userOrder;
+
 	@OneToOne
 	@JoinColumn(name = "addressId")
 	private Address address;
@@ -48,42 +45,20 @@ public class Order {
 		this.user = user;
 	}
 
-	public Set<UserOrder> getUserOrder() {
+	public Set<UserOrders> getUserOrder() {
 		return userOrder;
 	}
 
-	public void setUserOrder(Set<UserOrder> userOrder) {
+	public void setUserOrder(Set<UserOrders> userOrder) {
 		this.userOrder = userOrder;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
-
-	public OrderStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(OrderStatus status) {
-		this.status = status;
-	}
-
-	public LocalDateTime getExpectedDeliveryDate() {
-		return expectedDeliveryDate;
-	}
-
-	public void setExpectedDeliveryDate(LocalDateTime expectedDeliveryDate) {
-		this.expectedDeliveryDate = expectedDeliveryDate;
-	}
-
-	private Long productId;
-
-	private OrderStatus status;
-
-	private LocalDateTime expectedDeliveryDate;
 
 }

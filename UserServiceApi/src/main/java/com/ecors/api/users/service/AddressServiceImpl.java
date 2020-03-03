@@ -26,9 +26,11 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void save(AddressDTO addressDTo, String userID) {
 		User user = userService.getUser(userID);
-		List<Address> address = getAddress(user);
-		if (address == null) {
-			addressDTo.setType(AddressType.DELIVERY);
+		Optional<List<Address>> optAddress = addressRepository.findByUser(user);
+		if (!optAddress.isPresent()) {
+			addressDTo.setDeliveryAddress(true);
+		}else {
+			addressDTo.setDeliveryAddress(false);
 		}
 		Address addressResponse = ModelMapperUtils.map(addressDTo, Address.class);
 		addressResponse.setUser(user);
@@ -58,21 +60,22 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public AddressDTO getDeliveryAddressByUser(User userId) {
-		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(userId, true);
+	public List<AddressDTO> getAddressByUserAddressType(User userId, AddressType type) {
+		Optional<List<Address>> optionalAddress = addressRepository.findByUserAndType(userId, type);
 		if (optionalAddress.isPresent()) {
-			return ModelMapperUtils.map(optionalAddress.get(), AddressDTO.class);
+			return ModelMapperUtils.mapAll(optionalAddress.get(), AddressDTO.class);
 		}
 		throw new NotFoundException("Address");
 	}
 
 	@Override
-	public void updateDeliveryAddress(Long addressID, String userID,AddressType type) {
+	public void updateDeliveryAddress(Long addressID, String userID, AddressType type) {
 		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID, userService.getUser(userID));
+		changeDeliveryAddress(userID);
 		if (optAddress.isPresent()) {
 			Address address = optAddress.get();
-			address.setDeliveryAddress(true);
 			address.setType(type);
+			address.setDeliveryAddress(true);
 			addressRepository.save(address);
 			return;
 		}
@@ -80,12 +83,22 @@ public class AddressServiceImpl implements AddressService {
 
 	}
 
+	private void changeDeliveryAddress(String userId) {
+		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(userService.getUser(userId),
+				true);
+		if (optionalAddress.isPresent()) {
+			Address deliveryAddress = optionalAddress.get();
+			deliveryAddress.setDeliveryAddress(false);
+			addressRepository.save(deliveryAddress);
+		}
+	}
+
 	@Override
 	public List<AddressDTO> get(AddressType type, String userID) {
 		switch (type) {
 		case DELIVERY:
-			ArrayList<AddressDTO> addressList = new ArrayList<AddressDTO>();
-			addressList.add(getDeliveryAddressByUser(userService.getUser(userID)));
+			List<AddressDTO> addressList = new ArrayList<AddressDTO>();
+			addressList.add(getDeliveryAddressByUser(userID));
 			return addressList;
 		case ALL:
 			return getAllByUserId(userService.getUser(userID));
@@ -93,6 +106,16 @@ public class AddressServiceImpl implements AddressService {
 			break;
 		}
 		return null;
+	}
+
+	@Override
+	public AddressDTO getDeliveryAddressByUser(String userId) {
+		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(userService.getUser(userId),
+				true);
+		if (optionalAddress.isPresent()) {
+			return ModelMapperUtils.map(optionalAddress.get(), AddressDTO.class);
+		}
+		throw new NotFoundException("Delivery address");
 	}
 
 }

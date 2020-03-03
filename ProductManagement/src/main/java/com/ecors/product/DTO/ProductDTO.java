@@ -1,5 +1,7 @@
 package com.ecors.product.DTO;
 
+import java.time.LocalDateTime;
+
 public class ProductDTO {
 
 	private Integer productID;
@@ -8,7 +10,25 @@ public class ProductDTO {
 	private int price;
 	private int discountedPrice;
 	private short discount;
+	private boolean deliveryFeeDiscounted;
 	private ProductDetails productDetails;
+	private LocalDateTime deliveryDate;
+
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public boolean isDeliveryFeeDiscounted() {
+		return deliveryFeeDiscounted;
+	}
+
+	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
+		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	}
 
 	public ProductDetails getProductDetails() {
 		return productDetails;

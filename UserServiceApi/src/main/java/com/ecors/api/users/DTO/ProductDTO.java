@@ -1,10 +1,30 @@
 package com.ecors.api.users.DTO;
 
+import java.time.LocalDateTime;
+
 public class ProductDTO {
 
 	private String productID;
 	private String productName;
 	private String productDescription;
+	private LocalDateTime deliveryDate;
+	private boolean deliveryFeeDiscounted;
+
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public boolean isDeliveryFeeDiscounted() {
+		return deliveryFeeDiscounted;
+	}
+
+	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
+		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	}
 
 	public String getProductID() {
 		return productID;

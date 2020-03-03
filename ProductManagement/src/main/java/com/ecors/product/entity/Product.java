@@ -1,5 +1,6 @@
 package com.ecors.product.entity;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,13 +25,31 @@ public class Product {
 	private short discount;
 	private String highlights;
 	private String specification;
+	private int deliveryFeeDiscounted;
 	private String sellerId;
+	private LocalDateTime deliveryDate;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
 	private Set<ProductSubCategory> subCategories;
 
 	@OneToMany(mappedBy = "product")
 	private Set<ProductImages> productImages;
+
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public int getDeliveryFeeDiscounted() {
+		return deliveryFeeDiscounted;
+	}
+
+	public void setDeliveryFeeDiscounted(int deliveryFeeDiscounted) {
+		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	}
 
 	public String getSellerId() {
 		return sellerId;

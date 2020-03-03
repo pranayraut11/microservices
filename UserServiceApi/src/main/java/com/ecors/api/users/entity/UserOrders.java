@@ -1,5 +1,6 @@
 package com.ecors.api.users.entity;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class UserOrder {
+public class UserOrders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +21,39 @@ public class UserOrder {
 	@ManyToOne
 	@JoinColumn(name = "orderId")
 	private Order order;
-	
+
 	@OneToMany(mappedBy = "userOrder")
 	private Set<OrderDeliveryStatus> orderDeliveryStatus;
 
 	private String productId;
+
+	private boolean deliveryFeeDiscounted;
+
+	private LocalDateTime deliveryDate;
+
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public Set<OrderDeliveryStatus> getOrderDeliveryStatus() {
+		return orderDeliveryStatus;
+	}
+
+	public void setOrderDeliveryStatus(Set<OrderDeliveryStatus> orderDeliveryStatus) {
+		this.orderDeliveryStatus = orderDeliveryStatus;
+	}
+
+	public boolean isDeliveryFeeDiscounted() {
+		return deliveryFeeDiscounted;
+	}
+
+	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
+		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	}
 
 	public Integer getUserOrderId() {
 		return userOrderId;

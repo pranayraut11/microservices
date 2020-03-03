@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ecors.api.users.entity.Address;
 import com.ecors.api.users.entity.User;
+import com.ecors.api.users.enums.AddressType;
 
 public interface AddressRepository extends CrudRepository<Address, Long> {
 
@@ -15,5 +16,7 @@ public interface AddressRepository extends CrudRepository<Address, Long> {
 	Optional<List<Address>> findByUser(User user);
 
 	Optional<Address> findByAddressIdAndUser(Long id,User user);
+	
+	Optional<List<Address>> findByUserAndType(User user, AddressType type);
 }
 

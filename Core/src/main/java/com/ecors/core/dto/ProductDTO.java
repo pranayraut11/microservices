@@ -4,25 +4,78 @@ import java.time.LocalDateTime;
 
 public class ProductDTO {
 
-	private String productID;
+	private Integer productID;
 	private String productName;
-	private String productDescription;
-	private LocalDateTime expectedDeliveryDate;
+	private String productImgUrl;
+	private int price;
+	private int discountedPrice;
+	private short discount;
+	private boolean deliveryFeeDiscounted;
+	private ProductDetails productDetails;
+	private LocalDateTime deliveryDate;
 
-	public LocalDateTime getExpectedDeliveryDate() {
-		return expectedDeliveryDate;
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
 	}
 
-	public void setExpectedDeliveryDate(LocalDateTime expectedDeliveryDate) {
-		this.expectedDeliveryDate = expectedDeliveryDate;
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
-	public String getProductID() {
+	public Integer getProductID() {
 		return productID;
 	}
 
-	public void setProductID(String productID) {
+	public void setProductID(Integer productID) {
 		this.productID = productID;
+	}
+
+	public String getProductImgUrl() {
+		return productImgUrl;
+	}
+
+	public void setProductImgUrl(String productImgUrl) {
+		this.productImgUrl = productImgUrl;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getDiscountedPrice() {
+		return discountedPrice;
+	}
+
+	public void setDiscountedPrice(int discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
+
+	public short getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(short discount) {
+		this.discount = discount;
+	}
+
+	public boolean isDeliveryFeeDiscounted() {
+		return deliveryFeeDiscounted;
+	}
+
+	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
+		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	}
+
+	public ProductDetails getProductDetails() {
+		return productDetails;
+	}
+
+	public void setProductDetails(ProductDetails productDetails) {
+		this.productDetails = productDetails;
 	}
 
 	public String getProductName() {
@@ -31,14 +84,6 @@ public class ProductDTO {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
 	}
 
 }

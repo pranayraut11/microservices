@@ -20,13 +20,21 @@ public class OrderDeliveryStatus {
 
 	@ManyToOne
 	@JoinColumn(name = "userOrderId")
-	private UserOrder userOrder;
+	private UserOrders userOrder;
 
 	private OrderStatus deliveryStatus;
 
 	private LocalDateTime date;
 
 	private String description;
+
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
 
 	public Long getOrderStatusId() {
 		return orderStatusId;
@@ -36,11 +44,11 @@ public class OrderDeliveryStatus {
 		this.orderStatusId = orderStatusId;
 	}
 
-	public UserOrder getUserOrder() {
+	public UserOrders getUserOrder() {
 		return userOrder;
 	}
 
-	public void setUserOrder(UserOrder userOrder) {
+	public void setUserOrder(UserOrders userOrder) {
 		this.userOrder = userOrder;
 	}
 
@@ -50,14 +58,6 @@ public class OrderDeliveryStatus {
 
 	public void setDeliveryStatus(OrderStatus deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
-	}
-
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
 	}
 
 	public String getDescription() {

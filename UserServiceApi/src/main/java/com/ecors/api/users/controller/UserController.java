@@ -1,5 +1,9 @@
 package com.ecors.api.users.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.ecors.api.users.DTO.OrderSummery;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateOrder;
 import com.ecors.api.users.ui.request.CreateUserRequest;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
+import com.ecors.core.utility.JWTUtility;
 
 @RestController
 @RequestMapping("users")
@@ -72,33 +77,23 @@ public class UserController {
 	}
 
 	@PostMapping("/product/order")
-	public ResponseEntity<GenericResponse<Void>> buyProducts(@RequestBody CreateOrder order) {
-		
-		
+	public ResponseEntity<GenericResponse<Void>> buyProducts(@RequestBody List<Integer> order,
+			HttpServletRequest request) {
+
+		userService.createOrder(order, getUserID(request));
+
 		return null;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	private String getUserID(HttpServletRequest request) {
+		String userID = JWTUtility.getUserId(request, environment.getProperty("token-secret"),
+				environment.getProperty("autherization.token.header"),
+				environment.getProperty("autherization.token.header.prefix"));
+		if (userID == null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not allowed to perform this action");
+		}
+		return userID;
+	}
 
 }
