@@ -9,7 +9,7 @@ import com.ecors.api.users.entity.Address;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.enums.AddressType;
 
-public interface AddressRepository extends CrudRepository<Address, Long> {
+public interface AddressRepository extends CrudRepository<Address, Integer> {
 
 	Optional<Address> findByUserAndDeliveryAddress(User user, boolean isDeliveryAddress);
 

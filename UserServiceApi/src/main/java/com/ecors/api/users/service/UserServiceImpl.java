@@ -25,7 +25,7 @@ import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.Address;
-import com.ecors.api.users.entity.Order;
+import com.ecors.api.users.entity.Orders;
 import com.ecors.api.users.entity.OrderDeliveryStatus;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.entity.UserOrders;
@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createOrder(List<Integer> order, String userID) {
+	public String createOrder(List<Integer> order, String userID) {
 
 		// Retrieve user and delivery address
 		User user = getUser(userID);
@@ -179,8 +179,8 @@ public class UserServiceImpl implements UserService {
 		ResponseEntity<GenericResponse<List<com.ecors.core.dto.ProductDTO>>> productList = productManagementClient
 				.getProductsByIDs(order);
 		// Save order
-		orderRepository.save(saveOrderEntity(productList.getBody().getData().getResult(), user,
-				getDeliveryAddress(user.getAddresses())));
+		return orderRepository.save(saveOrderEntity(productList.getBody().getData().getResult(), user,
+				getDeliveryAddress(user.getAddresses()))).getOrderId().toString();
 
 	}
 
@@ -192,36 +192,38 @@ public class UserServiceImpl implements UserService {
 		return deliveryAddress.stream().findFirst().get();
 	}
 
-	private Order saveOrderEntity(List<com.ecors.core.dto.ProductDTO> productList, User user, Address address) {
+	private Orders saveOrderEntity(List<com.ecors.core.dto.ProductDTO> productList, User user, Address address) {
 		Assert.notEmpty(productList, "Product(s) not found");
-		Order order = new Order();
+		Orders order = new Orders();
 		order.setAddress(address);
 		order.setUser(user);
 		Set<UserOrders> userOrders = new HashSet<>();
 		productList.forEach(product -> {
 			userOrders.add(saveUserOrders(product.getProductID(), product.isDeliveryFeeDiscounted(),
-					product.getDeliveryDate()));
+					product.getDeliveryDate(),order));
 		});
 
 		order.setUserOrder(userOrders);
 		return order;
 	}
 
-	private UserOrders saveUserOrders(Integer productId, boolean deliveryFeeDiscounted, LocalDateTime deliveryDate) {
+	private UserOrders saveUserOrders(Integer productId, boolean deliveryFeeDiscounted, LocalDateTime deliveryDate,Orders orders) {
 		UserOrders userOrders = new UserOrders();
 		userOrders.setDeliveryFeeDiscounted(deliveryFeeDiscounted);
 		userOrders.setProductId(productId.toString());
 		userOrders.setDeliveryDate(deliveryDate);
 		Set<OrderDeliveryStatus> orderDeliveryStatus = new HashSet<>();
-		orderDeliveryStatus.add(saveOrderDeliveryStatus());
+		orderDeliveryStatus.add(saveOrderDeliveryStatus(userOrders));
 		userOrders.setOrderDeliveryStatus(orderDeliveryStatus);
+		userOrders.setOrder(orders);
 		return userOrders;
 	}
 
-	private OrderDeliveryStatus saveOrderDeliveryStatus() {
+	private OrderDeliveryStatus saveOrderDeliveryStatus(UserOrders userOrders) {
 		OrderDeliveryStatus orderDeliveryStatus = new OrderDeliveryStatus();
 		orderDeliveryStatus.setDeliveryStatus(OrderStatus.CREATED);
 		orderDeliveryStatus.setDate(LocalDateTime.now());
+		orderDeliveryStatus.setUserOrders(userOrders);
 		return orderDeliveryStatus;
 	}
 

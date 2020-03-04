@@ -20,7 +20,7 @@ public class OrderDeliveryStatus {
 
 	@ManyToOne
 	@JoinColumn(name = "userOrderId")
-	private UserOrders userOrder;
+	private UserOrders userOrders;
 
 	private OrderStatus deliveryStatus;
 
@@ -44,12 +44,14 @@ public class OrderDeliveryStatus {
 		this.orderStatusId = orderStatusId;
 	}
 
-	public UserOrders getUserOrder() {
-		return userOrder;
+	
+
+	public UserOrders getUserOrders() {
+		return userOrders;
 	}
 
-	public void setUserOrder(UserOrders userOrder) {
-		this.userOrder = userOrder;
+	public void setUserOrders(UserOrders userOrders) {
+		this.userOrders = userOrders;
 	}
 
 	public OrderStatus getDeliveryStatus() {

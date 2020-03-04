@@ -3,6 +3,7 @@ package com.ecors.api.users.entity;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,9 +21,9 @@ public class UserOrders {
 
 	@ManyToOne
 	@JoinColumn(name = "orderId")
-	private Order order;
+	private Orders order;
 
-	@OneToMany(mappedBy = "userOrder")
+	@OneToMany(mappedBy = "userOrders",cascade = CascadeType.ALL)
 	private Set<OrderDeliveryStatus> orderDeliveryStatus;
 
 	private String productId;
@@ -63,11 +64,11 @@ public class UserOrders {
 		this.userOrderId = userOrderId;
 	}
 
-	public Order getOrder() {
+	public Orders getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(Orders order) {
 		this.order = order;
 	}
 

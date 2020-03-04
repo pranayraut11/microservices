@@ -22,5 +22,5 @@ public interface UserService extends UserDetailsService {
 
 	User getUser(String userId);
 
-	void createOrder(List<Integer> productIds,String userId);
+	String createOrder(List<Integer> productIds,String userId);
 }

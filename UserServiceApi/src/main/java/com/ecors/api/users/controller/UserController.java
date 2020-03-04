@@ -77,12 +77,13 @@ public class UserController {
 	}
 
 	@PostMapping("/product/order")
-	public ResponseEntity<GenericResponse<Void>> buyProducts(@RequestBody List<Integer> order,
+	public ResponseEntity<GenericResponse<String>> buyProducts(@RequestBody List<Integer> order,
 			HttpServletRequest request) {
-
-		userService.createOrder(order, getUserID(request));
-
-		return null;
+		Response<String> result = new Response<>();
+		result.setResult(userService.createOrder(order, getUserID(request)));
+		GenericResponse<String> genericResponse = new GenericResponse<String>(result, "Order placed successfully",
+				true);
+		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
 
 	}
 

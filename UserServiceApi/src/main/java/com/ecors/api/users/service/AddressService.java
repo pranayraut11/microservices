@@ -12,7 +12,7 @@ public interface AddressService {
 
 	public void updateDeliveryAddress(Long addressID, String userID, AddressType type);
 
-	public AddressDTO get(Long id);
+	public AddressDTO get(Integer id);
 
 	public List<AddressDTO> get(AddressType type, String userID);
 

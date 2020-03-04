@@ -38,7 +38,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public AddressDTO get(Long id) {
+	public AddressDTO get(Integer id) {
 		Optional<Address> optionalAddress = addressRepository.findById(id);
 		if (optionalAddress.isPresent()) {
 			return ModelMapperUtils.map(optionalAddress.get(), AddressDTO.class);

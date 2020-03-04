@@ -39,7 +39,7 @@ public class User {
 	private Set<Address> addresses;
 
 	@OneToMany(mappedBy = "user")
-	private Set<Order> orders;
+	private Set<Orders> orders;
 
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
@@ -57,11 +57,12 @@ public class User {
 		this.addresses = addresses;
 	}
 
-	public Set<Order> getOrders() {
+	
+	public Set<Orders> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(Set<Orders> orders) {
 		this.orders = orders;
 	}
 
