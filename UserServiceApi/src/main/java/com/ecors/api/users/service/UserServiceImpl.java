@@ -143,13 +143,19 @@ public class UserServiceImpl implements UserService {
 	 * @return User's basic data userId,OTP,emailID as username
 	 */
 	public UserDTO createBasicUser(String emailid, String otp) {
-
+		String encodedOTP = bCryptPasswordEncoder.encode(otp);
+		Optional<User> userEntity = userRepository.findUserByUsername(emailid);
+		if (userEntity.isPresent()) {
+			userEntity.get().setOTP(encodedOTP);
+			User user = userRepository.save(userEntity.get());
+			return ModelMapperUtils.map(userRepository.save(user), UserDTO.class);
+		}
 		User user = new User();
 		user.setUsername(emailid);
 		UserRole role = new UserRole();
 		role.setType(UserType.USER);
 		role.setUser(user);
-		user.setOTP(bCryptPasswordEncoder.encode(otp));
+		user.setOTP(encodedOTP);
 		Set<UserRole> roles = new HashSet<>();
 		roles.add(role);
 		user.setUserId(UUID.randomUUID().toString());
@@ -200,14 +206,15 @@ public class UserServiceImpl implements UserService {
 		Set<UserOrders> userOrders = new HashSet<>();
 		productList.forEach(product -> {
 			userOrders.add(saveUserOrders(product.getProductID(), product.isDeliveryFeeDiscounted(),
-					product.getDeliveryDate(),order));
+					product.getDeliveryDate(), order));
 		});
 
 		order.setUserOrder(userOrders);
 		return order;
 	}
 
-	private UserOrders saveUserOrders(Integer productId, boolean deliveryFeeDiscounted, LocalDateTime deliveryDate,Orders orders) {
+	private UserOrders saveUserOrders(Integer productId, boolean deliveryFeeDiscounted, LocalDateTime deliveryDate,
+			Orders orders) {
 		UserOrders userOrders = new UserOrders();
 		userOrders.setDeliveryFeeDiscounted(deliveryFeeDiscounted);
 		userOrders.setProductId(productId.toString());

@@ -30,9 +30,9 @@ public class User {
 
 	private String OTP;
 
-	private Boolean isNewUser;
+	private boolean active;
 
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserRole> userRoles;
 
 	@OneToMany(mappedBy = "user")
@@ -57,7 +57,6 @@ public class User {
 		this.addresses = addresses;
 	}
 
-	
 	public Set<Orders> getOrders() {
 		return orders;
 	}
@@ -78,12 +77,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public Boolean getIsNewUser() {
-		return isNewUser;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setIsNewUser(Boolean isNewUser) {
-		this.isNewUser = isNewUser;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getOTP() {

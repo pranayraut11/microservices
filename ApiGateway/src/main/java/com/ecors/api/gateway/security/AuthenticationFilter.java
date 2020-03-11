@@ -28,7 +28,6 @@ public class AuthenticationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("Properties location check " + environment.getProperty("fortest"));
 		String token = request.getHeader(environment.getProperty("autherization.token.header"));
 		if (token == null || !token.startsWith(environment.getProperty("autherization.token.header.start"))) {
 			chain.doFilter(request, response);

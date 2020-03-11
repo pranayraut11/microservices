@@ -21,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.UserService;
-import com.ecors.api.users.ui.request.CreateOrder;
 import com.ecors.api.users.ui.request.CreateUserRequest;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
@@ -95,6 +94,12 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not allowed to perform this action");
 		}
 		return userID;
+	}
+	
+	@PostMapping("validate")
+	public ResponseEntity<GenericResponse<Void>> verifyUser() {
+		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Verified successfully", true);
+		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
 }
