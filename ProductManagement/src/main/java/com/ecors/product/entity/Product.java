@@ -25,7 +25,7 @@ public class Product {
 	private short discount;
 	private String highlights;
 	private String specification;
-	private int deliveryFeeDiscounted;
+	private boolean deliveryFeeDiscounted;
 	private String sellerId;
 	private LocalDateTime deliveryDate;
 
@@ -43,11 +43,11 @@ public class Product {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public int getDeliveryFeeDiscounted() {
+	public boolean isDeliveryFeeDiscounted() {
 		return deliveryFeeDiscounted;
 	}
 
-	public void setDeliveryFeeDiscounted(int deliveryFeeDiscounted) {
+	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
 		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
 	}
 

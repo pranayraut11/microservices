@@ -13,6 +13,7 @@ import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
 import com.ecors.product.entity.Offer;
+import com.ecors.product.entity.OfferSubCategory;
 import com.ecors.product.entity.SubCategory;
 import com.ecors.product.repository.SubCategoryRepository;
 
@@ -40,9 +41,11 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	}
 
 	@Override
-	public List<SubCategoryDTO> getAllSubCateogry(Offer offer, boolean active) {
-		Optional<List<SubCategory>> subCategoryList = subCategoryRepository.findByActiveAndOffers(true, offer);
-		Assert.isTrue(subCategoryList.isPresent(), "Subcategories not found for : " + offer.getOfferName());
+	public List<SubCategoryDTO> getAllSubCateogry(OfferSubCategory offerSubcategory, boolean active) {
+		Optional<List<SubCategory>> subCategoryList = subCategoryRepository.findByActiveAndOfferSubcategories(true,
+				offerSubcategory);
+		Assert.isTrue(subCategoryList.isPresent(),
+				"Subcategories not found for : " + offerSubcategory.getSubCategory().getSubCategoryName());
 		return ModelMapperUtils.mapAll(subCategoryList.get(), SubCategoryDTO.class);
 	}
 

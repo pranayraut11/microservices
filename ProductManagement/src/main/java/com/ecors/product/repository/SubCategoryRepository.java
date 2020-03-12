@@ -5,15 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.ecors.product.entity.Offer;
-import com.ecors.product.entity.Product;
+import com.ecors.product.entity.OfferSubCategory;
 import com.ecors.product.entity.SubCategory;
 
 public interface SubCategoryRepository extends CrudRepository<SubCategory, Integer> {
 
 	Optional<List<SubCategory>> findByActive(boolean active);
 	
-	Optional<List<SubCategory>> findByActiveAndOffers(boolean active,Offer offer);
+	Optional<List<SubCategory>> findByActiveAndOfferSubcategories(boolean active,OfferSubCategory offerSubcategory);
  
 
 }

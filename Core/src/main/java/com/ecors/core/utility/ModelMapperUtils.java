@@ -57,5 +57,7 @@ public class ModelMapperUtils {
 		return jsonMapper.readValue(json, new TypeReference<Map<String, String>>() {
 		});
 	}
+	
+	
 
 }

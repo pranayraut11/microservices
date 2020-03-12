@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,11 +27,11 @@ public class SubCategory {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subCategory")
 	private Set<ProductSubCategory> products;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subCategory")
-	private Set<Offer> offers;
-
 	@OneToMany(mappedBy = "subCategory")
 	private Set<SubCategorySpecification> subCategorySpecifications;
+
+	@OneToMany(mappedBy = "subCategory")
+	private Set<OfferSubCategory> offerSubcategories;
 
 	private String subCategoryImgUrl;
 
@@ -62,14 +61,6 @@ public class SubCategory {
 
 	public void setActive(boolean active) {
 		this.active = active;
-	}
-
-	public Set<Offer> getOffers() {
-		return offers;
-	}
-
-	public void setOffers(Set<Offer> offers) {
-		this.offers = offers;
 	}
 
 	public String getSubCategoryImgUrl() {

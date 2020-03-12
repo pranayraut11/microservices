@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.DTO.SubCategoryDTO;
-import com.ecors.product.entity.Offer;
+import com.ecors.product.entity.OfferSubCategory;
 
 public interface SubCategoryService {
 
@@ -14,7 +14,7 @@ public interface SubCategoryService {
 
 	List<SubCategoryDTO> getAllSubCateogry(boolean active);
 
-	List<SubCategoryDTO> getAllSubCateogry(Offer offer, boolean active);
+	List<SubCategoryDTO> getAllSubCateogry(OfferSubCategory offerSubcategory, boolean active);
 
 	List<ProductDTO> getAllProductsBySubCateogry(int id, boolean active, Pageable page);
 

@@ -96,7 +96,7 @@ public class UserController {
 		return userID;
 	}
 	
-	@PostMapping("validate")
+	@GetMapping("validate")
 	public ResponseEntity<GenericResponse<Void>> verifyUser() {
 		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Verified successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);

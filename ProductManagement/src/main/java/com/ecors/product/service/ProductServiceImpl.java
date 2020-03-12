@@ -3,6 +3,7 @@ package com.ecors.product.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -16,10 +17,14 @@ import com.ecors.product.DTO.ImageDTO;
 import com.ecors.product.DTO.OrderSummary;
 import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.DTO.ProductDetails;
+import com.ecors.product.DTO.SubCategoryDTO;
+import com.ecors.product.entity.OfferSubCategory;
 import com.ecors.product.entity.Product;
 import com.ecors.product.entity.ProductImages;
+import com.ecors.product.entity.ProductSubCategory;
 import com.ecors.product.entity.SubCategory;
 import com.ecors.product.repository.ProductRepository;
+import com.ecors.product.repository.ProductSubCatgoryRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -28,6 +33,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private ProductSubCatgoryRepository productSubCatgoryRepository;
 
 	@Override
 	public ProductDTO get(int id, boolean active) throws JsonMappingException, JsonProcessingException {
@@ -48,8 +56,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page) {
-		return ModelMapperUtils.mapAll(productRepository.findBySubCategoryAndActive(subCategory, true).get(),
-				ProductDTO.class);
+		Optional<List<ProductSubCategory>> producs = productSubCatgoryRepository.findBySubCategory(subCategory);
+		return mapSubClass(producs.get());
 
 	}
 
@@ -72,4 +80,8 @@ public class ProductServiceImpl implements ProductService {
 				StreamSupport.stream(productList.spliterator(), false).collect(Collectors.toList()), ProductDTO.class);
 	}
 
+	public static List<ProductDTO> mapSubClass(final List<ProductSubCategory> entityList) {
+		return entityList.stream().map(entity -> ModelMapperUtils.map(entity.getProduct(), ProductDTO.class))
+				.collect(Collectors.toList());
+	}
 }

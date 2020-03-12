@@ -1,18 +1,18 @@
-insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`,`highlights`) values(1, 'Drill machine description', 'Bosch drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Drill-Machine-PNG-Free-Image.png',3000,2500,15,'{
+insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`,`highlights`,`delivery_fee_discounted`) values(1, 'Drill machine description', 'Bosch drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Drill-Machine-PNG-Free-Image.png',3000,2500,15,'{
 	"Type": "Pistol Grip Drill",
 	"Chuck Size": "10 mm",
 	"Rotation" : "Reverse Rotation",
 	"Power Source": "Corded",
 	"Usage Type": "Home & Professional"
-}');
+}',true);
 
-insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`,`highlights`) values(2, 'Heavy duty Drill machine description', 'Heavy duty drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Heavy-Duty-Drill-Machine-PNG-Image.png',5000,3500,20,'{
+insert into product (`productid`, `product_description`, `product_name`,`active`,`product_img_url`,`price`,`discounted_price`,`discount`,`highlights`,`delivery_fee_discounted`) values(2, 'Heavy duty Drill machine description', 'Heavy duty drill machine 500W',true,'http://www.pngall.com/wp-content/uploads/4/Heavy-Duty-Drill-Machine-PNG-Image.png',5000,3500,20,'{
 	"Type": "Pistol Grip Drill",
 	"Chuck Size": "10 mm",
 	"Rotation" : "Reverse Rotation",
 	"Power Source": "Corded",
 	"Usage Type": "Home & Professional"
-}');
+}',true);
 
 insert into product_images(`id`,`image`,`type`,`productid`) values(1,'http://www.pngall.com/wp-content/uploads/4/Drill-Machine-PNG-Free-Image.png','MEDIUM',1);
 insert into product_images(`id`,`image`,`type`,`productid`) values(2,'http://www.pngall.com/wp-content/uploads/4/Heavy-Duty-Drill-Machine-PNG-Image.png','MEDIUM',1);
@@ -36,17 +36,17 @@ INSERT INTO offer (`offer_id`,`active`, `active_from`, `offer_description`, `off
 
 INSERT INTO offer (`offer_id`,`active`, `active_from`, `offer_description`, `offer_name`) VALUES (2,true, now(), 'Deals On Large Appliances', 'Deals On Large Appliances');
 
-INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,1);
+INSERT INTO offer_sub_category (`offer_sub_category_id`,`offer_id`,`sub_category_id`) VALUES (1,1,1);
 
-INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,2);
+INSERT INTO offer_sub_category (`offer_sub_category_id`,`offer_id`,`sub_category_id`) VALUES (2,1,2);
 
-INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (2,2);
+INSERT INTO offer_sub_category (`offer_sub_category_id`,`offer_id`,`sub_category_id`) VALUES (3,2,2);
 
-INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,3);
+INSERT INTO offer_sub_category (`offer_sub_category_id`,`offer_id`,`sub_category_id`) VALUES (4,1,3);
 
-INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,4);
+INSERT INTO offer_sub_category (`offer_sub_category_id`,`offer_id`,`sub_category_id`) VALUES (5,1,4);
 
-INSERT INTO offer_zone (`offer_id`,`sub_category_id`) VALUES (1,5);
+INSERT INTO offer_sub_category (`offer_sub_category_id`,`offer_id`,`sub_category_id`) VALUES (6,1,5);
 
 INSERT INTO product_sub_category (`id`,`productid`,`sub_category_id`) VALUES (1,1,1);
 INSERT INTO product_sub_category (`id`,`productid`,`sub_category_id`) VALUES (2,2,1);

@@ -11,5 +11,5 @@ import com.ecors.product.entity.SubCategory;
 
 public interface ProductSubCatgoryRepository extends CrudRepository<ProductSubCategory, Integer> {
 
-	Optional<List<Product>> findBySubCategory(SubCategory subCategory);
+	Optional<List<ProductSubCategory>> findBySubCategory(SubCategory subCategory);
 }

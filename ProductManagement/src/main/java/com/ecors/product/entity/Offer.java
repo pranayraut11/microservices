@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Offer {
@@ -31,11 +32,8 @@ public class Offer {
 
 	private LocalDateTime activeTo;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "OfferZone", joinColumns = {
-			@JoinColumn(name = "offerId", updatable = false, nullable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "subCategoryId", updatable = false, nullable = false) })
-	private Set<SubCategory> subCategory;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "offer")
+	private Set<OfferSubCategory> offerSubCategory;
 
 	public LocalDateTime getActiveFrom() {
 		return activeFrom;
@@ -53,12 +51,12 @@ public class Offer {
 		this.activeTo = activeTo;
 	}
 
-	public Set<SubCategory> getSubCategory() {
-		return subCategory;
+	public Set<OfferSubCategory> getOfferSubCategory() {
+		return offerSubCategory;
 	}
 
-	public void setSubCategory(Set<SubCategory> subCategory) {
-		this.subCategory = subCategory;
+	public void setOfferSubCategory(Set<OfferSubCategory> offerSubCategory) {
+		this.offerSubCategory = offerSubCategory;
 	}
 
 	public Integer getOfferId() {
