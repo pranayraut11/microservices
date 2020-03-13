@@ -22,14 +22,16 @@ public class AddressServiceImpl implements AddressService {
 	private AddressRepository addressRepository;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	@Override
-	public void save(AddressDTO addressDTo, String userID) {
-		User user = userService.getUser(userID);
+	public void save(AddressDTO addressDTo, String uuid) {
+		User user = authenticationService.getUserFromUUID(uuid);
 		Optional<List<Address>> optAddress = addressRepository.findByUser(user);
 		if (!optAddress.isPresent()) {
 			addressDTo.setDeliveryAddress(true);
-		}else {
+		} else {
 			addressDTo.setDeliveryAddress(false);
 		}
 		Address addressResponse = ModelMapperUtils.map(addressDTo, Address.class);
@@ -69,12 +71,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public void updateDeliveryAddress(Long addressID, String userID, AddressType type) {
-		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID, userService.getUser(userID));
-		changeDeliveryAddress(userID);
+	public void updateDeliveryAddress(Integer addressID, String uuid) {
+		User user = authenticationService.getUserFromUUID(uuid);
+		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID, user);
+		changeDeliveryAddress(user);
 		if (optAddress.isPresent()) {
 			Address address = optAddress.get();
-			address.setType(type);
 			address.setDeliveryAddress(true);
 			addressRepository.save(address);
 			return;
@@ -83,9 +85,8 @@ public class AddressServiceImpl implements AddressService {
 
 	}
 
-	private void changeDeliveryAddress(String userId) {
-		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(userService.getUser(userId),
-				true);
+	private void changeDeliveryAddress(User user) {
+		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(user, true);
 		if (optionalAddress.isPresent()) {
 			Address deliveryAddress = optionalAddress.get();
 			deliveryAddress.setDeliveryAddress(false);
@@ -109,9 +110,9 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public AddressDTO getDeliveryAddressByUser(String userId) {
-		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(userService.getUser(userId),
-				true);
+	public AddressDTO getDeliveryAddressByUser(String uuid) {
+		Optional<Address> optionalAddress = addressRepository
+				.findByUserAndDeliveryAddress(authenticationService.getUserFromUUID(uuid), true);
 		if (optionalAddress.isPresent()) {
 			return ModelMapperUtils.map(optionalAddress.get(), AddressDTO.class);
 		}

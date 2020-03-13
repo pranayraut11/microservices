@@ -44,6 +44,9 @@ import com.ecors.core.utility.ModelMapperUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	public static final boolean YES=true;
+	
 
 	private UserRepository userRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -59,6 +62,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -171,6 +177,14 @@ public class UserServiceImpl implements UserService {
 		throw new NotFoundException("User");
 	}
 
+	public User getUserFromUUID(String userId) {
+		Optional<User> userEntity = userRepository.findUserByUserId(userId);
+		if (userEntity.isPresent()) {
+			return userEntity.get();
+		}
+		throw new NotFoundException("User");
+	}
+	
 	@Override
 	public List<AddressDTO> getAddressesByUser(String userId) {
 		return addressService.getAllByUserId(getUser(userId));
@@ -180,7 +194,7 @@ public class UserServiceImpl implements UserService {
 	public String createOrder(List<Integer> order, String userID) {
 
 		// Retrieve user and delivery address
-		User user = getUser(userID);
+		User user = authenticationService.getUserFromUUID(userID);
 		// Get product details
 		ResponseEntity<GenericResponse<List<com.ecors.core.dto.ProductDTO>>> productList = productManagementClient
 				.getProductsByIDs(order);
@@ -191,8 +205,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private Address getDeliveryAddress(Set<Address> addresses) {
-		Assert.notEmpty(addresses, "Please save atleast on address");
-		List<Address> deliveryAddress = addresses.stream().filter(addres -> addres.getDeliveryAddress().equals(true))
+		Assert.notEmpty(addresses, "Please save atleast one address");
+		List<Address> deliveryAddress = addresses.stream().filter(addres -> addres.isDeliveryAddress() == YES)
 				.collect(Collectors.toList());
 		Assert.notEmpty(deliveryAddress, "Delivery address not available");
 		return deliveryAddress.stream().findFirst().get();

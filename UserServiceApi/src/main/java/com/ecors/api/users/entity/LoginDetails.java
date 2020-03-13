@@ -22,6 +22,26 @@ public class LoginDetails {
 
 	private LocalDateTime loginTime;
 	private LocalDateTime loginOutTime;
+	private String uuid;
+	private boolean isLoggedIn;
+	
+	
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public boolean isLoggedIn() {
+		return isLoggedIn;
+	}
+
+	public void setLoggedIn(boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
+	}
 
 	public Integer getLoginDetailsId() {
 		return loginDetailsId;

@@ -29,7 +29,7 @@ public class Address {
 	private String state;
 	private String country;
 	private AddressType type;
-	private Boolean deliveryAddress;
+	private boolean deliveryAddress;
 
 	public Integer getAddressId() {
 		return addressId;
@@ -119,11 +119,11 @@ public class Address {
 		this.type = type;
 	}
 
-	public Boolean getDeliveryAddress() {
+	public boolean isDeliveryAddress() {
 		return deliveryAddress;
 	}
 
-	public void setDeliveryAddress(Boolean deliveryAddress) {
+	public void setDeliveryAddress(boolean deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
 

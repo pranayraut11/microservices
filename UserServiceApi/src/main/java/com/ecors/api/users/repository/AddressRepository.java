@@ -15,7 +15,7 @@ public interface AddressRepository extends CrudRepository<Address, Integer> {
 
 	Optional<List<Address>> findByUser(User user);
 
-	Optional<Address> findByAddressIdAndUser(Long id,User user);
+	Optional<Address> findByAddressIdAndUser(Integer id,User user);
 	
 	Optional<List<Address>> findByUserAndType(User user, AddressType type);
 }

@@ -1,16 +1,14 @@
 package com.ecors.api.users.ui.request;
 
-import com.ecors.api.users.enums.AddressType;
-
 public class UpdateDeliveryAddress {
-	private AddressType type;
+	private boolean deliveryAddress;
 
-	public AddressType getType() {
-		return type;
+	public boolean isDeliveryAddress() {
+		return deliveryAddress;
 	}
 
-	public void setType(AddressType type) {
-		this.type = type;
+	public void setDeliveryAddress(boolean deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
 	}
 
 }

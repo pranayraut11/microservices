@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.ecors.api.users.DTO.UserDTO;
+import com.ecors.api.users.service.AuthenticationService;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
-import com.ecors.core.utility.JWTUtility;
 
 @RestController
 @RequestMapping("users")
@@ -35,6 +34,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	@GetMapping("status/check")
 	public String status() {
@@ -79,26 +81,24 @@ public class UserController {
 	public ResponseEntity<GenericResponse<String>> buyProducts(@RequestBody List<Integer> order,
 			HttpServletRequest request) {
 		Response<String> result = new Response<>();
-		result.setResult(userService.createOrder(order, getUserID(request)));
+		result.setResult(userService.createOrder(order, authenticationService.getUUID(request)));
 		GenericResponse<String> genericResponse = new GenericResponse<String>(result, "Order placed successfully",
 				true);
 		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
 
 	}
 
-	private String getUserID(HttpServletRequest request) {
-		String userID = JWTUtility.getUserId(request, environment.getProperty("token-secret"),
-				environment.getProperty("autherization.token.header"),
-				environment.getProperty("autherization.token.header.prefix"));
-		if (userID == null) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not allowed to perform this action");
-		}
-		return userID;
-	}
-	
 	@GetMapping("validate")
 	public ResponseEntity<GenericResponse<Void>> verifyUser() {
 		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Verified successfully", true);
+		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
+	}
+
+	@GetMapping("{uuid}/isloggedIn")
+	public ResponseEntity<GenericResponse<Boolean>> logout(@PathVariable String uuid) {
+		Response<Boolean> result = new Response<>();
+		result.setResult(authenticationService.isLoggedIn(uuid));
+		GenericResponse<Boolean> genericResponse = new GenericResponse<Boolean>(result, "Verified successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 

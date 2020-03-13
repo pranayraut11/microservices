@@ -10,15 +10,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.ecors.api.gateway.client.UserServiceClient;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
 	private Environment environment;
+	private UserServiceClient userServiceClient;
 
-	public WebSecurity(Environment environment) {
+	public WebSecurity(Environment environment, UserServiceClient userServiceClient) {
 		this.environment = environment;
-		// TODO Auto-generated constructor stub
+		this.userServiceClient = userServiceClient;
 	}
 
 	@Override
@@ -30,7 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
 				.antMatchers("/productmanagement/subcategories/**").permitAll()
 				.antMatchers("/productmanagement/products/**").permitAll()
 				.antMatchers(HttpMethod.POST, environment.getProperty("user.login.url")).permitAll().anyRequest()
-				.authenticated().and().addFilter(new AuthenticationFilter(authenticationManager(), environment));
+				.authenticated().and()
+				.addFilter(new AuthenticationFilter(authenticationManager(), environment, userServiceClient));
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
@@ -38,7 +42,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("*").exposedHeaders("token,userid").allowedMethods("GET", "PUT",
-				"POST", "DELETE","PATCH");
+				"POST", "DELETE", "PATCH");
 	}
 
 }
