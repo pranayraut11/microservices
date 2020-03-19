@@ -1,4 +1,5 @@
 package com.ecors.core.dto;
+
 public class ImageDTO {
 
 	private String image;

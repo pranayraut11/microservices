@@ -2,18 +2,18 @@ package com.ecors.core.dto;
 
 public class ProfileDTO {
 
-	private String emailID;
+	private String username;
 	private String firstName;
 	private String lastName;
 	private String mobile;
 	private String profilePictureUrl;
 
-	public String getEmailID() {
-		return emailID;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getFirstName() {

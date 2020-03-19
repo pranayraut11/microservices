@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.ProfileService;
 import com.ecors.api.users.ui.response.UserProfileResponse;
+import com.ecors.core.dto.UserDTO;
 
 @RestController
 @RequestMapping("profile")

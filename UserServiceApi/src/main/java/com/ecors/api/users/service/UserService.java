@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.ecors.api.users.DTO.AddressDTO;
-import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.User;
+import com.ecors.core.dto.AddressDTO;
+import com.ecors.core.dto.ProfileDTO;
+import com.ecors.core.dto.UserDTO;
 
 public interface UserService extends UserDetailsService {
 
@@ -22,5 +23,5 @@ public interface UserService extends UserDetailsService {
 
 	User getUser(String userId);
 
-	String createOrder(List<Integer> productIds, User userId);
+	ProfileDTO saveOrUpdateUserProfile(ProfileDTO profileDto, User userId);
 }

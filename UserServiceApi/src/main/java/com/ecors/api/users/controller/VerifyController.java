@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.service.VerifyService;
 import com.ecors.api.users.ui.request.OTPVerifyRequest;
 import com.ecors.api.users.ui.request.UserIdVerifyRequest;
+import com.ecors.core.dto.UserDTO;
 import com.ecors.core.ui.response.GenericResponse;
 
 @RestController

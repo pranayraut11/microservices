@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.ecors.api.users.DTO.UserDTO;
-import com.ecors.api.users.enums.MailType;
 import com.ecors.api.users.service.client.MailServiceClient;
 import com.ecors.api.users.ui.request.OTPVerifyRequest;
 import com.ecors.api.users.ui.request.SendMailRequest;
 import com.ecors.api.users.ui.request.UserIdVerifyRequest;
 import com.ecors.api.users.utility.OTPGenerator;
+import com.ecors.core.dto.UserDTO;
+import com.ecors.core.enums.MailType;
 
 @Service
 public class VerifyServiceImpl implements VerifyService {

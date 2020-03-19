@@ -3,15 +3,17 @@ package com.ecors.api.users.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.ecors.api.users.DTO.AddressDTO;
+
 import com.ecors.api.users.entity.Address;
 import com.ecors.api.users.entity.User;
-import com.ecors.api.users.enums.AddressType;
 import com.ecors.api.users.repository.AddressRepository;
+import com.ecors.core.dto.AddressDTO;
+import com.ecors.core.enums.AddressType;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
 

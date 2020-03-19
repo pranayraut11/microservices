@@ -2,7 +2,7 @@ package com.ecors.api.users.ui.request;
 
 import java.util.Map;
 
-import com.ecors.api.users.enums.MailType;
+import com.ecors.core.enums.MailType;
 
 public class SendMailRequest {
 	private String toAddress;

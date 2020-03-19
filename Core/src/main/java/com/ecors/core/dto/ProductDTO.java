@@ -11,7 +11,7 @@ public class ProductDTO {
 	private int discountedPrice;
 	private short discount;
 	private boolean deliveryFeeDiscounted;
-	//private ProductDetails productDetails;
+	private ProductDetails productDetails;
 	private LocalDateTime deliveryDate;
 
 	public LocalDateTime getDeliveryDate() {
@@ -22,20 +22,20 @@ public class ProductDTO {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public Integer getProductID() {
-		return productID;
+	public boolean isDeliveryFeeDiscounted() {
+		return deliveryFeeDiscounted;
 	}
 
-	public void setProductID(Integer productID) {
-		this.productID = productID;
+	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
+		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
 	}
 
-	public String getProductImgUrl() {
-		return productImgUrl;
+	public ProductDetails getProductDetails() {
+		return productDetails;
 	}
 
-	public void setProductImgUrl(String productImgUrl) {
-		this.productImgUrl = productImgUrl;
+	public void setProductDetails(ProductDetails productDetails) {
+		this.productDetails = productDetails;
 	}
 
 	public int getPrice() {
@@ -62,21 +62,21 @@ public class ProductDTO {
 		this.discount = discount;
 	}
 
-	public boolean isDeliveryFeeDiscounted() {
-		return deliveryFeeDiscounted;
+	public String getProductImgUrl() {
+		return productImgUrl;
 	}
 
-	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
-		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	public void setProductImgUrl(String productImgUrl) {
+		this.productImgUrl = productImgUrl;
 	}
 
-//	public ProductDetails getProductDetails() {
-//		return productDetails;
-//	}
-//
-//	public void setProductDetails(ProductDetails productDetails) {
-//		this.productDetails = productDetails;
-//	}
+	public Integer getProductID() {
+		return productID;
+	}
+
+	public void setProductID(Integer productID) {
+		this.productID = productID;
+	}
 
 	public String getProductName() {
 		return productName;

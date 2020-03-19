@@ -9,6 +9,15 @@ public class UserDTO {
 	private String userID;
 	private String otp;
 	private String token;
+	private AddressDTO address;
+
+	public AddressDTO getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressDTO address) {
+		this.address = address;
+	}
 
 	public String getToken() {
 		return token;

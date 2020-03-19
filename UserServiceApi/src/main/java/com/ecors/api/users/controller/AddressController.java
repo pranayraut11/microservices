@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecors.api.users.DTO.AddressDTO;
-import com.ecors.api.users.enums.AddressType;
 import com.ecors.api.users.service.AddressService;
 import com.ecors.api.users.service.AuthenticationService;
 import com.ecors.api.users.ui.request.UpdateDeliveryAddress;
+import com.ecors.core.dto.AddressDTO;
+import com.ecors.core.enums.AddressType;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
 

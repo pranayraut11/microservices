@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.ecors.api.users.enums.UserType;
+import com.ecors.core.enums.UserType;
 
 @Entity
 public class UserRole {

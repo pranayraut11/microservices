@@ -32,6 +32,8 @@ public class User {
 
 	private boolean active;
 
+	private String mobile;
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserRole> userRoles;
 
@@ -40,6 +42,14 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private Set<Orders> orders;
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	public Set<UserRole> getUserRoles() {
 		return userRoles;

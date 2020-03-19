@@ -1,7 +1,7 @@
 package com.ecors.api.users.service;
 
-import com.ecors.api.users.DTO.ProfileDTO;
-import com.ecors.api.users.DTO.UserDTO;
+import com.ecors.core.dto.ProfileDTO;
+import com.ecors.core.dto.UserDTO;
 
 public interface ProfileService {
 	public ProfileDTO getUserProfile(String userID) throws Exception;

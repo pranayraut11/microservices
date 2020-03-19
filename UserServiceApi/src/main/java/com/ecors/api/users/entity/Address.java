@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.ecors.api.users.enums.AddressType;
+import com.ecors.core.enums.AddressType;
 
 @Entity
 public class Address {

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.ecors.api.users.enums.OrderStatus;
+import com.ecors.core.enums.OrderStatus;
 
 @Entity
 public class OrderDeliveryStatus {

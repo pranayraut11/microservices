@@ -1,6 +1,6 @@
-package com.ecors.api.users.DTO;
+package com.ecors.core.dto;
 
-import com.ecors.api.users.enums.AddressType;
+import com.ecors.core.enums.AddressType;
 
 public class AddressDTO {
 	private Long addressId;

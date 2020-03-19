@@ -2,9 +2,9 @@ package com.ecors.api.users.service;
 
 import java.util.List;
 
-import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.entity.User;
-import com.ecors.api.users.enums.AddressType;
+import com.ecors.core.dto.AddressDTO;
+import com.ecors.core.enums.AddressType;
 
 public interface AddressService {
 

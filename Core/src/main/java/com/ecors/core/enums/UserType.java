@@ -1,4 +1,4 @@
-package com.ecors.api.users.enums;
+package com.ecors.core.enums;
 
 public enum UserType {
 	ADMIN, USER;

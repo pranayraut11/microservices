@@ -1,7 +1,5 @@
 package com.ecors.api.users.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -14,15 +12,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.LoginDetails;
+import com.ecors.api.users.entity.User;
 import com.ecors.api.users.service.AuthenticationService;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
+import com.ecors.core.dto.ProfileDTO;
+import com.ecors.core.dto.UserDTO;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
 import com.ecors.core.utility.JWTUtility;
@@ -79,16 +80,6 @@ public class UserController {
 
 	}
 
-	@PostMapping("/product/order")
-	public ResponseEntity<GenericResponse<String>> buyProducts(@RequestBody List<Integer> order,
-			HttpServletRequest request) {
-		Response<String> result = new Response<>();
-		result.setResult(userService.createOrder(order, authenticationService.getUser(request)));
-		GenericResponse<String> genericResponse = new GenericResponse<String>(result, "Order placed successfully",
-				true);
-		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
-
-	}
 
 	@GetMapping("validate")
 	public ResponseEntity<GenericResponse<Void>> verifyUser() {
@@ -110,6 +101,17 @@ public class UserController {
 		String uuid = JWTUtility.extractUUIDFromHttpRequest(request);
 		authenticationService.logout(uuid);
 		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@PutMapping
+	public ResponseEntity<GenericResponse<ProfileDTO>> updateUserProfile(@RequestBody ProfileDTO userProfile,
+			HttpServletRequest httpServletRequest) {
+		Response<ProfileDTO> result = new Response<>();
+		User user = authenticationService.getUser(httpServletRequest);
+		result.setResult(userService.saveOrUpdateUserProfile(userProfile, user));
+		GenericResponse<ProfileDTO> genericResponse = new GenericResponse<ProfileDTO>(result, "Verified successfully",
+				true);
+		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
 }
