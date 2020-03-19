@@ -24,8 +24,15 @@ public class LoginDetails {
 	private LocalDateTime loginOutTime;
 	private String uuid;
 	private boolean isLoggedIn;
-	
-	
+	private String token;
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public String getUuid() {
 		return uuid;

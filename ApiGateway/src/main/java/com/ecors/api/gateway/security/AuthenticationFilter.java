@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.ecors.api.gateway.client.UserServiceClient;
+import com.ecors.core.dto.LoginDetailsDTO;
 import com.ecors.core.utility.JWTUtility;
 
 public class AuthenticationFilter extends BasicAuthenticationFilter {
@@ -43,17 +44,20 @@ public class AuthenticationFilter extends BasicAuthenticationFilter {
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-		String uuid = JWTUtility.getUserId(request, environment.getProperty("token-secret"),
+		String uuidFromReq = JWTUtility.extractUUIDFromHttpRequest(request,
 				environment.getProperty("autherization.token.header"),
 				environment.getProperty("autherization.token.header.start"));
-
-		if (uuid == null) {
-			return null;
+		LoginDetailsDTO loginDetailsDTO = this.userServiceClient.getLoginDetails(uuidFromReq).getBody().getData()
+				.getResult();
+		if (loginDetailsDTO.isLoggedIn()) {
+			String uuid = JWTUtility.extractUUIDFromToken(loginDetailsDTO.getToken(),
+					environment.getProperty("token-secret"));
+			if (uuid == null) {
+				return null;
+			}
+			return new UsernamePasswordAuthenticationToken(uuid, null, new ArrayList<>());
 
 		}
-		Boolean isLoggedIn = this.userServiceClient.isLoggedIn(uuid).getBody().getData().getResult();
-		if (isLoggedIn)
-			return new UsernamePasswordAuthenticationToken(uuid, null, new ArrayList<>());
 		return null;
 	}
 

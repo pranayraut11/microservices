@@ -25,8 +25,8 @@ import com.ecors.api.users.DTO.AddressDTO;
 import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.DTO.UserDTO;
 import com.ecors.api.users.entity.Address;
-import com.ecors.api.users.entity.Orders;
 import com.ecors.api.users.entity.OrderDeliveryStatus;
+import com.ecors.api.users.entity.Orders;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.entity.UserOrders;
 import com.ecors.api.users.entity.UserRole;
@@ -44,9 +44,8 @@ import com.ecors.core.utility.ModelMapperUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
-	public static final boolean YES=true;
-	
+
+	public static final boolean YES = true;
 
 	private UserRepository userRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -62,9 +61,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private OrderRepository orderRepository;
-	
-	@Autowired
-	private AuthenticationService authenticationService;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -184,17 +180,16 @@ public class UserServiceImpl implements UserService {
 		}
 		throw new NotFoundException("User");
 	}
-	
+
 	@Override
 	public List<AddressDTO> getAddressesByUser(String userId) {
 		return addressService.getAllByUserId(getUser(userId));
 	}
 
 	@Override
-	public String createOrder(List<Integer> order, String userID) {
+	public String createOrder(List<Integer> order, User user) {
 
 		// Retrieve user and delivery address
-		User user = authenticationService.getUserFromUUID(userID);
 		// Get product details
 		ResponseEntity<GenericResponse<List<com.ecors.core.dto.ProductDTO>>> productList = productManagementClient
 				.getProductsByIDs(order);

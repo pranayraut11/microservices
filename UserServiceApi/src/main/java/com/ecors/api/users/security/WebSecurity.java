@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ecors.api.users.repository.UserRepository;
+import com.ecors.api.users.service.LoginDetailsService;
 import com.ecors.api.users.service.UserService;
 
 @Configuration
@@ -17,13 +19,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	private Environment env;
 	private UserService userService;
+	private LoginDetailsService loginDetailsService;
 	private BCryptPasswordEncoder bcrypt;
+	private UserRepository userRepository;
 
 	@Autowired
-	public WebSecurity(Environment environment, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public WebSecurity(Environment environment, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder,
+			LoginDetailsService loginDetailsService, UserRepository userRepository) {
 		this.env = environment;
 		this.userService = userService;
 		this.bcrypt = bCryptPasswordEncoder;
+		this.loginDetailsService = loginDetailsService;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -41,7 +48,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	}
 
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
-		AuthenticationFilter authenticationFilter = new AuthenticationFilter(userService, env, authenticationManager());
+		AuthenticationFilter authenticationFilter = new AuthenticationFilter(userService, env, authenticationManager(),
+				userRepository, loginDetailsService);
 		authenticationFilter.setFilterProcessesUrl(env.getProperty("login-url"));
 		return authenticationFilter;
 	}

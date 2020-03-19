@@ -8,17 +8,17 @@ import com.ecors.api.users.enums.AddressType;
 
 public interface AddressService {
 
-	public void save(AddressDTO addressDTo, String userId);
+	public void save(AddressDTO addressDTo, User userId);
 
-	public void updateDeliveryAddress(Integer addressID, String userID);
+	public void updateDeliveryAddress(Integer addressID, User userID);
 
 	public AddressDTO get(Integer id);
 
-	public List<AddressDTO> get(AddressType type, String userID);
+	public List<AddressDTO> get(AddressType type, User userID);
 
 	public List<AddressDTO> getAllByUserId(User userId);
 
-	public AddressDTO getDeliveryAddressByUser(String userId);
+	public AddressDTO getDeliveryAddressByUser(User userId);
 
 	List<AddressDTO> getAddressByUserAddressType(User userId, AddressType type);
 

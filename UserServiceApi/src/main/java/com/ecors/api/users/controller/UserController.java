@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecors.api.users.DTO.UserDTO;
+import com.ecors.api.users.entity.LoginDetails;
 import com.ecors.api.users.service.AuthenticationService;
 import com.ecors.api.users.service.UserService;
 import com.ecors.api.users.ui.request.CreateUserRequest;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
+import com.ecors.core.utility.JWTUtility;
 
 @RestController
 @RequestMapping("users")
@@ -81,7 +83,7 @@ public class UserController {
 	public ResponseEntity<GenericResponse<String>> buyProducts(@RequestBody List<Integer> order,
 			HttpServletRequest request) {
 		Response<String> result = new Response<>();
-		result.setResult(userService.createOrder(order, authenticationService.getUUID(request)));
+		result.setResult(userService.createOrder(order, authenticationService.getUser(request)));
 		GenericResponse<String> genericResponse = new GenericResponse<String>(result, "Order placed successfully",
 				true);
 		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
@@ -94,12 +96,20 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
-	@GetMapping("{uuid}/isloggedIn")
-	public ResponseEntity<GenericResponse<Boolean>> logout(@PathVariable String uuid) {
-		Response<Boolean> result = new Response<>();
-		result.setResult(authenticationService.isLoggedIn(uuid));
-		GenericResponse<Boolean> genericResponse = new GenericResponse<Boolean>(result, "Verified successfully", true);
+	@GetMapping("{uuid}/logindetails")
+	public ResponseEntity<GenericResponse<LoginDetails>> logout(@PathVariable String uuid) {
+		Response<LoginDetails> result = new Response<>();
+		result.setResult(authenticationService.getLoginDetails(uuid));
+		GenericResponse<LoginDetails> genericResponse = new GenericResponse<LoginDetails>(result,
+				"Verified successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
+	}
+
+	@PostMapping("logout")
+	public ResponseEntity<Void> logout(HttpServletRequest request) {
+		String uuid = JWTUtility.extractUUIDFromHttpRequest(request);
+		authenticationService.logout(uuid);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }

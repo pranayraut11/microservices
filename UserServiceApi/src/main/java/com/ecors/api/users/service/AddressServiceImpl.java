@@ -20,14 +20,9 @@ public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	private AddressRepository addressRepository;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private AuthenticationService authenticationService;
 
 	@Override
-	public void save(AddressDTO addressDTo, String uuid) {
-		User user = authenticationService.getUserFromUUID(uuid);
+	public void save(AddressDTO addressDTo, User user) {
 		Optional<List<Address>> optAddress = addressRepository.findByUser(user);
 		if (!optAddress.isPresent()) {
 			addressDTo.setDeliveryAddress(true);
@@ -71,8 +66,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public void updateDeliveryAddress(Integer addressID, String uuid) {
-		User user = authenticationService.getUserFromUUID(uuid);
+	public void updateDeliveryAddress(Integer addressID, User user) {
 		Optional<Address> optAddress = addressRepository.findByAddressIdAndUser(addressID, user);
 		changeDeliveryAddress(user);
 		if (optAddress.isPresent()) {
@@ -95,14 +89,14 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<AddressDTO> get(AddressType type, String userID) {
+	public List<AddressDTO> get(AddressType type, User user) {
 		switch (type) {
 		case DELIVERY:
 			List<AddressDTO> addressList = new ArrayList<AddressDTO>();
-			addressList.add(getDeliveryAddressByUser(userID));
+			addressList.add(getDeliveryAddressByUser(user));
 			return addressList;
 		case ALL:
-			return getAllByUserId(userService.getUser(userID));
+			return getAllByUserId(user);
 		default:
 			break;
 		}
@@ -110,9 +104,8 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public AddressDTO getDeliveryAddressByUser(String uuid) {
-		Optional<Address> optionalAddress = addressRepository
-				.findByUserAndDeliveryAddress(authenticationService.getUserFromUUID(uuid), true);
+	public AddressDTO getDeliveryAddressByUser(User user) {
+		Optional<Address> optionalAddress = addressRepository.findByUserAndDeliveryAddress(user, true);
 		if (optionalAddress.isPresent()) {
 			return ModelMapperUtils.map(optionalAddress.get(), AddressDTO.class);
 		}

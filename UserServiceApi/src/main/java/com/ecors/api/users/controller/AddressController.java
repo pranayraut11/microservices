@@ -38,7 +38,7 @@ public class AddressController {
 	public ResponseEntity<GenericResponse<Void>> saveAddress(@RequestBody AddressDTO address,
 			HttpServletRequest request) {
 		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Address saved successfullty", true);
-		addressService.save(address, authenticationService.getUUID(request));
+		addressService.save(address, authenticationService.getUser(request));
 		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
 	}
 
@@ -46,7 +46,7 @@ public class AddressController {
 	public ResponseEntity<GenericResponse<Void>> updateDeliveryAddress(@PathVariable Integer addressId,
 			@RequestBody UpdateDeliveryAddress type, HttpServletRequest request) {
 		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Address saved successfullty", true);
-		addressService.updateDeliveryAddress(addressId, authenticationService.getUUID(request));
+		addressService.updateDeliveryAddress(addressId, authenticationService.getUser(request));
 		return ResponseEntity.status(HttpStatus.CREATED).body(genericResponse);
 	}
 
@@ -54,7 +54,7 @@ public class AddressController {
 	public ResponseEntity<GenericResponse<List<AddressDTO>>> getUserAddresses(@RequestParam AddressType type,
 			HttpServletRequest request) {
 		Response<List<AddressDTO>> result = new Response<List<AddressDTO>>();
-		result.setResult(addressService.get(type, authenticationService.getUUID(request)));
+		result.setResult(addressService.get(type, authenticationService.getUser(request)));
 		GenericResponse<List<AddressDTO>> response = new GenericResponse<List<AddressDTO>>(result,
 				"Address retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(response);

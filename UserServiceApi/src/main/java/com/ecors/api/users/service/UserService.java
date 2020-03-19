@@ -16,11 +16,11 @@ public interface UserService extends UserDetailsService {
 
 	UserDTO getUserByUserId(String userId) throws Exception;
 
-	UserDTO createBasicUser(String userID,String otp);
+	UserDTO createBasicUser(String userID, String otp);
 
 	List<AddressDTO> getAddressesByUser(String userId);
 
 	User getUser(String userId);
 
-	String createOrder(List<Integer> productIds,String userId);
+	String createOrder(List<Integer> productIds, User userId);
 }

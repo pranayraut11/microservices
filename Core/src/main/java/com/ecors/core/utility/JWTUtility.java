@@ -6,11 +6,21 @@ import io.jsonwebtoken.Jwts;
 
 public class JWTUtility {
 
-	public static String getUserId(HttpServletRequest request, String key, String header, String prefix) {
-		String authorizationToken = request.getHeader(header);
-		String token = authorizationToken.replace(prefix, "").trim();
-		String userID = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
-		return userID;
+	private static final String HEADER = "Authorization";
+	private static final String PREFIX = "Bearer";
+
+	public static String extractUUIDFromToken(String token, String key) {
+		return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+	}
+
+	public static String extractUUIDFromHttpRequest(HttpServletRequest request, String header, String prefix) {
+		String authorizationHeader = request.getHeader(header);
+		return authorizationHeader.replace(prefix, "").trim();
+	}
+
+	public static String extractUUIDFromHttpRequest(HttpServletRequest request) {
+		String authorizationHeader = request.getHeader(HEADER);
+		return authorizationHeader.replace(PREFIX, "").trim();
 	}
 
 }
