@@ -3,26 +3,24 @@ package com.ecors.product.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ecors.core.enums.ProductSearchCriteria;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
 import com.ecors.product.DTO.ImageDTO;
 import com.ecors.product.DTO.OrderSummary;
 import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.DTO.ProductDetails;
-import com.ecors.product.DTO.SubCategoryDTO;
-import com.ecors.product.entity.OfferSubCategory;
 import com.ecors.product.entity.Product;
 import com.ecors.product.entity.ProductImages;
 import com.ecors.product.entity.ProductSubCategory;
-import com.ecors.product.entity.SubCategory;
 import com.ecors.product.repository.ProductRepository;
 import com.ecors.product.repository.ProductSubCatgoryRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> getAllBySubCategory(SubCategory subCategory, boolean inActive, Pageable page) {
+	public List<ProductDTO> getAllBySubCategory(String subCategory, boolean inActive, Pageable page) {
 		Optional<List<ProductSubCategory>> producs = productSubCatgoryRepository.findBySubCategory(subCategory);
 		return mapSubClass(producs.get());
 
@@ -63,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public OrderSummary getProductOrderSummary(List<Integer> productIds) {
-		List<ProductDTO> list = getProductsByIds(productIds);
+		List<ProductDTO> list = getProductsByIds(productIds, ProductSearchCriteria.ID);
 		int totalAmmount = list.stream().mapToInt(product -> product.getDiscountedPrice()).sum();
 		int savedAmmount = list.stream().mapToInt(product -> product.getPrice() - product.getDiscountedPrice()).sum();
 		OrderSummary summary = new OrderSummary();
@@ -74,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> getProductsByIds(List<Integer> productIds) {
+	public List<ProductDTO> getProductsByIds(List<Integer> productIds, ProductSearchCriteria by) {
 		Iterable<Product> productList = productRepository.findAllById(productIds);
 		return ModelMapperUtils.mapAll(
 				StreamSupport.stream(productList.spliterator(), false).collect(Collectors.toList()), ProductDTO.class);
@@ -84,4 +82,5 @@ public class ProductServiceImpl implements ProductService {
 		return entityList.stream().map(entity -> ModelMapperUtils.map(entity.getProduct(), ProductDTO.class))
 				.collect(Collectors.toList());
 	}
+
 }

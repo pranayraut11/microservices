@@ -3,6 +3,7 @@ package com.ecors.product.entity;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
+@Cacheable
 public class Product {
 
 	@Id
@@ -28,6 +30,15 @@ public class Product {
 	private boolean deliveryFeeDiscounted;
 	private String sellerId;
 	private LocalDateTime deliveryDate;
+	private String subCategory;
+
+	public String getSubCategory() {
+		return subCategory;
+	}
+
+	public void setSubCategory(String subCategory) {
+		this.subCategory = subCategory;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
 	private Set<ProductSubCategory> subCategories;

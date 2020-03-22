@@ -1,5 +1,7 @@
 package com.ecors.core.dto;
 
+import java.util.List;
+
 public class OfferDTO {
 
 	public OfferDTO() {
@@ -18,6 +20,16 @@ public class OfferDTO {
 	private Integer offerId;
 
 	private String offerDescription;
+
+	private List<SubCategoryDTO> subCategories;
+
+	public List<SubCategoryDTO> getSubCategories() {
+		return subCategories;
+	}
+
+	public void setSubCategories(List<SubCategoryDTO> subCategories) {
+		this.subCategories = subCategories;
+	}
 
 	public String getOfferName() {
 		return offerName;

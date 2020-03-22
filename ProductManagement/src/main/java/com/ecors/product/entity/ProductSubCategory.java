@@ -18,9 +18,7 @@ public class ProductSubCategory {
 	@JoinColumn(name = "productID")
 	private Product product;
 
-	@ManyToOne
-	@JoinColumn(name = "subCategoryId")
-	private SubCategory subCategory;
+	private String subCategory;
 
 	public int getId() {
 		return id;
@@ -38,11 +36,11 @@ public class ProductSubCategory {
 		this.product = product;
 	}
 
-	public SubCategory getSubCategory() {
+	public String getSubCategory() {
 		return subCategory;
 	}
 
-	public void setSubCategory(SubCategory subCategory) {
+	public void setSubCategory(String subCategory) {
 		this.subCategory = subCategory;
 	}
 

@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,25 +25,17 @@ import com.ecors.core.dto.ProfileDTO;
 import com.ecors.core.dto.UserDTO;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
-import com.ecors.core.utility.JWTUtility;
+import com.ecors.core.utility.ModelMapperUtils;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
 
 	@Autowired
-	private Environment environment;
-
-	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private AuthenticationService authenticationService;
-
-	@GetMapping("status/check")
-	public String status() {
-		return "working " + environment.getProperty("local.server.port") + " " + environment.getProperty("fortest");
-	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -65,30 +56,19 @@ public class UserController {
 
 	}
 
-	@GetMapping("/{userID}")
-	public ResponseEntity<GenericResponse<UserDTO>> getUser(@PathVariable String userID) throws Exception {
+	@GetMapping
+	public ResponseEntity<GenericResponse<UserDTO>> getUser(HttpServletRequest request) throws Exception {
 
 		Response<UserDTO> response = new Response<>();
-		response.setResult(userService.getUserByUserId(userID));
+		response.setResult(ModelMapperUtils.map(authenticationService.getUser(request), UserDTO.class));
 		GenericResponse<UserDTO> genericResponse = new GenericResponse<UserDTO>(response, "Data retrived successfully",
 				true);
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
-	@PostMapping("signup")
-	public void signup(@RequestBody CreateUserRequest userRequest) {
-
-	}
-
-
-	@GetMapping("validate")
-	public ResponseEntity<GenericResponse<Void>> verifyUser() {
-		GenericResponse<Void> genericResponse = new GenericResponse<Void>(null, "Verified successfully", true);
-		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
-	}
-
+	
 	@GetMapping("{uuid}/logindetails")
-	public ResponseEntity<GenericResponse<LoginDetails>> logout(@PathVariable String uuid) {
+	public ResponseEntity<GenericResponse<LoginDetails>> loggedInUserDetails(@PathVariable String uuid) {
 		Response<LoginDetails> result = new Response<>();
 		result.setResult(authenticationService.getLoginDetails(uuid));
 		GenericResponse<LoginDetails> genericResponse = new GenericResponse<LoginDetails>(result,
@@ -96,15 +76,8 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
-	@PostMapping("logout")
-	public ResponseEntity<Void> logout(HttpServletRequest request) {
-		String uuid = JWTUtility.extractUUIDFromHttpRequest(request);
-		authenticationService.logout(uuid);
-		return ResponseEntity.status(HttpStatus.OK).build();
-	}
-
 	@PutMapping
-	public ResponseEntity<GenericResponse<ProfileDTO>> updateUserProfile(@RequestBody ProfileDTO userProfile,
+	public ResponseEntity<GenericResponse<ProfileDTO>> updateUser(@RequestBody ProfileDTO userProfile,
 			HttpServletRequest httpServletRequest) {
 		Response<ProfileDTO> result = new Response<>();
 		User user = authenticationService.getUser(httpServletRequest);

@@ -85,5 +85,7 @@ public class ProductDTO {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	
+	
 
 }

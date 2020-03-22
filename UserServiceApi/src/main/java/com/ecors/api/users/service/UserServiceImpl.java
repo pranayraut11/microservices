@@ -21,14 +21,14 @@ import com.ecors.api.users.DTO.UserContext;
 import com.ecors.api.users.entity.User;
 import com.ecors.api.users.entity.UserRole;
 import com.ecors.api.users.repository.UserRepository;
-import com.ecors.api.users.service.client.MailServiceClient;
-import com.ecors.api.users.ui.request.SendMailRequest;
+import com.ecors.core.client.MailServiceClient;
 import com.ecors.core.dto.AddressDTO;
 import com.ecors.core.dto.ProfileDTO;
 import com.ecors.core.dto.UserDTO;
 import com.ecors.core.enums.MailType;
 import com.ecors.core.enums.UserType;
 import com.ecors.core.exception.NotFoundException;
+import com.ecors.core.ui.request.SendMailRequest;
 import com.ecors.core.utility.ModelMapperUtils;
 
 @Service

@@ -10,6 +10,8 @@ public interface AddressService {
 
 	public void save(AddressDTO addressDTo, User userId);
 
+	public void delet(Integer addressID, User userId);
+
 	public void updateDeliveryAddress(Integer addressID, User userID);
 
 	public AddressDTO get(Integer id);
@@ -19,6 +21,8 @@ public interface AddressService {
 	public List<AddressDTO> getAllByUserId(User userId);
 
 	public AddressDTO getDeliveryAddressByUser(User userId);
+
+	public void updateAddress(AddressDTO addressDTo, User user);
 
 	List<AddressDTO> getAddressByUserAddressType(User userId, AddressType type);
 

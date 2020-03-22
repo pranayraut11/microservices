@@ -40,9 +40,6 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private Set<Address> addresses;
 
-	@OneToMany(mappedBy = "user")
-	private Set<Orders> orders;
-
 	public String getMobile() {
 		return mobile;
 	}
@@ -65,14 +62,6 @@ public class User {
 
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
-	}
-
-	public Set<Orders> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Orders> orders) {
-		this.orders = orders;
 	}
 
 	public Integer getId() {

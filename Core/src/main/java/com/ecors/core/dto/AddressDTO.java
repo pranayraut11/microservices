@@ -3,7 +3,7 @@ package com.ecors.core.dto;
 import com.ecors.core.enums.AddressType;
 
 public class AddressDTO {
-	private Long addressId;
+	private Integer addressId;
 
 	private String personName;
 	private String mobileNumber;
@@ -25,11 +25,11 @@ public class AddressDTO {
 		this.pincode = pincode;
 	}
 
-	public Long getAddressId() {
+	public Integer getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(Long addressId) {
+	public void setAddressId(Integer addressId) {
 		this.addressId = addressId;
 	}
 

@@ -37,6 +37,20 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
+	public void updateAddress(AddressDTO addressDTo, User user) {
+		Address address = getAddressbyId(addressDTo.getAddressId(), user);
+		ModelMapperUtils.map(addressDTo, address);
+		addressRepository.save(address);
+	}
+
+	private Address getAddressbyId(Integer id, User user) {
+		Optional<Address> addressOpt = addressRepository.findByAddressIdAndUser(id, user);
+		Address address = addressOpt.orElseThrow(() -> new NotFoundException("Address"));
+		return address;
+
+	}
+
+	@Override
 	public AddressDTO get(Integer id) {
 		Optional<Address> optionalAddress = addressRepository.findById(id);
 		if (optionalAddress.isPresent()) {
@@ -112,6 +126,11 @@ public class AddressServiceImpl implements AddressService {
 			return ModelMapperUtils.map(optionalAddress.get(), AddressDTO.class);
 		}
 		throw new NotFoundException("Delivery address");
+	}
+
+	@Override
+	public void delet(Integer addressID, User user) {
+		addressRepository.delete(getAddressbyId(addressID, user));
 	}
 
 }

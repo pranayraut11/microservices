@@ -5,10 +5,10 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecors.api.users.service.client.MailServiceClient;
-import com.ecors.api.users.ui.request.SendMailRequest;
+import com.ecors.core.client.MailServiceClient;
 import com.ecors.core.dto.ProfileDTO;
 import com.ecors.core.dto.UserDTO;
+import com.ecors.core.ui.request.SendMailRequest;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -39,5 +39,4 @@ public class ProfileServiceImpl implements ProfileService {
 		mailServiceClient.sendMail(mailRequest);
 	}
 
-	
 }
