@@ -8,15 +8,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecors.core.dto.OrderSummary;
+import com.ecors.core.dto.ProductDTO;
 import com.ecors.core.enums.ProductSearchCriteria;
 import com.ecors.core.ui.response.GenericResponse;
 import com.ecors.core.ui.response.Response;
-import com.ecors.product.DTO.OrderSummary;
-import com.ecors.product.DTO.ProductDTO;
 import com.ecors.product.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -63,10 +65,16 @@ public class ProductController {
 	public ResponseEntity<GenericResponse<List<ProductDTO>>> getProductsById(@RequestParam List<Integer> id,
 			@RequestParam ProductSearchCriteria by) throws JsonMappingException, JsonProcessingException {
 		Response<List<ProductDTO>> response = new Response<>();
-		response.setResult(productService.getProductsByIds(id,by));
+		response.setResult(productService.getProductsByIds(id, by));
 		GenericResponse<List<ProductDTO>> reponse = new GenericResponse<List<ProductDTO>>(response,
 				"Product retrived successfully", true);
 		return ResponseEntity.status(HttpStatus.OK).body(reponse);
+	}
+
+	@PostMapping
+	public ResponseEntity<Void> addProduct(@RequestBody ProductDTO productDTO) {
+		return null;
+
 	}
 
 }

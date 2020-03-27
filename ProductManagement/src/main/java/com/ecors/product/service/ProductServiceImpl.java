@@ -1,23 +1,26 @@
 package com.ecors.product.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ecors.core.dto.ImageDTO;
+import com.ecors.core.dto.OrderSummary;
+import com.ecors.core.dto.ProductDTO;
+import com.ecors.core.dto.ProductDetails;
 import com.ecors.core.enums.ProductSearchCriteria;
 import com.ecors.core.exception.NotFoundException;
 import com.ecors.core.utility.ModelMapperUtils;
-import com.ecors.product.DTO.ImageDTO;
-import com.ecors.product.DTO.OrderSummary;
-import com.ecors.product.DTO.ProductDTO;
-import com.ecors.product.DTO.ProductDetails;
+
 import com.ecors.product.entity.Product;
 import com.ecors.product.entity.ProductImages;
 import com.ecors.product.entity.ProductSubCategory;
@@ -44,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 			ArrayList<ProductImages> images = new ArrayList<ProductImages>(prod.getProductImages());
 			ProductDetails productDetails = new ProductDetails();
 			productDetails.setImages(ModelMapperUtils.mapAll(images, ImageDTO.class));
-			productDetails.setHighlights(ModelMapperUtils.mapJson(prod.getHighlights()));
+			productDetails.setHighlights(ModelMapperUtils.mapJson(prod.getProductDetails().getHighlights()));
 			productDTO.setProductDetails(productDetails);
 			return productDTO;
 		}
@@ -81,6 +84,50 @@ public class ProductServiceImpl implements ProductService {
 	public static List<ProductDTO> mapSubClass(final List<ProductSubCategory> entityList) {
 		return entityList.stream().map(entity -> ModelMapperUtils.map(entity.getProduct(), ProductDTO.class))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public String addProduct(ProductDTO productDTO, String sellerID) {
+
+		Optional<Product> productOpt = productRepository.findByProductIDAndSellerId(productDTO.getProductID(),
+				sellerID);
+		Product product = null;
+		if (productOpt.isPresent()) {
+			product = updateProduct(productDTO, productOpt.get());
+		} else {
+			product = saveProduct(productDTO, sellerID);
+		}
+
+		return productRepository.save(product).getProductId();
+	}
+
+	private Product saveProduct(ProductDTO productDTO, String sellerId) {
+		Product product = ModelMapperUtils.map(productDTO, Product.class);
+		product.setProductId(UUID.randomUUID().toString());
+		product.setSellerId(sellerId);
+		product.setProductImages(getProductImages(productDTO));
+		return product;
+
+	}
+
+	private Product updateProduct(ProductDTO productDTO, Product product) {
+
+		ModelMapperUtils.map(productDTO, product);
+		// TO-DO delete images
+		product.setProductImages(getProductImages(productDTO));
+		return product;
+	}
+
+	private Set<ProductImages> getProductImages(ProductDTO productDTO) {
+		if (productDTO.getProductDetails() != null && productDTO.getProductDetails().getImages() != null
+				&& !productDTO.getProductDetails().getImages().isEmpty()) {
+			List<ProductImages> productImages = ModelMapperUtils.mapAll(productDTO.getProductDetails().getImages(),
+					ProductImages.class);
+			// TO-DO delete all images
+			return productImages.stream().collect(Collectors.toSet());
+
+		}
+		return Collections.emptySet();
 	}
 
 }

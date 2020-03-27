@@ -18,9 +18,27 @@ public class SubCategorySpecification {
 	@JoinColumn(name = "subCategoryId")
 	private SubCategory subCategory;
 
-	private String payload;
+	private String specificationPayload;
+
+	private String highLightsPayload;
 
 	private String type;
+
+	public String getSpecificationPayload() {
+		return specificationPayload;
+	}
+
+	public void setSpecificationPayload(String specificationPayload) {
+		this.specificationPayload = specificationPayload;
+	}
+
+	public String getHighLightsPayload() {
+		return highLightsPayload;
+	}
+
+	public void setHighLightsPayload(String highLightsPayload) {
+		this.highLightsPayload = highLightsPayload;
+	}
 
 	public Integer getId() {
 		return id;
@@ -36,14 +54,6 @@ public class SubCategorySpecification {
 
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
-	}
-
-	public String getPayload() {
-		return payload;
-	}
-
-	public void setPayload(String payload) {
-		this.payload = payload;
 	}
 
 	public String getType() {

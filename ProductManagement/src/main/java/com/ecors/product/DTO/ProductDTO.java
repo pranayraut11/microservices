@@ -1,33 +1,42 @@
 package com.ecors.product.DTO;
 
-import java.time.LocalDateTime;
+import com.ecors.core.dto.SellerDTO;
+import com.ecors.product.entity.ProductDeliveryDetails;
 
 public class ProductDTO {
 
-	private Integer productID;
+	private String productID;
 	private String productName;
 	private String productImgUrl;
 	private int price;
 	private int discountedPrice;
 	private short discount;
-	private boolean deliveryFeeDiscounted;
+	private ProductDeliveryDetails productDeliveryDetails;
 	private ProductDetails productDetails;
-	private LocalDateTime deliveryDate;
+	private SellerDTO seller;
 
-	public LocalDateTime getDeliveryDate() {
-		return deliveryDate;
+	public String getProductID() {
+		return productID;
 	}
 
-	public void setDeliveryDate(LocalDateTime deliveryDate) {
-		this.deliveryDate = deliveryDate;
+	public void setProductID(String productID) {
+		this.productID = productID;
 	}
 
-	public boolean isDeliveryFeeDiscounted() {
-		return deliveryFeeDiscounted;
+	public ProductDeliveryDetails getProductDeliveryDetails() {
+		return productDeliveryDetails;
 	}
 
-	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
-		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
+	public void setProductDeliveryDetails(ProductDeliveryDetails productDeliveryDetails) {
+		this.productDeliveryDetails = productDeliveryDetails;
+	}
+
+	public SellerDTO getSeller() {
+		return seller;
+	}
+
+	public void setSeller(SellerDTO seller) {
+		this.seller = seller;
 	}
 
 	public ProductDetails getProductDetails() {
@@ -68,14 +77,6 @@ public class ProductDTO {
 
 	public void setProductImgUrl(String productImgUrl) {
 		this.productImgUrl = productImgUrl;
-	}
-
-	public Integer getProductID() {
-		return productID;
-	}
-
-	public void setProductID(Integer productID) {
-		this.productID = productID;
 	}
 
 	public String getProductName() {

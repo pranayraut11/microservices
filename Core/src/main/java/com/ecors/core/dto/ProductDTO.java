@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class ProductDTO {
 
-	private Integer productID;
+	private String productID;
 	private String productName;
 	private String productImgUrl;
 	private int price;
@@ -70,11 +70,11 @@ public class ProductDTO {
 		this.productImgUrl = productImgUrl;
 	}
 
-	public Integer getProductID() {
+	public String getProductID() {
 		return productID;
 	}
 
-	public void setProductID(Integer productID) {
+	public void setProductID(String productID) {
 		this.productID = productID;
 	}
 
@@ -85,7 +85,5 @@ public class ProductDTO {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	
-	
 
 }

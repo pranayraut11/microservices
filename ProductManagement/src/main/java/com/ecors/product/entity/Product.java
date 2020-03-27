@@ -1,15 +1,17 @@
 package com.ecors.product.entity;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.ecors.core.enums.ProductStatus;
 
 @Entity
 @Cacheable
@@ -17,20 +19,70 @@ public class Product {
 
 	@Id
 	@GeneratedValue
-	private Integer productID;
+	private Integer id;
+	private String productId;
 	private String productName;
-	private String productDescription;
 	private String productImgUrl;
-	private boolean active;
+	private ProductStatus status;
 	private int price;
-	private int discountedPrice;
-	private short discount;
-	private String highlights;
-	private String specification;
-	private boolean deliveryFeeDiscounted;
 	private String sellerId;
-	private LocalDateTime deliveryDate;
+
+	@Embedded
+	private ProductDetails productDetails;
+
+	@Embedded
+	private ProductDeliveryDetails productDeliveryDetails;
+
+	public ProductDetails getProductDetails() {
+		return productDetails;
+	}
+
+	public void setProductDetails(ProductDetails productDetails) {
+		this.productDetails = productDetails;
+	}
+
+	public ProductDeliveryDetails getProductDeliveryDetails() {
+		return productDeliveryDetails;
+	}
+
+	public void setProductDeliveryDetails(ProductDeliveryDetails productDeliveryDetails) {
+		this.productDeliveryDetails = productDeliveryDetails;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
+	private short expectedDeliveryInDays;
 	private String subCategory;
+
+	public ProductStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ProductStatus status) {
+		this.status = status;
+	}
+
+	public short getExpectedDeliveryInDays() {
+		return expectedDeliveryInDays;
+	}
+
+	public void setExpectedDeliveryInDays(short expectedDeliveryInDays) {
+		this.expectedDeliveryInDays = expectedDeliveryInDays;
+	}
 
 	public String getSubCategory() {
 		return subCategory;
@@ -46,36 +98,12 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Set<ProductImages> productImages;
 
-	public LocalDateTime getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(LocalDateTime deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-
-	public boolean isDeliveryFeeDiscounted() {
-		return deliveryFeeDiscounted;
-	}
-
-	public void setDeliveryFeeDiscounted(boolean deliveryFeeDiscounted) {
-		this.deliveryFeeDiscounted = deliveryFeeDiscounted;
-	}
-
 	public String getSellerId() {
 		return sellerId;
 	}
 
 	public void setSellerId(String sellerId) {
 		this.sellerId = sellerId;
-	}
-
-	public String getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(String specification) {
-		this.specification = specification;
 	}
 
 	public Set<ProductImages> getProductImages() {
@@ -86,36 +114,12 @@ public class Product {
 		this.productImages = productImages;
 	}
 
-	public String getHighlights() {
-		return highlights;
-	}
-
-	public void setHighlights(String highlights) {
-		this.highlights = highlights;
-	}
-
 	public int getPrice() {
 		return price;
 	}
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public int getDiscountedPrice() {
-		return discountedPrice;
-	}
-
-	public void setDiscountedPrice(int discountedPrice) {
-		this.discountedPrice = discountedPrice;
-	}
-
-	public short getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(short discount) {
-		this.discount = discount;
 	}
 
 	public String getProductImgUrl() {
@@ -126,14 +130,6 @@ public class Product {
 		this.productImgUrl = productImgUrl;
 	}
 
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
 	public Set<ProductSubCategory> getSubCategories() {
 		return subCategories;
 	}
@@ -142,28 +138,12 @@ public class Product {
 		this.subCategories = subCategories;
 	}
 
-	public Integer getProductID() {
-		return productID;
-	}
-
-	public void setProductID(Integer productID) {
-		this.productID = productID;
-	}
-
 	public String getProductName() {
 		return productName;
 	}
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
 	}
 
 }

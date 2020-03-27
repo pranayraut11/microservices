@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
-	private UserOrders saveUserOrders(Integer productId, boolean deliveryFeeDiscounted, LocalDateTime deliveryDate,
+	private UserOrders saveUserOrders(String productId, boolean deliveryFeeDiscounted, LocalDateTime deliveryDate,
 			Orders orders) {
 		UserOrders userOrders = new UserOrders();
 		userOrders.setDeliveryFeeDiscounted(deliveryFeeDiscounted);
